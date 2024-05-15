@@ -11,7 +11,7 @@ function [x0, obstacles] = setupEnvironment(setupString)
             obstacle1.type = "circle";
             obstacle1.center = [5, 7]';
             obstacle1.radius = 3;
-            obstacle1.velocity = [0, 0]';
+            obstacle1.velocity = [0, 0]'; % obstacle velocity in [m/s]
             obstacles = {obstacle1};
             
         case "two_obs"
@@ -198,7 +198,7 @@ function [x0, obstacles] = setupEnvironment(setupString)
             obstacle20.type = "circle";
             obstacle20.center = [12, 23]';
             obstacle20.radius = 1;
-            obstacle1.velocity = [0, 0.1]'; % (0.1 m / Ts = 0.1 s) (1 m/s)
+            obstacle20.velocity = [0, -1]'; % (1 m/s)
 
 
             %stock 1

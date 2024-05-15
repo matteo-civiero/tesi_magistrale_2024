@@ -132,7 +132,7 @@ classdef SystemPlotter
         end
         
         function updateObstacles(obj, obstacles, to_redraw)
-            for i = to_redraw
+            for i = 1:to_redraw
                 c = obstacles{i}.center;
                 r = obstacles{i}.radius;
                 obj.obstaclesPos{2*i-1}.XData = c(1);
