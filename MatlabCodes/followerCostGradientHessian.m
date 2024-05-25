@@ -8,16 +8,16 @@ function [f, g] = followerCostGradientHessian(U,x0,h,pe)
     P = pe.P;
     P_bar = pe.P_bar;
     
-    f1= (P_bar*(Sd_bar*U + Td_bar*x0))'*(P_bar*(Sd_bar*U + Td_bar*x0));
+    f1= (P_bar*(Sd_bar*U + Td_bar*x0))'*(P_bar*(Sd_bar*U + Td_bar*x0)); % cost function (33)
     SU = reshape(pe.S_bar * U, [4, N]);
     H = reshape(h, [4, N]);
     HmSU = H-SU;
     PHmSU = P*HmSU;
     P_LmF_norms = vecnorm(PHmSU)' .^2; % transpose to make it vector
     d_LF_vec = pe.d^2 * ones([N, 1]); % vector of distances stacked
-    f2 = sum( pe.beta_vec .* ( P_LmF_norms - d_LF_vec) .^ 2 );
+    f2 = sum( pe.beta_vec .* ( P_LmF_norms - d_LF_vec) .^ 2 ); % cost function (29)
     
-    f = f1 + pe.C*f2;
+    f = f1 + pe.C*f2; % total cost function
 
     if nargout > 1 % gradient required
         M_tot = reshape(HmSU, [4*N, 1]);

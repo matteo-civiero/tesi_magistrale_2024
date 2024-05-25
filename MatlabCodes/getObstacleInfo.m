@@ -1,5 +1,6 @@
 function [q, d] = getObstacleInfo(obstacles, x0)
 %GETOBSTACLEINFO get qis from obstacles
+% x0 is the position of the agent
 
     [~, obs_n] = size(obstacles);
     if isempty(obstacles)

@@ -11,7 +11,7 @@ function [G,W,S] = rigidBodyConstraints(A,B,x0, q_points, N, u_max, v_max, robot
 % leader 
 
 
-% obtain the number of constraints
+% obtain the number of obstacle constraints 
 [~,M] = size(q_points);
 
 % obtain the number of vertices
@@ -46,13 +46,13 @@ if M >= 1
     % stack them to obtain the form Ac*x(t)<=bc -> this is for one t
     A_constr = zeros([M*L, n]);
     b_constr = zeros([M*L, 1]);
-    p0 = x0(1:2);
-    for i = 1:M
+    p0 = x0(1:2); % position of agent
+    for i = 1:M % loop for every obs
         qi = q_points(:,i); 
-        for j = 1:L
+        for j = 1:L % loop for every vertices of the agent
             vj = robotShape(:, j);
             A_constr((i-1)*L+j,:) = [(qi - p0)', 0 , 0];
-            b_constr((i-1)*L+j) = (qi - p0)'*(qi-vj);
+            b_constr((i-1)*L+j) = (qi - p0)'*(qi-vj); % d*(distance between obs and vertice)
         end
     end
     
@@ -63,12 +63,12 @@ if M >= 1
     % convert it to a request in U (all ts) and concat requests on inputs
     G = [A_bar*S_bar; G_in; A_vel*S_bar];
     W = [B_bar; B_in; B_vel_constr];
-    S = [-(A_bar*T_bar); zeros(4*N, n); zeros(4*N, n)];
+    S = [-(A_bar*T_bar); zeros(4*N, n); -(A_vel*T_bar)]; %corrected
     
-else % if there are no constraints, just add Gu<=W+Sx0 to limit input
+else % if there are no obstacles, just add Gu<=W+Sx0 to limit input and velocity
     G = [G_in; A_vel*S_bar];
     W = [B_in; B_vel_constr];
-    S = [zeros(4*N, n); zeros(4*N, n)];
+    S = [zeros(4*N, n); -(A_vel*T_bar)]; %corrected
 end
 
 end

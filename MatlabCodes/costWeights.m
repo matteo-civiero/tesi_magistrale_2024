@@ -1,7 +1,7 @@
 function [H,F,Y] = costWeights(A,B,Q,R,P,N)
 % COST_WEIGHTS is a function that given the sistem matrices A,B, N predictive horizon and the
 % cost weight matrices Q,R,P of an optimal control problem with respect state x and input U return as output
-% new cost matrices in order to have a optimization prolem only respect
+% new cost matrices in order to have a optimization problem only respect
 % input U. 
 
 %n state size, m input size

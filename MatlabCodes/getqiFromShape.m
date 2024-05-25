@@ -7,13 +7,14 @@ function [q, d] = getqiFromShape(shape, x0)
 % if " = "general_poly", shape.vertices as 2-by-l matrix (l number of vertices)
 % if " = "wall" (thing which is perpendicular to axes), shape.is_x_wall,
 % shape.wall_pos
+% x0 position of agent
 
 switch shape.type
     case "circle"
         dist_from_center = norm(x0-shape.center);
-        lambda = 1 - shape.radius / dist_from_center;
-        d = lambda*dist_from_center;
-        q = x0 + (shape.center-x0)*lambda;
+        lambda = 1 - shape.radius / dist_from_center; % 0 if collision, > 0 if safe
+        d = lambda*dist_from_center; % dist_from_center - radius (distance between agent and surface of obs)
+        q = x0 + (shape.center-x0)*lambda; % position of the line tangent to the shape and perpendicular to x0
         return;
         
     case "wall"

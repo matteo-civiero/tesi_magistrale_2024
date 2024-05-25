@@ -1,6 +1,7 @@
 function [p_tp1, X_L, qi, error, u_opt] = leaderMPCandUpdate(...
                             plant, p_t, N, optParams, obstacles, U_l_old)
  
+% p_t is the actual state of the agent q(0)
 % compute the MPC output
 [qi, ~] = getObstacleInfo(obstacles, p_t(1:2));
 
@@ -11,7 +12,7 @@ P = optParams.P;
 u_lim = optParams.u_lim;
 v_lim = optParams.v_lim;
 
-% construct cost weights matrices... should be precompiled
+% construct cost weights matrices... should be precompiled (pdf)
 [H,F,~] = costWeights(plant.A,plant.B,Q,R,P,N);
 
 % get constraints matrices
@@ -23,7 +24,7 @@ Ac = G;    bc = W + S*p_t;
 
 % perform quadratic optimization
 options =  optimset('Display','off');
-[u_opt, ~, exitflag, output, ~] = quadprog(H, f, Ac, bc, [], [], [], [], U_l_old, options);
+[u_opt, ~, exitflag, output, ~] = quadprog(H, f, Ac, bc, [], [], [], [], U_l_old, options); % input horizon
 u_opt_reshaped = reshape(u_opt,[2,N]);
 
 error.QPexitflag = exitflag;
