@@ -5,7 +5,7 @@ function [p_tp1, X_F, qi, error, u_opt] = followerMPCandUpdate(...
     %material point:
     %[G,W,S] = constraints(plant.A, plant.B, x0, qi, N, params.u_lim, params.v_lim);
     %rigidBody:
-    [G,W,S] = rigidBodyConstraints(plant.A, plant.B, x0, qi, N, params.u_lim, params.v_lim, params.robotShape);
+    [G,W,S] = rigidBodyConstraints(plant.A, plant.B, x0, qi, N, params.u_lim, params.phi_dot_lim, params.v_lim, params.w_lim, params.robotShape);
     
     pe = params.precompiledElements;
     h = XL - pe.T_bar*x0;

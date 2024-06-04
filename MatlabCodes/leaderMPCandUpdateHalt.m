@@ -9,7 +9,9 @@ Q = optParams.Q;
 R = optParams.R;
 P = optParams.P;
 u_lim = optParams.u_lim;
+phi_dot_lim = optParams.phi_dot_lim;
 v_lim = optParams.v_lim;
+w_lim = optParams.w_lim;
 
 % construct cost weights matrices... should be precompiled
 pe = optParams.precompiledElements;
@@ -21,7 +23,7 @@ H = Sd_bar'*P_bar'*P_bar*Sd_bar;
 f = 2*Sd_bar'*P_bar'*P_bar*Td_bar*x_0;
 
 % get constraints matrices
-[G,W,S] = rigidBodyConstraints(plant.A, plant.B, x_0, qi, N, u_lim, v_lim, optParams.robotShape);
+[G,W,S] = rigidBodyConstraints(plant.A, plant.B, x_0, qi, N, u_lim, phi_dot_lim, v_lim, w_lim, optParams.robotShape);
 % realaboration of matrices for quadprog function 
 Ac = G;    bc = W + S*x_0;
 
