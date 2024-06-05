@@ -30,7 +30,7 @@ B_in = repmat([1; 1; 1; 1]*u_max, N, 1); % repeat vertically as the bound affect
 
 % prepare constraints for velocity
 % just require that each component of velocity is such that |v_xy|<vmax
-A_vel_constr = [0, 0, 1, 0; 0, 0, -1, 0; 0, 0, 0, 1; 0, 0, 0, -1];% multiplicator to x (4 coords, 2 bounds)
+A_vel_constr = [0, 0, 1, 0; 0, 0, -1, 0; 0, 0, 0, 1; 0, 0, 0, -1];% multiplicator to x (2 coords, 2 bounds)
 A_vel = kron(eye(N), A_vel_constr);
 B_vel_constr = repmat( [1; 1; 1; 1]*v_max , N, 1);
 

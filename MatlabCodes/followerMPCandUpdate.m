@@ -1,5 +1,5 @@
 function [p_tp1, X_F, qi, error, u_opt] = followerMPCandUpdate(...
-                            plant, XL, x0, N, params, obstacles, U_f_old)
+                            plant, XL, x0, n, m, N, params, obstacles, U_f_old)
 
     [qi, ~] = getObstacleInfo(obstacles, x0(1:2));
     %material point:
@@ -14,12 +14,12 @@ function [p_tp1, X_F, qi, error, u_opt] = followerMPCandUpdate(...
         'OptimalityTolerance',1e-1, 'SpecifyObjectiveGradient',true,...
         'Display', 'none'); 
     [u_opt] = fmincon(...
-         @(U) followerCostGradientHessian(U,x0,h, pe),...
+         @(U) followerCostGradientHessian(U,x0,n,h,pe),...
          U_f_old, G, W + S*x0, [], [], [], [], [], options);
-     u_opt_reshaped = reshape(u_opt,[2,N]);
+     u_opt_reshaped = reshape(u_opt,[m,N]); 
 
     % model dynamics update, needed to give path intention to plotter
-    p_pred = zeros([4, N]); % will have x(1)..x(N)
+    p_pred = zeros([n, N]); % will have x(1)..x(N) 
     % first state is x(1), not x(0)
     [~, p_pred(:,1)] = modelDynamics(plant, x0, u_opt_reshaped(:,1));
     for j=2:N % note that indexes for u lag one behind in real therms

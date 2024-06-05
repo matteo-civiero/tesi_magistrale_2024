@@ -30,15 +30,20 @@ S_bar = getSbar(A,B,N);
 
 % prepare constraints for input (max accelerations)
 % just require that each component of acceleration is such that |u_xy|<amax
-G_acc_constr = [1 0; -1 0; 0 1; 0 -1]; % multiplicator to u (2 coords, 2 bounds)
+G_acc_constr = [1 0 0; -1 0 0; 0 1 0; 0 -1 0; 0 0 1; 0 0 -1]; % multiplicator to u (3 coords, 2 bounds)
 G_in = kron(eye(N), G_acc_constr); % this requirement must hold for all times
-B_in = repmat([1; 1; 1; 1]*u_max, N, 1); % repeat vertically as the bound affects each time
+B_in = repmat([u_max; u_max; u_max; u_max; phi_dot_max; phi_dot_max], N, 1); % repeat vertically as the bound affects each time
 
 % prepare constraints for velocity
 % just require that each component of velocity is such that |v_xy|<vmax
-A_vel_constr = [0, 0, 1, 0; 0, 0, -1, 0; 0, 0, 0, 1; 0, 0, 0, -1];% multiplicator to x (4 coords, 2 bounds)
+A_vel_constr = [0, 0, 0, 1, 0, 0;
+                0, 0, 0, -1, 0, 0;
+                0, 0, 0, 0, 1, 0;
+                0, 0, 0, 0, -1, 0;
+                0, 0, 0, 0, 0, 1;
+                0, 0, 0, 0, 0, -1;];% multiplicator to x (3 coords, 2 bounds)
 A_vel = kron(eye(N), A_vel_constr);
-B_vel_constr = repmat( [1; 1; 1; 1]*v_max , N, 1);
+B_vel_constr = repmat( [v_max; v_max; v_max; v_max; w_max; w_max] , N, 1);
 
 % eventually add constraints using the polytopes
 if M >= 1
@@ -51,7 +56,7 @@ if M >= 1
         qi = q_points(:,i); 
         for j = 1:L % loop for every vertices of the agent
             vj = robotShape(:, j);
-            A_constr((i-1)*L+j,:) = [(qi - p0)', 0 , 0];
+            A_constr((i-1)*L+j,:) = [(qi - p0)', 0, 0, 0, 0];
             b_constr((i-1)*L+j) = (qi - p0)'*(qi-vj); % d*(distance between obs and vertice)
         end
     end
@@ -63,12 +68,12 @@ if M >= 1
     % convert it to a request in U (all ts) and concat requests on inputs
     G = [A_bar*S_bar; G_in; A_vel*S_bar];
     W = [B_bar; B_in; B_vel_constr];
-    S = [-(A_bar*T_bar); zeros(4*N, n); -(A_vel*T_bar)]; %corrected
+    S = [-(A_bar*T_bar); zeros((2*n/2)*N, n); -(A_vel*T_bar)]; %corrected
     
 else % if there are no obstacles, just add Gu<=W+Sx0 to limit input and velocity
     G = [G_in; A_vel*S_bar];
     W = [B_in; B_vel_constr];
-    S = [zeros(4*N, n); -(A_vel*T_bar)]; %corrected
+    S = [zeros((2*n/2)*N, n); -(A_vel*T_bar)]; %corrected
 end
 
 end

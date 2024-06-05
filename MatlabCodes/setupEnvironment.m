@@ -2,12 +2,12 @@ function [x0, obstacles] = setupEnvironment(setupString)
     switch setupString
         case "no_obs"
             % Setup 01: No obstacles and p(0) = (20, 20)
-            x0 = [20; 10; 0; 0];
+            x0 = [20; 10; 0; 0; 0; 0];
             obstacles = {};
             
         case "one_obs"
             %Setup 02 one obstacles and p(0) = (10, 14)
-            x0 = [10; 14; 0; 0];
+            x0 = [10; 14; 0; 0; 0; 0];
             obstacle1.type = "circle";
             obstacle1.center = [5, 7]';
             obstacle1.radius = 3;
@@ -16,7 +16,7 @@ function [x0, obstacles] = setupEnvironment(setupString)
             
         case "two_obs"
             % Setup 03 LF one obstacles and p(0) = (10, 14)
-            x0 = [10; 14; 0; 0];
+            x0 = [10; 14; 0; 0; 0; 0];            
             obstacle1.type = "circle";
             obstacle1.center = [3, 12]';
             obstacle1.radius = 3;
@@ -31,7 +31,7 @@ function [x0, obstacles] = setupEnvironment(setupString)
             
         case "three_obs"
             % Setup 03 one obstacles and p(0) = (10, 14)
-            x0 = [10; 14; 0; 0];
+            x0 = [10; 14; 0; 0; 0; 0];            
             obstacle1.type = "circle";
             obstacle1.center = [5, 11]';
             obstacle1.radius = 3;
@@ -51,7 +51,7 @@ function [x0, obstacles] = setupEnvironment(setupString)
             
         case "pathological"
             % Pathological cases
-            x0 = [10; 10; 0; 0];
+            x0 = [10; 10; 0; 0; 0; 0];            
             obstacle1.type = "circle";
             obstacle1.center = [5, 5]';
             obstacle1.radius = 2;
@@ -60,7 +60,7 @@ function [x0, obstacles] = setupEnvironment(setupString)
             
         case "six_obs"
             % Complex Map, six obstacles
-            x0 = [40; 5; 0; 0];
+            x0 = [40; 5; 0; 0; 0; 0];
             obstacle1.type = "circle";
             obstacle1.center = [35, 4]';
             obstacle1.radius = 2;
@@ -95,7 +95,7 @@ function [x0, obstacles] = setupEnvironment(setupString)
 
         case "valzer"
             % Complex Map-variable
-            x0 = [39.5; 22; 0; 0];
+            x0 = [39.5; 22; 0; 0; 0; 0];
 
             %corridor circle 1st wall
             obstacle1.type = "circle";
@@ -226,7 +226,7 @@ function [x0, obstacles] = setupEnvironment(setupString)
                 obstacle15, obstacle16, obstacle17, obstacle18, obstacle19, obstacle20, obstacle21,...
                 obstacle22, obstacle23, obstacle24};
         otherwise
-            x0 = [0 0 0 0]';
+            x0 = [0 0 0 0 0 0]';
             obstacles = {};
     end
 end

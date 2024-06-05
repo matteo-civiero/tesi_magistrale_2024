@@ -1,5 +1,5 @@
 function [p_tp1, X_L, qi, error, u_opt] = leaderMPCandUpdate(...
-                            plant, p_t, N, optParams, obstacles, U_l_old)
+                            plant, p_t, n, m, N, optParams, obstacles, U_l_old)
  
 % p_t is the actual state of the agent q(0)
 % compute the MPC output
@@ -27,13 +27,13 @@ Ac = G;    bc = W + S*p_t;
 % perform quadratic optimization
 options =  optimset('Display','off');
 [u_opt, ~, exitflag, output, ~] = quadprog(H, f, Ac, bc, [], [], [], [], U_l_old, options); % input horizon
-u_opt_reshaped = reshape(u_opt,[2,N]);
+u_opt_reshaped = reshape(u_opt,[m,N]);
 
 error.QPexitflag = exitflag;
 error.QPoutput = output;
 
 % model dynamics update, needed to give path intention to follower
-p_pred = zeros([4, N]); % will have x(1)..x(N)
+p_pred = zeros([n, N]); % will have x(1)..x(N)
 % first state is x(1), not x(0)
 [~, p_pred(:,1)] = modelDynamics(plant, p_t, u_opt_reshaped(:,1));
 for j=2:N % note that indexes for u lag one behind in real therms
