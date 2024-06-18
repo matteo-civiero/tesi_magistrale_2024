@@ -11,6 +11,7 @@ classdef SystemPlotter
         obstaclesPos
         leaderLoadPos
         followerLoadPos
+        loadPos
     end
     
     methods
@@ -35,7 +36,8 @@ classdef SystemPlotter
                 obj.followerParams.show_constraints = false;
                 obj.followerParams.keep_predictions = false;
                 obj.leaderParams.robotShape = [];
-                obj.followerParams.robotShape = [];
+                obj.followerParams.initRobotShape = [];
+                obj.followerParams.loadShape = [];
             end
             
             
@@ -66,7 +68,7 @@ classdef SystemPlotter
                 obj.followerPred = 0;
             end
             
-            % draw the load, leader part
+            % leader part
             if ~isempty(obj.leaderParams.robotShape)
                 obj.leaderLoadPos = plot(...
                     polyshape(x0_l(1)+obj.leaderParams.robotShape(1,:),...
@@ -76,13 +78,23 @@ classdef SystemPlotter
                 obj.leaderLoadPos = 0;
             end
             % follower part
-            if ~isempty(obj.followerParams.robotShape)
+            if ~isempty(obj.followerParams.initRobotShape)
                 obj.followerLoadPos = plot(...
-                    polyshape(x0_f(1)+obj.followerParams.robotShape(1,:),...
-                              x0_f(2)+obj.followerParams.robotShape(2,:)),...
+                    polyshape(x0_f(1)+obj.followerParams.initRobotShape(1,:),...
+                              x0_f(2)+obj.followerParams.initRobotShape(2,:)),...
                     'FaceColor',obj.followerParams.pos_color,'FaceAlpha',0.5);
             else
                 obj.followerLoadPos = 0;
+            end
+
+            % load part
+            if ~isempty(obj.followerParams.loadShape)
+                obj.loadPos = plot(...
+                    polyshape(x0_f(1)+obj.followerParams.loadShape(1,:),...
+                              x0_f(2)+obj.followerParams.loadShape(2,:)),...
+                    'FaceColor',"green",'FaceAlpha',0.5);
+            else
+                obj.loadPos = 0;
             end
             
             % draw obstacles
@@ -124,11 +136,13 @@ classdef SystemPlotter
             end
         end
         
-        function updateLoadPos(obj, x_now_l, x_now_f, loadTheta)
+        function updateLoadPos(obj, x_now_l, x_now_f, loadTheta) 
             obj.leaderLoadPos.Shape.Vertices = ...
-                (x_now_l(1:2) + Rmat(loadTheta)*obj.leaderParams.robotShape)';
+                (x_now_l(1:2) + x_now_l(3)*obj.leaderParams.robotShape)';
             obj.followerLoadPos.Shape.Vertices = ...
-                 (x_now_f(1:2) + Rmat(loadTheta)*obj.followerParams.robotShape)';
+                 (x_now_f(1:2) + x_now_f(3)*obj.followerParams.initRobotShape)';
+            obj.loadPos.Shape.Vertices = ...
+                 (x_now_f(1:2) + loadTheta*obj.followerParams.loadShape)'; % serve testing !!!!!!!!!!!!!!!!!!!!!!
         end
         
         function updateObstacles(obj, obstacles, to_redraw)
