@@ -138,11 +138,11 @@ classdef SystemPlotter
         
         function updateLoadPos(obj, x_now_l, x_now_f, loadTheta) 
             obj.leaderLoadPos.Shape.Vertices = ...
-                (x_now_l(1:2) + x_now_l(3)*obj.leaderParams.robotShape)';
+                (x_now_l(1:2) + Rmat(x_now_l(3))*obj.leaderParams.robotShape)';
             obj.followerLoadPos.Shape.Vertices = ...
-                 (x_now_f(1:2) + x_now_f(3)*obj.followerParams.initRobotShape)';
+                 (x_now_f(1:2) + Rmat(x_now_f(3))*obj.followerParams.initRobotShape)';
             obj.loadPos.Shape.Vertices = ...
-                 (x_now_f(1:2) + loadTheta*obj.followerParams.loadShape)'; % serve testing !!!!!!!!!!!!!!!!!!!!!!
+                 (x_now_f(1:2) + Rmat(loadTheta)*obj.followerParams.loadShape)'; % serve testing !!!!!!!!!!!!!!!!!!!!!!
         end
         
         function updateObstacles(obj, obstacles, to_redraw)

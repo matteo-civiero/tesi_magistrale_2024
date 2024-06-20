@@ -26,7 +26,7 @@ function [f, g] = followerCostGradientHessian(U,x0,n,h,pe)
 
         g2 = zeros([(n/2)*N, 1]); %!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         for t = 1:N
-            Sbar_t = pe.S_bar( 4*t-3 : 4*t, :); % selezione degli elementi in base a cosa?
+            Sbar_t = pe.S_bar( n*t-(n-1) : n*t, :); % selezione degli elementi in base a cosa?
             pm_t = PM_tot((2*t-1 : 2*t)); % selezione degli elementi in base a cosa?
             g2 = g2 + ...
             pe.beta_vec(t) * (-4) * ( norm(pm_t)^2 - pe.d^2 ) * Sbar_t' * P' * pm_t;
@@ -34,4 +34,4 @@ function [f, g] = followerCostGradientHessian(U,x0,n,h,pe)
 
         g = g1 + pe.C*g2;
 
-end
+    end
