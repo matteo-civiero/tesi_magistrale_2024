@@ -1,9 +1,10 @@
 function [p_tp1, X_L, qi, error, u_opt] = leaderMPCandUpdate(...
                             plant, p_t, n, m, N, optParams, obstacles, U_l_old)
  
-% p_t is the actual state of the agent q(0)
+% p_t is the actual state of the agent x(0)
 % compute the MPC output
 [qi, ~] = getObstacleInfo(obstacles, p_t(1:2));
+[~, M] = size(qi);
 
 % get params
 Q = optParams.Q;
@@ -13,6 +14,11 @@ u_lim = optParams.u_lim;
 phi_dot_lim = optParams.phi_dot_lim;
 v_lim = optParams.v_lim;
 w_lim = optParams.w_lim;
+C = optParams.pot_cost;
+decay = optParams.pot_decay;
+T_bar = optParams.precompiledElements.T_bar;
+S_bar = optParams.precompiledElements.S_bar;
+L = optParams.L;
 
 % construct cost weights matrices... should be precompiled (pdf)
 [H,F,~] = costWeights(plant.A,plant.B,Q,R,P,N);
@@ -25,12 +31,24 @@ f = F'*p_t;
 Ac = G;    bc = W + S*p_t;
 
 % perform quadratic optimization
-options =  optimset('Display','off');
-[u_opt, ~, exitflag, output, ~] = quadprog(H, f, Ac, bc, [], [], [], [], U_l_old, options); % input horizon
-u_opt_reshaped = reshape(u_opt,[m,N]);
+% options =  optimset('Display','off');
+% [u_opt, ~, exitflag, output, ~] = quadprog(H, f, Ac, bc, [], [], [], [], U_l_old, options); % input horizon
+% u_opt_reshaped = reshape(u_opt,[m,N]);
+% 
+% error.QPexitflag = exitflag;
+% error.QPoutput = output;
 
-error.QPexitflag = exitflag;
-error.QPoutput = output;
+% perform minimization with fmincon in order to use a functional cost for
+% the distance between leader and obstalces
+options = optimoptions('fmincon','Algorithm','active-set',...
+        'OptimalityTolerance',1e-1, 'SpecifyObjectiveGradient',false,...
+        'Display', 'none'); % chiediamo il gradiente nelle options !!!!!!!!!!!!!
+[u_opt] = fmincon(...
+         @(U) leaderCostFun(U, H, f, p_t, T_bar, S_bar, C, decay, optParams.robotShape, M, L, N, n, qi),...
+         U_l_old, Ac, bc, [], [], [], [], [], options);
+u_opt_reshaped = reshape(u_opt,[m,N]); 
+
+error = 0;
 
 % model dynamics update, needed to give path intention to follower
 p_pred = zeros([n, N]); % will have x(1)..x(N)
