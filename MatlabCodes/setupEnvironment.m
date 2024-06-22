@@ -93,6 +93,22 @@ function [x0, obstacles] = setupEnvironment(setupString)
             
             obstacles = {obstacle1, obstacle2, obstacle3, obstacle4, obstacle5, obstacle6};
 
+        case "corridor_bar"
+            % pathological case to see robot rotation
+            x0 = [10; 0; 0; 0; 0; 0];
+
+            obstacle1.type = "circle";
+            obstacle1.center = [5, 0.75]';
+            obstacle1.radius = 0.5;
+            obstacle1.velocity = [0, 0]';
+
+            obstacle2.type = "circle";
+            obstacle2.center = [5, -0.75]';
+            obstacle2.radius = 0.5;
+            obstacle2.velocity = [0, 0]';
+
+            obstacles = {obstacle1, obstacle2};
+
         case "valzer"
             % Complex Map-variable
             x0 = [39.5; 22; 0; 0; 0; 0];
