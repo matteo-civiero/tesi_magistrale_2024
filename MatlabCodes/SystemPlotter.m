@@ -36,7 +36,9 @@ classdef SystemPlotter
                 obj.followerParams.show_constraints = false;
                 obj.followerParams.keep_predictions = false;
                 obj.leaderParams.robotShape = [];
+                obj.leaderParams.initRobotShape = [];
                 obj.followerParams.initRobotShape = [];
+                obj.followerParams.initLoadShape = [];
                 obj.followerParams.loadShape = [];
             end
             
@@ -69,10 +71,10 @@ classdef SystemPlotter
             end
             
             % leader part
-            if ~isempty(obj.leaderParams.robotShape)
+            if ~isempty(obj.leaderParams.initRobotShape)
                 obj.leaderLoadPos = plot(...
-                    polyshape(x0_l(1)+obj.leaderParams.robotShape(1,:),...
-                              x0_l(2)+obj.leaderParams.robotShape(2,:)),...
+                    polyshape(x0_l(1)+obj.leaderParams.initRobotShape(1,:),...
+                              x0_l(2)+obj.leaderParams.initRobotShape(2,:)),...
                     'FaceColor',obj.leaderParams.pos_color,'FaceAlpha',0.5);
             else
                 obj.leaderLoadPos = 0;
@@ -88,10 +90,10 @@ classdef SystemPlotter
             end
 
             % load part
-            if ~isempty(obj.followerParams.loadShape)
+            if ~isempty(obj.followerParams.initLoadShape)
                 obj.loadPos = plot(...
-                    polyshape(x0_f(1)+obj.followerParams.loadShape(1,:),...
-                              x0_f(2)+obj.followerParams.loadShape(2,:)),...
+                    polyshape(x0_f(1)+obj.followerParams.initLoadShape(1,:),...
+                              x0_f(2)+obj.followerParams.initLoadShape(2,:)),...
                     'FaceColor',"green",'FaceAlpha',0.5);
             else
                 obj.loadPos = 0;
@@ -138,11 +140,11 @@ classdef SystemPlotter
         
         function updateLoadPos(obj, x_now_l, x_now_f, loadTheta) 
             obj.leaderLoadPos.Shape.Vertices = ...
-                (x_now_l(1:2) + Rmat(x_now_l(3))*obj.leaderParams.robotShape)';
+                (x_now_l(1:2) + Rmat(x_now_l(3))*obj.leaderParams.initRobotShape)';
             obj.followerLoadPos.Shape.Vertices = ...
                  (x_now_f(1:2) + Rmat(x_now_f(3))*obj.followerParams.initRobotShape)';
             obj.loadPos.Shape.Vertices = ...
-                 (x_now_f(1:2) + Rmat(loadTheta)*obj.followerParams.loadShape)'; % serve testing !!!!!!!!!!!!!!!!!!!!!!
+                 (x_now_f(1:2) + Rmat(loadTheta)*obj.followerParams.initLoadShape)'; % serve testing !!!!!!!!!!!!!!!!!!!!!!
         end
         
         function updateObstacles(obj, obstacles, to_redraw)
