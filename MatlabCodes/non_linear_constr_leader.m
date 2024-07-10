@@ -1,4 +1,4 @@
-function [c, ceq] = non_linear_constr(U, q_points, x0, N, n, M, L, initRobotShape, T_bar, S_bar)
+function [c, ceq] = non_linear_constr_leader(U, q_points, x0, N, n, M, L, initRobotShape, T_bar, S_bar)
 %NON_LINEAR_CONSTR Summary of this function goes here
 %   Detailed explanation goes here
 

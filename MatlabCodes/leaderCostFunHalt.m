@@ -4,7 +4,7 @@ function [J] = leaderCostFunHalt(U, x0, T_bar, S_bar, C, decay, vertexes, M, L, 
 
 x_t = (T_bar * x0 + S_bar * U);
 J1 = 0;
-for t = 1:N
+for t = 1:(N-1)
     % distance between position(t+1) and position(t)
     J1 = J1 + norm(x_t((n*(t-1)+1 + n):(n*t-(n-2) + n)) - x_t((n*(t-1)+1):(n*t-(n-2))))^2;
 end
