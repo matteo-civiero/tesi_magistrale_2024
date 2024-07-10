@@ -1,4 +1,4 @@
-function [G,W,S] = rigidBodyConstraints(A,B,x0, q_points, N, u_max, phi_dot_max, v_max, w_max, initRobotShape, vertexes)
+function [G,W,S] = rigidBodyConstraints(A,B,x0, q_points, N, u_max, phi_dot_max, v_max, w_max, initRobotShape)
 % [G,W,S] = CONSTRAINTS(A,B,x0, q_points, N, u_max, v_max, robotShape)
 % Generate constraints for U in optimization of the type G*U <= W + S(x0) based
 % on the positions (in q_points) of the minimum distance points from an
@@ -15,7 +15,7 @@ function [G,W,S] = rigidBodyConstraints(A,B,x0, q_points, N, u_max, phi_dot_max,
 [~,M] = size(q_points);
 
 % obtain the number of total vertexes 
-[~, L] = size(initRobotShape);
+% [~, L] = size(initRobotShape);
 
 % obtain the number of states (n=4) and number of inputs (m=2)
 [n, ~] = size(B);

@@ -21,6 +21,8 @@ if M>=1
             end
         end
     end
+else
+    c = [];
 end
 ceq = [];
 end

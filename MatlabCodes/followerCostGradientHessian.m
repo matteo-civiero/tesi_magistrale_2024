@@ -1,4 +1,4 @@
-function [f, g] = followerCostGradientHessian(U, x0, n, h, pe, L, M, vertexes, qi, C, decay)
+function [f, g] = followerCostGradientHessian(U, x0, n, h, pe, L, M, vertexes, obstacles, C, decay)
 
     % Calculate objective f
     N = pe.N;
@@ -24,7 +24,7 @@ function [f, g] = followerCostGradientHessian(U, x0, n, h, pe, L, M, vertexes, q
         for j = 1:L
             for t = 1:N
                 % x_t((n*(t-1)+1):(n*t-(n-2)) is position(t)
-                f3 = f3 + C * exp(-decay * norm(x_t((n*(t-1)+1):(n*t-(n-2))) + Rmat(x_t(n*t-(n-3))) * vertexes(:,j) - qi(:,i)));
+                f3 = f3 + C * exp(-decay * (norm(x_t((n*(t-1)+1):(n*t-(n-2))) + Rmat(x_t(n*t-(n-3))) * vertexes(:,j) - obstacles{i}.center) - obstacles{i}.radius));
             end
         end
     end

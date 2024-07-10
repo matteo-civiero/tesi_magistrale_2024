@@ -98,12 +98,12 @@ function [x0, obstacles] = setupEnvironment(setupString)
             x0 = [10; 0; pi/2; 0; 0; 0];
 
             obstacle1.type = "circle";
-            obstacle1.center = [5, 1.2]';
+            obstacle1.center = [5, 0.8]';
             obstacle1.radius = 0.5;
             obstacle1.velocity = [0, 0]';
 
             obstacle2.type = "circle";
-            obstacle2.center = [5, -1.2]';
+            obstacle2.center = [5, -0.8]';
             obstacle2.radius = 0.5;
             obstacle2.velocity = [0, 0]';
 
