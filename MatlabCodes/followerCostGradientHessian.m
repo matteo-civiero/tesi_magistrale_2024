@@ -1,4 +1,4 @@
-function [f, g] = followerCostGradientHessian(U,x0,n,h,pe)
+function [f, g] = followerCostGradientHessian(U, x0, n, h, pe, L, M, vertexes, qi, C, decay)
 
     % Calculate objective f
     N = pe.N;
@@ -17,7 +17,19 @@ function [f, g] = followerCostGradientHessian(U,x0,n,h,pe)
     d_LF_vec = pe.d^2 * ones([N, 1]); % vector of distances stacked
     f2 = sum( pe.beta_vec .* ( P_LmF_norms - d_LF_vec) .^ 2 ); % cost function (29)
     
-    f = f1 + pe.C*f2; % total cost function
+    % function for potential repulsion
+    f3 = 0;
+    x_t = (pe.T_bar * x0 + pe.S_bar * U);
+    for i = 1:M
+        for j = 1:L
+            for t = 1:N
+                % x_t((n*(t-1)+1):(n*t-(n-2)) is position(t)
+                f3 = f3 + C * exp(-decay * norm(x_t((n*(t-1)+1):(n*t-(n-2))) + Rmat(x_t(n*t-(n-3))) * vertexes(:,j) - qi(:,i)));
+            end
+        end
+    end
+
+    f = f1 + pe.C*f2 + f3; % total cost function
 
     if nargout > 1 % gradient required
         M_tot = reshape(HmSU, [n*N, 1]);

@@ -2,20 +2,26 @@ function [p_tp1, X_F, qi, error, u_opt] = followerMPCandUpdate(...
                             plant, XL, x0, n, m, N, params, obstacles, U_f_old)
 
     [qi, ~] = getObstacleInfo(obstacles, x0(1:2));
+    [~, M] = size(qi);
     %material point:
     %[G,W,S] = constraints(plant.A, plant.B, x0, qi, N, params.u_lim, params.v_lim);
     %rigidBody:
-    [G,W,S] = rigidBodyConstraints(plant.A, plant.B, x0, qi, N, params.u_lim, params.phi_dot_lim, params.v_lim, params.w_lim, params.robotShape);
+    [G,W,S] = rigidBodyConstraints(plant.A, plant.B, x0, qi, N, params.u_lim, params.phi_dot_lim, params.v_lim, params.w_lim, params.initRobotShape);
     
     pe = params.precompiledElements;
     h = XL - pe.T_bar*x0;
+    S_bar = pe.S_bar;
+    T_bar = pe.T_bar;
+    C = params.pot_cost;
+    decay = params.pot_decay;
     
     options = optimoptions('fmincon','Algorithm','active-set',...
         'OptimalityTolerance',1e-1, 'SpecifyObjectiveGradient',true,...
         'Display', 'none'); % chiediamo il gradiente nelle options !!!!!!!!!!!!!
     [u_opt] = fmincon(...
-         @(U) followerCostGradientHessian(U,x0,n,h,pe),...
-         U_f_old, G, W + S*x0, [], [], [], [], [], options);
+         @(U) followerCostGradientHessian(U, x0, n, h, pe, params.vertexes, M, params.initRobotShape, qi, C, decay),...
+         U_f_old, G, W + S*x0, [], [], [], [], ...
+         @(U) non_linear_constr(U, qi, x0, N, n, M, params.vertexes, params.initRobotShape, T_bar, S_bar), options);
      u_opt_reshaped = reshape(u_opt,[m,N]); 
 
     % model dynamics update, needed to give path intention to plotter

@@ -14,7 +14,7 @@ for i = 1:M
     for j = 1:L
         for t = 1:N
             % x_t((n*(t-1)+1):(n*t-(n-2)) is position(t)
-            J3 = J3 + C * exp(-decay * norm(x_t((n*(t-1)+1):(n*t-(n-2))) + vertexes(:,j) - qi(:,i)));
+            J3 = J3 + C * exp(-decay * norm(x_t((n*(t-1)+1):(n*t-(n-2))) + Rmat(x_t(n*t-(n-3))) * vertexes(:,j) - qi(:,i)));
         end
     end
 end
