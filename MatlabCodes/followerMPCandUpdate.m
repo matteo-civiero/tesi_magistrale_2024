@@ -1,7 +1,9 @@
 function [p_tp1, X_F, qi, error, u_opt] = followerMPCandUpdate(...
-                            plant, XL, x0, n, m, N, params, obstacles, U_f_old)
+                            plant, XL, x0, n, m, N, params, obstacles, U_f_old, loadTheta)
 
     [qi, ~] = getObstacleInfo(obstacles, x0(1:2));
+    % nearest obstacle point to load (for constraints)
+    [q_load, ~] = getObstacleInfo(obstacles, x0(1:2) + Rmat(loadTheta) * params.loadCenter); % loadCenter rotates with load
     [~, M] = size(qi);
     %material point:
     %[G,W,S] = constraints(plant.A, plant.B, x0, qi, N, params.u_lim, params.v_lim);
@@ -21,7 +23,7 @@ function [p_tp1, X_F, qi, error, u_opt] = followerMPCandUpdate(...
     [u_opt] = fmincon(...
          @(U) followerCostGradientHessian(U, x0, n, h, pe, params.vertexes, M, params.initRobotShape, obstacles, C, decay),...
          U_f_old, G, W + S*x0, [], [], [], [], ...
-         @(U) non_linear_constr_follower(U, qi, x0, N, n, M, params.vertexes, params.L, params.initRobotShape, params.initLoadShape, T_bar, S_bar, XL), options);
+         @(U) non_linear_constr_follower(U, qi, q_load, x0, N, n, M, params.vertexes, params.L, params.initRobotShape, params.initLoadShape, params.loadCenter, T_bar, S_bar, XL), options);
      u_opt_reshaped = reshape(u_opt,[m,N]); 
 
     % model dynamics update, needed to give path intention to plotter

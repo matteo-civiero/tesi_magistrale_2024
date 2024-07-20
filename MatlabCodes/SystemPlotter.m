@@ -144,7 +144,7 @@ classdef SystemPlotter
             obj.followerLoadPos.Shape.Vertices = ...
                  (x_now_f(1:2) + Rmat(x_now_f(3))*obj.followerParams.initRobotShape)';
             obj.loadPos.Shape.Vertices = ...
-                 (x_now_f(1:2) + Rmat(loadTheta)*obj.followerParams.initLoadShape)'; % serve testing !!!!!!!!!!!!!!!!!!!!!!
+                 (x_now_f(1:2) + Rmat(loadTheta)*obj.followerParams.initLoadShape)';
         end
         
         function updateObstacles(obj, obstacles, to_redraw)

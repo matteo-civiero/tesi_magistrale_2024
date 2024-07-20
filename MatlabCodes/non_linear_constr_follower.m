@@ -1,4 +1,4 @@
-function [c, ceq] = non_linear_constr_follower(U, q_points, x0, N, n, M, vertexes, L, initRobotShape, initLoadShape, T_bar, S_bar, x_l)
+function [c, ceq] = non_linear_constr_follower(U, q_points, q_load, x0, N, n, M, vertexes, L, initRobotShape, initLoadShape, loadCenter, T_bar, S_bar, x_l)
 %NON_LINEAR_CONSTR Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -11,6 +11,7 @@ if M>=1
     for t=1:N
         for i=1:M
             qi = q_points(:,i);
+            ql = q_load(:,i);
             for j=1:L
                 if j <= vertexes
                     vj = initRobotShape(:, j);
@@ -20,13 +21,13 @@ if M>=1
                     % step
                     % x_t(n*t-(n-3)) is the orientation in every step
                 else
-                    % vj = initLoadShape(:, j - vertexes);
-                    % fl_diff = x_t((n*(t-1)+1):(n*t-(n-2))) - x_l((n*(t-1)+1):(n*t-(n-2)));
-                    % loadTheta = atan2(fl_diff(2), fl_diff(1));
-                    % c(k,1) = -((qi - p0)' * (qi - (x_t((n*(t-1)+1):(n*t-(n-2))) + Rmat(loadTheta) * vj)));
-                    % k = k + 1;
-                    % % x_t((n*(t-1)+1):(n*t-(n-2)) are x and y position in every
-                    % % step
+                    vj = initLoadShape(:, j - vertexes);
+                    fl_diff = x_t((n*(t-1)+1):(n*t-(n-2))) - x_l((n*(t-1)+1):(n*t-(n-2)));
+                    loadTheta = atan2(fl_diff(2), fl_diff(1));
+                    c(k,1) = -((ql - (p0 + Rmat(loadTheta) * loadCenter))' * (ql - (x_t((n*(t-1)+1):(n*t-(n-2))) + Rmat(loadTheta) * vj)));
+                    k = k + 1;
+                    % x_t((n*(t-1)+1):(n*t-(n-2)) are x and y position in every
+                    % step
                 end
             end
         end
