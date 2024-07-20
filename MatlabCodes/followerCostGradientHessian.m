@@ -1,4 +1,4 @@
-function [f, g] = followerCostGradientHessian(U, x0, n, h, pe, L, M, vertexes, obstacles, C, decay)
+function [f, g] = followerCostGradientHessian(U, x0, n, h, pe, L, M, vertexes, obstacles, C, decay, R)
 
     % Calculate objective f
     N = pe.N;
@@ -28,8 +28,12 @@ function [f, g] = followerCostGradientHessian(U, x0, n, h, pe, L, M, vertexes, o
             end
         end
     end
+    
+    % follower effort cost function
+    R_eff = kron(eye(N), R);
+    f4 = U' * R_eff * U;
 
-    f = f1 + pe.C*f2 + f3; % total cost function
+    f = f1 + pe.C*f2 + f3 + f4; % total cost function
 
     if nargout > 1 % gradient required
         M_tot = reshape(HmSU, [n*N, 1]);
@@ -44,6 +48,10 @@ function [f, g] = followerCostGradientHessian(U, x0, n, h, pe, L, M, vertexes, o
             pe.beta_vec(t) * (-4) * ( norm(pm_t)^2 - pe.d^2 ) * Sbar_t' * P' * pm_t;
         end
 
-        g = g1 + pe.C*g2;
+        
+        
+        g4 = 2 * R_eff * U;
+
+        g = g1 + pe.C*g2 + g4;
 
     end
