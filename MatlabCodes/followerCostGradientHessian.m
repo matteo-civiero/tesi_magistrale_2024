@@ -1,9 +1,11 @@
-function [f, g] = followerCostGradientHessian(U, x0, n, h, pe, L, M, vertexes, obstacles, C, decay, R)
+function [f, g] = followerCostGradientHessian(U, x0, n, m, h, pe, L, M, vertexes, obstacles, C, decay, R)
 
     % Calculate objective f
     N = pe.N;
     Sd_bar = pe.Sd_bar;
     Td_bar = pe.Td_bar;
+    T_bar = pe.T_bar;
+    S_bar = pe.S_bar;
     
     P = pe.P;
     P_bar = pe.P_bar;
@@ -40,18 +42,43 @@ function [f, g] = followerCostGradientHessian(U, x0, n, h, pe, L, M, vertexes, o
         PM_tot = P_bar*M_tot;
         g1 = 2*Sd_bar' * (P_bar' * P_bar) * (Td_bar*x0 + Sd_bar*U);
 
-        g2 = zeros([(n/2)*N, 1]); 
+        g2 = zeros([m*N, 1]); 
         for t = 1:N
             Sbar_t = pe.S_bar( n*t-(n-1) : n*t, :); 
             pm_t = PM_tot((2*t-1 : 2*t)); 
             g2 = g2 + ...
             pe.beta_vec(t) * (-4) * ( norm(pm_t)^2 - pe.d^2 ) * Sbar_t' * P' * pm_t;
         end
-
         
+        g3 = zeros([m*N, 1]);
+        % creation of F and G matrixes for correct instant selection
+        F = cell(N);
+        G = cell(N);
+        for t = 1:N
+            F{t} = zeros([2, n*N]);
+            F{t}(1, n*(t-1) + 1) = 1;
+            F{t}(2, n*(t-1) + 2) = 1;
+            G{t} = zeros([1, n*N]);
+            G{t}(1, n*(t-1) + 3) = 1;
+        end
+        
+        % g3 calc
+        for i = 1:M
+            for j = 1:L
+                for t = 1:N
+                    mat_nd = [cos(G{t} * x_t)*vertexes(1, j) - sin(G{t} * x_t)*vertexes(2, j); 
+                        sin(G{t} * x_t)*vertexes(1, j) + cos(G{t} * x_t)*vertexes(2, j)];
+                    mat_d = [-sin(G{t} * x_t)*vertexes(1, j) - cos(G{t} * x_t)*vertexes(2, j); 
+                        cos(G{t} * x_t)*vertexes(1, j) - sin(G{t} * x_t)*vertexes(2, j)];
+                    D = F{t} * x_t + mat_nd - obstacles{i}.center;
+                    
+                    g3 = g3 - decay * C  / sqrt(D' * D) * exp(- decay * (sqrt(D' * D) - obstacles{i}.radius)) * (S_bar' * (F{t})' * F{t} * T_bar * x0 + S_bar' * (F{t})' * F{t} * S_bar * U + S_bar' * (F{t})' * mat_nd + S_bar' * (G{t})' * mat_d' * F{t} * x_t - S_bar' * (F{t})' * obstacles{i}.center + S_bar' * (G{t})' * mat_d' * mat_nd - S_bar' * (G{t})' * mat_d' * obstacles{i}.center);
+                end
+            end
+        end
         
         g4 = 2 * R_eff * U;
 
-        g = g1 + pe.C*g2 + g4;
+        g = g1 + pe.C*g2 + g3 + g4;
 
     end
