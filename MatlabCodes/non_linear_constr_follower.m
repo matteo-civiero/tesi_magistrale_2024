@@ -1,4 +1,4 @@
-function [c, ceq] = non_linear_constr_follower(U, q_points, q_load, x0, N, n, M, vertexes, L, initRobotShape, initLoadShape, loadCenter, T_bar, S_bar, x_l)
+function [c, ceq] = non_linear_constr_follower(U, q_points, q_load, x0, N, n, M, vertexes, L, initRobotShape, initLoadShape, loadCenter, T_bar, S_bar, x_l, leaderParams)
 %NON_LINEAR_CONSTR Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -35,6 +35,29 @@ if M>=1
 else
     c = [];
 end
+
+% % leader collision avoidance
+% leader.type = leaderParams.shape;
+% leader.center = x_l(1:2);
+% if leader.type == "circle"
+%     leader.radius = leaderParams.max_radius;
+% elseif leader.type == "ellipse"
+%     leader.a = leaderParams.a;
+%     leader.b = leaderParams.b;
+% end
+% leader.theta = x_l(3);
+% q_leader = getqiFromShape(leader, p0);
+% for t = 1:N
+%     for j = 1:vertexes
+%         vj = initRobotShape(:, j);
+%         c(k,1) = -((q_leader - p0)' * (q_leader - (x_t((n*(t-1)+1):(n*t-(n-2))) + Rmat(x_t(n*t-(n-3))) * vj)));
+%         k = k + 1;
+%         % x_t((n*(t-1)+1):(n*t-(n-2)) are x and y position in every
+%         % step
+%         % x_t(n*t-(n-3)) is the orientation in every step
+%     end
+% end
+
 ceq = [];
 end
 
