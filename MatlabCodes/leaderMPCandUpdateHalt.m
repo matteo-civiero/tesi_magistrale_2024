@@ -1,38 +1,38 @@
-function [p_tp1, X_L, qi, error, u_opt] = leaderMPCandUpdateHalt(...
-                            plant, x_0, n, m, N, optParams, obstacles, U_l_old)
+function [p_tp1, X_L, error, u_opt] = leaderMPCandUpdateHalt(...
+                            plant, x_0, n, m, N, M, optParams, obstacles, qi, U_l_old, crit_dist)
 
 % compute the MPC output
-[qi, ~] = getObstacleInfo(obstacles, x_0(1:2));
+% [qi, ~] = getObstacleInfo(obstacles, x_0(1:2));
 
 % number of obstalces
-[~,M] = size(qi);
+% [~,M] = size(qi);
 
 % get params
-Q = optParams.Q;
-R = optParams.R;
-P = optParams.P;
+% Q = optParams.Q;
+% R = optParams.R;
+% P = optParams.P;
 u_lim = optParams.u_lim;
 phi_dot_lim = optParams.phi_dot_lim;
 v_lim = optParams.v_lim;
 w_lim = optParams.w_lim;
 L = optParams.L;
-p_t = x_0(1:2);
+% p_t = x_0(1:2);
 C = optParams.pot_cost;
 decay = optParams.pot_decay;
 
 % construct cost weights matrices... should be precompiled
-pe = optParams.precompiledElements;
-P =  pe.P;
-P_bar = pe.P_bar;
-Sd_bar = pe.Sd_bar;
-Td_bar = pe.Td_bar;
-H = Sd_bar'*P_bar'*P_bar*Sd_bar;
-f = 2*Sd_bar'*P_bar'*P_bar*Td_bar*x_0;
-T_bar = optParams.precompiledElements.T_bar;
-S_bar = optParams.precompiledElements.S_bar;
+% pe = optParams.precompiledElements;
+% P =  pe.P;
+% P_bar = pe.P_bar;
+% Sd_bar = pe.Sd_bar;
+% Td_bar = pe.Td_bar;
+% H = Sd_bar'*P_bar'*P_bar*Sd_bar;
+% f = 2*Sd_bar'*P_bar'*P_bar*Td_bar*x_0;
+T_bar = getTbar(plant.A, N);
+S_bar = getSbar(plant.A, plant.B, N);
 
 % get constraints matrices
-[G,W,S] = rigidBodyConstraints(plant.A, plant.B, x_0, qi, N, u_lim, phi_dot_lim, v_lim, w_lim, optParams.robotShape);
+[G,W,S] = rigidBodyConstraints(plant.A, plant.B, N, u_lim, phi_dot_lim, v_lim, w_lim);
 % realaboration of matrices for quadprog function 
 Ac = G;    bc = W + S*x_0;
 
@@ -48,11 +48,19 @@ Ac = G;    bc = W + S*x_0;
 % the distance between leader and obstalces
 options = optimoptions('fmincon','Algorithm','active-set',...
         'OptimalityTolerance',1e-1, 'SpecifyObjectiveGradient',false,...
-        'Display', 'none'); % chiediamo il gradiente nelle options !!!!!!!!!!!!!
-[u_opt, ~, exitflag] = fmincon(...
-         @(U) leaderCostFunHalt(U, x_0, T_bar, S_bar, C, decay, optParams.initRobotShape, M, L, N, n, obstacles),...
-         U_l_old, Ac, bc, [], [], [], [], ...
-         @(U) non_linear_constr_leader(U, qi, x_0, N, n, M, L, optParams.initRobotShape, T_bar, S_bar), options);
+        'Display', 'none');
+
+if crit_dist
+    [u_opt, ~, exitflag] = fmincon(...
+             @(U) leaderCostFunHalt(U, x_0, T_bar, S_bar, C, decay, optParams.initRobotShape, M, L, N, n, obstacles, crit_dist),...
+             U_l_old(1:m*N), Ac, bc, [], [], [], [], ...
+             @(U) non_linear_constr_leader(U, qi, x_0, N, n, M, L, optParams.initRobotShape, T_bar, S_bar), options);
+else
+    [u_opt, ~, exitflag] = fmincon(...
+             @(U) leaderCostFunHalt(U, x_0, T_bar, S_bar, C, decay, optParams.initRobotShape, M, L, N, n, obstacles, crit_dist),...
+             U_l_old(1:m*N), Ac, bc, [], [], [], [], [], options);
+end
+
 u_opt_reshaped = reshape(u_opt,[m,N]); 
 
 error = exitflag;

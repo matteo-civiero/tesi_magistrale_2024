@@ -1,10 +1,10 @@
-function [p_tp1, X_L, qi, error, u_opt] = leaderMPCandUpdate(...
-                            plant, p_t, n, m, N, optParams, obstacles, U_l_old)
+function [p_tp1, X_L, error, u_opt] = leaderMPCandUpdate(...
+                            plant, p_t, n, m, N, M, optParams, obstacles, qi, U_l_old, crit_dist)
  
 % p_t is the actual state of the agent x(0)
 % compute the MPC output
-[qi, ~] = getObstacleInfo(obstacles, p_t(1:2));
-[~, M] = size(qi);
+% [qi, ~] = getObstacleInfo(obstacles, p_t(1:2));
+% [~, M] = size(qi);
 
 % get params
 Q = optParams.Q;
@@ -16,15 +16,15 @@ v_lim = optParams.v_lim;
 w_lim = optParams.w_lim;
 C = optParams.pot_cost;
 decay = optParams.pot_decay;
-T_bar = optParams.precompiledElements.T_bar;
-S_bar = optParams.precompiledElements.S_bar;
+T_bar = getTbar(plant.A, N);
+S_bar = getSbar(plant.A, plant.B, N);
 L = optParams.L;
 
 % construct cost weights matrices... should be precompiled (pdf)
 [H,F,~] = costWeights(plant.A,plant.B,Q,R,P,N);
 
 % get constraints matrices
-[G,W,S] = rigidBodyConstraints(plant.A, plant.B, p_t, qi, N, u_lim, phi_dot_lim, v_lim, w_lim, optParams.robotShape);
+[G,W,S] = rigidBodyConstraints(plant.A, plant.B, N, u_lim, phi_dot_lim, v_lim, w_lim);
 
 %realaboration of matrices for quadprog function 
 f = F'*p_t;
@@ -42,11 +42,18 @@ Ac = G;    bc = W + S*p_t;
 % the distance between leader and obstalces
 options = optimoptions('fmincon','Algorithm','active-set',...
         'OptimalityTolerance',1e-1, 'SpecifyObjectiveGradient',false,...
-        'Display', 'none'); % chiediamo il gradiente nelle options !!!!!!!!!!!!!
-[u_opt] = fmincon(...
-         @(U) leaderCostFun(U, H, f, p_t, T_bar, S_bar, C, decay, optParams.initRobotShape, M, L, N, n, obstacles),...
-         U_l_old, Ac, bc, [], [], [], [], ...
-         @(U) non_linear_constr_leader(U, qi, p_t, N, n, M, L, optParams.initRobotShape, T_bar, S_bar), options);
+        'Display', 'none');
+if crit_dist
+    [u_opt] = fmincon(...
+             @(U) leaderCostFun(U, H, f, p_t, T_bar, S_bar, C, decay, optParams.initRobotShape, M, L, N, n, obstacles, crit_dist),...
+             U_l_old(1:m*N), Ac, bc, [], [], [], [], ...
+             @(U) non_linear_constr_leader(U, qi, p_t, N, n, M, L, optParams.initRobotShape, T_bar, S_bar), options);
+else
+    [u_opt] = fmincon(...
+             @(U) leaderCostFun(U, H, f, p_t, T_bar, S_bar, C, decay, optParams.initRobotShape, M, L, N, n, obstacles, crit_dist),...
+             U_l_old(1:m*N), Ac, bc, [], [], [], [], [], options);
+end
+
 u_opt_reshaped = reshape(u_opt,[m,N]); 
 
 error = 0;
