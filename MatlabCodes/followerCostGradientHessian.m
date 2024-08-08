@@ -71,7 +71,7 @@ function [f, g] = followerCostGradientHessian(U, x0, n, m, N, h, pe, L, M, verte
                             cos(G{t} * x_t)*vertexes(1, j) - sin(G{t} * x_t)*vertexes(2, j)];
                         D = F{t} * x_t + mat_nd - obstacles{i}.center;
                         
-                        g3 = g3 - decay * C  / sqrt(D' * D) * exp(- decay * (sqrt(D' * D) - obstacles{i}.radius)) * (S_bar' * (F{t})' * F{t} * T_bar * x0 + S_bar' * (F{t})' * F{t} * S_bar * U + S_bar' * (F{t})' * mat_nd + S_bar' * (G{t})' * mat_d' * F{t} * x_t - S_bar' * (F{t})' * obstacles{i}.center + S_bar' * (G{t})' * mat_d' * mat_nd - S_bar' * (G{t})' * mat_d' * obstacles{i}.center);
+                        g3 = g3 - decay * C * exp(-decay * (norm(D) - obstacles{i}.radius)) * (S_bar' * F{t}' + S_bar' * G{t}' * mat_d') * D / norm(D);
                     end
                 end
             end
