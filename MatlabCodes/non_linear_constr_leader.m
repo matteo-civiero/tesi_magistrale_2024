@@ -1,6 +1,5 @@
 function [c, ceq] = non_linear_constr_leader(U, q_points, x0, N, n, M, L, initRobotShape, T_bar, S_bar)
-%NON_LINEAR_CONSTR Summary of this function goes here
-%   Detailed explanation goes here
+%NON_LINEAR_CONSTR Computes the non linear obstacle avoidance contraints for the leader 
 
 % implementation of non linear contraints for the obstacle avoidance with
 % rotation of the agents

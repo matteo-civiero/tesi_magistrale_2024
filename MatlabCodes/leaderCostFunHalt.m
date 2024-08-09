@@ -1,6 +1,6 @@
 function [J] = leaderCostFunHalt(U, x0, T_bar, S_bar, C, decay, vertexes, M, L, N, n, obstalces, crit_dist)
-%LEADERCOSTFUN functional cost for leader
-%   navigation cost + potential repulsion cost
+%LEADERCOSTFUN functional cost for leader in feasibility-aware policy
+%   function that slows down the leader to allow follower to get back in formation + potential repulsion cost
 
 % navigation cost
 x_t = (T_bar * x0 + S_bar * U);

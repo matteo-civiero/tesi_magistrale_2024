@@ -1,6 +1,10 @@
 function [c, ceq] = non_linear_constr_follower(U, q_points, q_load, x0, N, n, M, vertexes, L, initRobotShape, initLoadShape, loadCenter, T_bar, S_bar, x_l, leaderParams)
-%NON_LINEAR_CONSTR Summary of this function goes here
-%   Detailed explanation goes here
+%NON_LINEAR_CONSTR Computes the non linear obstacle avoidance contraints for the follower and the load 
+%   Non linear obstacle avoidance contraints for the follower and the load,
+%   considering the geometrical approach that compares the position of
+%   every vertex during the horizon with the half plane drew in the first
+%   step of the horizon. This approach is not compatible with the
+%   leader-follower avoidance commented at the bottom and probably with a more dynamic environment.
 
 % implementation of non linear contraints for the obstacle avoidance with
 % rotation of the agents

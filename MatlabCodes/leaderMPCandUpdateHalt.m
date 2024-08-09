@@ -1,5 +1,6 @@
 function [p_tp1, X_L, error, u_opt] = leaderMPCandUpdateHalt(...
-                            plant, x_0, n, m, N, M, optParams, obstacles, qi, U_l_old, crit_dist)
+                            plant, x_0, n, m, N, M, optParams, obstacles, qi, U_l_old, crit_dist, fixed_horizon)
+% execute the MPC for the leader in feasibility-aware policy
 
 % get params
 u_lim = optParams.u_lim;
@@ -10,8 +11,13 @@ L = optParams.L;
 C = optParams.pot_cost;
 decay = optParams.pot_decay;
 
-T_bar = getTbar(plant.A, N);
-S_bar = getSbar(plant.A, plant.B, N);
+if fixed_horizon
+    T_bar = optParams.precompiledElements.T_bar;
+    S_bar = optParams.precompiledElements.S_bar;
+else
+    T_bar = getTbar(plant.A, N);
+    S_bar = getSbar(plant.A, plant.B, N);
+end
 
 % get constraints matrices
 [G,W,S] = rigidBodyConstraints(N, u_lim, phi_dot_lim, v_lim, w_lim, n, S_bar, T_bar);

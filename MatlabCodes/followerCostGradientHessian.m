@@ -1,10 +1,15 @@
-function [f, g] = followerCostGradientHessian(U, x0, n, m, N, h, pe, L, M, vertexes, obstacles, C, decay, R, T_bar, S_bar, Td_bar, Sd_bar, crit_dist)
+function [f, g] = followerCostGradientHessian(U, x0, n, m, N, h, pe, L, M, vertexes, obstacles, C, decay, R, T_bar, S_bar, Td_bar, Sd_bar, crit_dist, fixed_horizon)
 
-    % Calculate objective f
+    % Computes functional cost f and gradient g of the follower
     
     P = pe.P;
-    P_bar = kron(eye(N), P);
-    beta_vec = pe.beta .^ (0:(N-1))';
+    if fixed_horizon
+        P_bar = pe.P_bar;
+        beta_vec = pe.beta_vec;
+    else
+        P_bar = kron(eye(N), P);
+        beta_vec = pe.beta .^ (0:(N-1))';
+    end
     
     f1= (P_bar*(Sd_bar*U + Td_bar*x0))'*(P_bar*(Sd_bar*U + Td_bar*x0)); % cost function (33)
     SU = reshape(S_bar * U, [n, N]); 

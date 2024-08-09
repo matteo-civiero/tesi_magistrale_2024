@@ -1,6 +1,5 @@
 function Td_bar = getTdbar(A, N)
-%GETTDBAR Summary of this function goes here
-%   Detailed explanation goes here
+%GETTDBAR Computes matrix Td_bar
 [n,~] = size(A);
 
 % obtain T_bar, the vector of [A^0(A-I); A^1*(A - I); ... A^(N-1)*(A - I)], multiplying x0 to see the

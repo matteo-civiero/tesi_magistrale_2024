@@ -1,6 +1,6 @@
 function S_bar = getSbar(A, B, N)
-%GETSBAR Summary of this function goes here
-%   Detailed explanation goes here
+%GETSBAR Computes matrix S_bar
+
 [n,m] = size(B);
 
 % obtain S_bar, the matrix mapping from U vector to the x(t) state, which

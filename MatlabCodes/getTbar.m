@@ -1,6 +1,5 @@
 function T_bar = getTbar(A, N)
-%GETTBAR Summary of this function goes here
-%   Detailed explanation goes here
+%GETTBAR Computes matrix T_bar
 
 
 [n,~] = size(A);

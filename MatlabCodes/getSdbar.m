@@ -1,5 +1,5 @@
 function Sd_bar = getSdbar(A, B, N)
-%   Detailed explanation goes here
+%   Computes matrix Sd_bar
 
 [n,m] = size(B);
 

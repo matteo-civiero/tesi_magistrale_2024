@@ -1,5 +1,6 @@
 function [p_tp1, X_L, error, u_opt] = leaderMPCandUpdate(...
-                            plant, p_t, n, m, N, M, optParams, obstacles, qi, U_l_old, crit_dist)
+                            plant, p_t, n, m, N, M, optParams, obstacles, qi, U_l_old, crit_dist, fixed_horizon)
+% execute the MPC for the leader
 
 % get params
 Q = optParams.Q;
@@ -11,8 +12,13 @@ v_lim = optParams.v_lim;
 w_lim = optParams.w_lim;
 C = optParams.pot_cost;
 decay = optParams.pot_decay;
-T_bar = getTbar(plant.A, N);
-S_bar = getSbar(plant.A, plant.B, N);
+if fixed_horizon
+    T_bar = optParams.precompiledElements.T_bar;
+    S_bar = optParams.precompiledElements.S_bar;
+else
+    T_bar = getTbar(plant.A, N);
+    S_bar = getSbar(plant.A, plant.B, N);
+end
 L = optParams.L;
 
 % construct cost weights matrices... should be precompiled (pdf)
