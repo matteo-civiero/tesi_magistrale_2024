@@ -1,10 +1,5 @@
 function [p_tp1, X_L, error, u_opt] = leaderMPCandUpdate(...
                             plant, p_t, n, m, N, M, optParams, obstacles, qi, U_l_old, crit_dist)
- 
-% p_t is the actual state of the agent x(0)
-% compute the MPC output
-% [qi, ~] = getObstacleInfo(obstacles, p_t(1:2));
-% [~, M] = size(qi);
 
 % get params
 Q = optParams.Q;
@@ -24,19 +19,11 @@ L = optParams.L;
 [H,F,~] = costWeights(plant.A,plant.B,Q,R,P,N);
 
 % get constraints matrices
-[G,W,S] = rigidBodyConstraints(plant.A, plant.B, N, u_lim, phi_dot_lim, v_lim, w_lim);
+[G,W,S] = rigidBodyConstraints(N, u_lim, phi_dot_lim, v_lim, w_lim, n, S_bar, T_bar);
 
 %realaboration of matrices for quadprog function 
 f = F'*p_t;
 Ac = G;    bc = W + S*p_t;
-
-% perform quadratic optimization
-% options =  optimset('Display','off');
-% [u_opt, ~, exitflag, output, ~] = quadprog(H, f, Ac, bc, [], [], [], [], U_l_old, options); % input horizon
-% u_opt_reshaped = reshape(u_opt,[m,N]);
-% 
-% error.QPexitflag = exitflag;
-% error.QPoutput = output;
 
 % perform minimization with fmincon in order to use a functional cost for
 % the distance between leader and obstalces
@@ -50,7 +37,7 @@ if crit_dist
              @(U) non_linear_constr_leader(U, qi, p_t, N, n, M, L, optParams.initRobotShape, T_bar, S_bar), options);
 else
     [u_opt] = fmincon(...
-             @(U) leaderCostFun(U, H, f, p_t, T_bar, S_bar, C, decay, optParams.initRobotShape, M, L, N, n, obstacles, crit_dist),...
+             @(U) leaderCostFun(U, H, f, [], [], [], [], [], [], [], [], [], [], [], crit_dist),...
              U_l_old, Ac, bc, [], [], [], [], [], options);
 end
 

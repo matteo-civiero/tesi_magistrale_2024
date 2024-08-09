@@ -1,18 +1,10 @@
 function [p_tp1, X_F, error, u_opt] = followerMPCandUpdate(...
                             plant, XL, x0, n, m, N, M, params, obstacles, qi, U_f_old, loadTheta, leaderParams, crit_dist)
 
-    % [qi, ~] = getObstacleInfo(obstacles, x0(1:2));
-    % [~, M] = size(qi);
-
     % nearest obstacle point to load (for constraints)
     [q_load, ~] = getObstacleInfo(obstacles, x0(1:2) + Rmat(loadTheta) * params.loadCenter); % loadCenter rotates with load
-
-    %material point:
-    %[G,W,S] = constraints(plant.A, plant.B, x0, qi, N, params.u_lim, params.v_lim);
-
-    %rigidBody:
-    [G,W,S] = rigidBodyConstraints(plant.A, plant.B, N, params.u_lim, params.phi_dot_lim, params.v_lim, params.w_lim);
     
+    % parameters
     pe = params.precompiledElements;
     T_bar = getTbar(plant.A, N);
     S_bar = getSbar(plant.A, plant.B, N);
@@ -21,7 +13,11 @@ function [p_tp1, X_F, error, u_opt] = followerMPCandUpdate(...
     h = XL - T_bar*x0;
     C = params.pot_cost;
     decay = params.pot_decay;
+
+    %rigidBody:
+    [G,W,S] = rigidBodyConstraints(N, params.u_lim, params.phi_dot_lim, params.v_lim, params.w_lim, n, S_bar, T_bar);
     
+    % optimization
     options = optimoptions('fmincon','Algorithm','active-set',...
         'OptimalityTolerance',1e-1, 'SpecifyObjectiveGradient', true,...
         'Display', 'none');
@@ -33,7 +29,7 @@ function [p_tp1, X_F, error, u_opt] = followerMPCandUpdate(...
              @(U) non_linear_constr_follower(U, qi, q_load, x0, N, n, M, params.vertexes, params.L, params.initRobotShape, params.initLoadShape, params.loadCenter, T_bar, S_bar, XL, leaderParams), options);
     else
         [u_opt] = fmincon(...
-             @(U) followerCostGradientHessian(U, x0, n, m, N, h, pe, params.vertexes, M, params.initRobotShape, obstacles, C, decay, params.R, T_bar, S_bar, Td_bar, Sd_bar, crit_dist),...
+             @(U) followerCostGradientHessian(U, x0, n, m, N, h, pe, [], [], [], [], [], [], params.R, [], S_bar, Td_bar, Sd_bar, crit_dist),...
              U_f_old, G, W + S*x0, [], [], [], [], [], options);
 
     end

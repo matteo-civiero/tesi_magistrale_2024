@@ -60,7 +60,7 @@ function [x0, obstacles] = setupEnvironment(setupString)
             
         case "six_obs"
             % Complex Map, six obstacles
-            x0 = [40; 5; pi/2; 0; 0; 0];
+            x0 = [40; 5; 0; 0; 0; 0];
             obstacle1.type = "circle";
             obstacle1.center = [35, 4]';
             obstacle1.radius = 2;
