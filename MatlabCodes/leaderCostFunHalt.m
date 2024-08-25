@@ -13,7 +13,7 @@ end
 % potential repulsion
 J3 = 0;
 
-if crit_dist
+if (crit_dist) && (M > 0)
     for i = 1:M
         for j = 1:L
             for t = 1:N

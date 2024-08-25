@@ -22,7 +22,7 @@ function [f, g] = followerCostGradientHessian(U, x0, n, m, N, h, pe, L, M, verte
     
     % function for potential repulsion
     f3 = 0;
-    if crit_dist
+    if (crit_dist) && (M > 0)
         x_t = (T_bar * x0 + S_bar * U);
         for i = 1:M
             for j = 1:L
@@ -54,7 +54,7 @@ function [f, g] = followerCostGradientHessian(U, x0, n, m, N, h, pe, L, M, verte
         end
         
         g3 = zeros([m*N, 1]);
-        if crit_dist
+        if (crit_dist) && (M > 0)
             % creation of F and G matrixes for correct instant selection
             F = cell(N);
             G = cell(N);

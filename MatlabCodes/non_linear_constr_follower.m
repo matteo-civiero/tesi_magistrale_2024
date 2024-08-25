@@ -1,4 +1,4 @@
-function [c, ceq] = non_linear_constr_follower(U, q_points, q_load, x0, N, n, M, vertexes, L, initRobotShape, initLoadShape, loadCenter, T_bar, S_bar, x_l, leaderParams)
+function [c, ceq] = non_linear_constr_follower(U, q_points, q_load, x0, N, n, M, vertexes, L, initRobotShape, initLoadShape, loadCenter, T_bar, S_bar, x_l)
 %NON_LINEAR_CONSTR Computes the non linear obstacle avoidance contraints for the follower and the load 
 %   Non linear obstacle avoidance contraints for the follower and the load,
 %   considering the geometrical approach that compares the position of

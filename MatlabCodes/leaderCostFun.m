@@ -8,7 +8,7 @@ J2 = f' * U;
 
 J3 = 0;
 
-if crit_dist
+if (crit_dist) && (M > 0)
     % potential field cost
     x_t = (T_bar * x0 + S_bar * U);
     for i = 1:M
