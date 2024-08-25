@@ -14,7 +14,9 @@ specific_path = {"fixed_20_no_obs_no_plot", "fixed_20_two_obs_no_plot", "fixed_2
 %%
 
 name_array = zeros(28, 1);
-% max_formation_error = zeros(28, 1);
+max_formation_error = zeros(28, 1);
+mean_formation_error = zeros(28, 1);
+tot_time_execution = zeros(28, 1);
 max_execution_step_time = zeros(28, 1);
 min_execution_step_time = zeros(28, 1);
 mean_execution_step_time = zeros(28, 1);
@@ -23,7 +25,10 @@ mean_time_short_hor_oa = zeros(28, 1);
 
 for save_index = 1:28
     load(append(gen_path, specific_path{save_index}, "/data.mat"));
-    % max_formation_error(save_index) = max_form_error;
+
+    max_formation_error(save_index) = max_form_err;
+    mean_formation_error(save_index) = mean_form_err;
+    tot_time_execution(save_index) = tot_ex_time;
     max_execution_step_time(save_index) = max_time_exe;
     min_execution_step_time(save_index) = min_time_exe;
     mean_execution_step_time(save_index) = mean_tot_time;
@@ -36,10 +41,10 @@ for save_index = 1:28
     end
 
     clearvars -except gen_path specific_path max_execution_step_time min_execution_step_time save_index mean_execution_step_time ...
-        mean_time_short_hor_oa mean_time_long_hor_no_oa
+        mean_time_short_hor_oa mean_time_long_hor_no_oa max_formation_error mean_formation_error tot_time_execution
     close all
 end
 
 %% Table 
-Table = table(specific_path, max_execution_step_time, min_execution_step_time, mean_execution_step_time, mean_time_long_hor_no_oa, mean_time_short_hor_oa);
+Table = table(specific_path, max_execution_step_time, min_execution_step_time, mean_execution_step_time, mean_time_long_hor_no_oa, mean_time_short_hor_oa, max_formation_error, mean_formation_error, tot_time_execution);
 writetable(Table, "/home/matteociviero/tesi/sims_data.xlsx");
