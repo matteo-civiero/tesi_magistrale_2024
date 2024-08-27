@@ -47,4 +47,4 @@ end
 
 %% Table 
 Table = table(specific_path, max_execution_step_time, min_execution_step_time, mean_execution_step_time, mean_time_long_hor_no_oa, mean_time_short_hor_oa, max_formation_error, mean_formation_error, tot_time_execution);
-writetable(Table, "/home/matteociviero/tesi/sims_data.xlsx");
+writetable(Table, "/home/matteociviero/tesi/sims_data_perc_range.xlsx");

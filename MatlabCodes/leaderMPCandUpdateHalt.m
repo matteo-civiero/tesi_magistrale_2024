@@ -1,5 +1,5 @@
 function [p_tp1, X_L, error, u_opt] = leaderMPCandUpdateHalt(...
-                            plant, x_0, n, m, N, M, optParams, obstacles, qi, U_l_old, crit_dist, fixed_horizon)
+                            plant, x_0, n, m, N, M, optParams, obstacles, qi, U_l_old, crit_dist, fixed_horizon, alg_fmincon)
 % execute the MPC for the leader in feasibility-aware policy
 
 % get params
@@ -26,7 +26,7 @@ Ac = G;    bc = W + S*x_0;
 
 % perform minimization with fmincon in order to use a functional cost for
 % the distance between leader and obstalces
-options = optimoptions('fmincon','Algorithm','active-set',...
+options = optimoptions('fmincon','Algorithm',alg_fmincon,...
         'OptimalityTolerance',1e-1, 'SpecifyObjectiveGradient',false,...
         'Display', 'none');
 
