@@ -2,7 +2,7 @@
 
 clear all
 
-gen_path = "/home/matteociviero/tesi/sims/";
+gen_path = "/home/matteociviero/tesi/sims_sqp/";
 specific_path = {"fixed_20_no_obs_no_plot", "fixed_20_two_obs_no_plot", "fixed_20_three_obs_no_plot", "fixed_20_valzer_no_plot", ...
     "fixed_15_no_obs_no_plot", "fixed_15_two_obs_no_plot", "fixed_15_three_obs_no_plot", "fixed_15_valzer_no_plot", "fixed_10_no_obs_no_plot", ...
     "fixed_10_two_obs_no_plot", "fixed_10_three_obs_no_plot", "fixed_10_valzer_no_plot", "fixed_5_no_obs_no_plot", "fixed_5_two_obs_no_plot", ...
@@ -47,4 +47,4 @@ end
 
 %% Table 
 Table = table(specific_path, max_execution_step_time, min_execution_step_time, mean_execution_step_time, mean_time_long_hor_no_oa, mean_time_short_hor_oa, max_formation_error, mean_formation_error, tot_time_execution);
-writetable(Table, "/home/matteociviero/tesi/sims_data_perc_range.xlsx");
+writetable(Table, "/home/matteociviero/tesi/prova.xlsx");

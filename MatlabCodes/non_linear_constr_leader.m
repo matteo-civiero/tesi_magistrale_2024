@@ -12,11 +12,11 @@ if M>=1
             qi = q_points(:,i);
             for j=1:L
                 vj = initRobotShape(:, j);
-                c(k,1) = -((qi - p0)' * (qi - (x_t((n*(t-1)+1):(n*t-(n-2))) + Rmat(x_t(n*t-(n-3))) * vj)));
+                c(k,1) = -((qi - p0)' * (qi - (x_t((n*(t-1)+1):(n*(t-1)+2)) + Rmat(x_t(n*(t-1)+3)) * vj)));
                 k = k + 1;
-                % x_t((n*(t-1)+1):(n*t-(n-2)) are x and y position in every
+                % x_t((n*(t-1)+1):(n*(t-1)+2)) are x and y position in every
                 % step
-                % x_t(n*t-(n-3)) is the orientation in every step
+                % x_t(n*(t-1)+3) is the orientation in every step
             end
         end
     end

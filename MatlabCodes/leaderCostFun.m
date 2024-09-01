@@ -14,7 +14,9 @@ if (crit_dist) && (M > 0)
     for i = 1:M
         for j = 1:L
             for t = 1:N
-                J3 = J3 + C * exp(-decay * (norm(x_t((n*(t-1)+1):(n*t-(n-2))) + Rmat(x_t(n*t-(n-3))) * vertexes(:,j) - obstacles{i}.center) - obstacles{i}.radius));
+                J3 = J3 + C * exp(-decay * (norm(x_t((n*(t-1)+1):(n*(t-1)+2)) + Rmat(x_t(n*(t-1)+3)) * vertexes(:,j) - obstacles{i}.center) - obstacles{i}.radius));
+                % x_t((n*(t-1)+1):(n*(t-1)+2)) is position(t),
+                % x_t(n*(t-1)+3) is the rotation
             end
         end
     end
