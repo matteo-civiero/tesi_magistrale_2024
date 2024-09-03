@@ -9,12 +9,13 @@ gen_path = "/home/matteociviero/tesi/sims_alg_fmincon/";
 alg_fmincon_set = {'interior-point', 'sqp', 'active-set'};
 alg_fmincon_string = {"interior_point", "sqp", "active_set"};
 plotting = false;
+sim_perception_range = true;
 
 %% Simulations
 
 for fmincon_index = 1:3
 
-    clearvars -except gen_path alg_fmincon_set alg_fmincon_string plotting fmincon_index
+    clearvars -except gen_path alg_fmincon_set alg_fmincon_string plotting fmincon_index sim_perception_range
     close all;
 
     % SELECTION OF THE ALGORITHM
@@ -47,7 +48,7 @@ for fmincon_index = 1:3
 
    % -----------------------------------------------------------------------
 
-    clearvars -except gen_path alg_fmincon_set alg_fmincon_string plotting fmincon_index
+    clearvars -except gen_path alg_fmincon_set alg_fmincon_string plotting fmincon_index sim_perception_range
     close all;
 
     % SELECTION OF THE ALGORITHM
@@ -79,7 +80,7 @@ for fmincon_index = 1:3
 
     % -----------------------------------------------------------------------
 
-    clearvars -except gen_path alg_fmincon_set alg_fmincon_string plotting fmincon_index
+    clearvars -except gen_path alg_fmincon_set alg_fmincon_string plotting fmincon_index sim_perception_range
     close all;
 
     % SELECTION OF THE ALGORITHM
@@ -111,7 +112,7 @@ for fmincon_index = 1:3
 
     % -----------------------------------------------------------------------
 
-    clearvars -except gen_path alg_fmincon_set alg_fmincon_string plotting fmincon_index
+    clearvars -except gen_path alg_fmincon_set alg_fmincon_string plotting fmincon_index sim_perception_range
     close all;
 
     % SELECTION OF THE ALGORITHM
@@ -143,7 +144,7 @@ for fmincon_index = 1:3
 
     % -------------------------------------------------------------------------
 
-    clearvars -except gen_path alg_fmincon_set alg_fmincon_string plotting fmincon_index
+    clearvars -except gen_path alg_fmincon_set alg_fmincon_string plotting fmincon_index sim_perception_range
     close all;
 
     % SELECTION OF THE ALGORITHM
@@ -176,7 +177,7 @@ for fmincon_index = 1:3
 
    % -----------------------------------------------------------------------
 
-    clearvars -except gen_path alg_fmincon_set alg_fmincon_string plotting fmincon_index
+    clearvars -except gen_path alg_fmincon_set alg_fmincon_string plotting fmincon_index sim_perception_range
     close all;
 
     % SELECTION OF THE ALGORITHM
@@ -208,7 +209,7 @@ for fmincon_index = 1:3
 
     % -----------------------------------------------------------------------
 
-    clearvars -except gen_path alg_fmincon_set alg_fmincon_string plotting fmincon_index
+    clearvars -except gen_path alg_fmincon_set alg_fmincon_string plotting fmincon_index sim_perception_range
     close all;
 
     % SELECTION OF THE ALGORITHM
@@ -240,7 +241,7 @@ for fmincon_index = 1:3
 
     % -----------------------------------------------------------------------
 
-    clearvars -except gen_path alg_fmincon_set alg_fmincon_string plotting fmincon_index
+    clearvars -except gen_path alg_fmincon_set alg_fmincon_string plotting fmincon_index sim_perception_range
     close all;
 
     % SELECTION OF THE ALGORITHM
@@ -272,7 +273,7 @@ for fmincon_index = 1:3
 
     % -------------------------------------------------------------------------------------
 
-    clearvars -except gen_path alg_fmincon_set alg_fmincon_string plotting fmincon_index
+    clearvars -except gen_path alg_fmincon_set alg_fmincon_string plotting fmincon_index sim_perception_range
     close all;
     
     % SELECTION OF THE ALGORITHM
@@ -305,7 +306,7 @@ for fmincon_index = 1:3
 
    % -----------------------------------------------------------------------
     
-    clearvars -except gen_path alg_fmincon_set alg_fmincon_string plotting fmincon_index
+    clearvars -except gen_path alg_fmincon_set alg_fmincon_string plotting fmincon_index sim_perception_range
     close all;
     
     % SELECTION OF THE ALGORITHM
@@ -337,7 +338,7 @@ for fmincon_index = 1:3
     
     % -----------------------------------------------------------------------
 
-    clearvars -except gen_path alg_fmincon_set alg_fmincon_string plotting fmincon_index
+    clearvars -except gen_path alg_fmincon_set alg_fmincon_string plotting fmincon_index sim_perception_range
     close all;
     
     % SELECTION OF THE ALGORITHM
@@ -369,7 +370,7 @@ for fmincon_index = 1:3
 
     % -----------------------------------------------------------------------
     
-    clearvars -except gen_path alg_fmincon_set alg_fmincon_string plotting fmincon_index
+    clearvars -except gen_path alg_fmincon_set alg_fmincon_string plotting fmincon_index sim_perception_range
     close all;
     
     % SELECTION OF THE ALGORITHM

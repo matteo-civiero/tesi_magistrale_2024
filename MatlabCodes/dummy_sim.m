@@ -5,6 +5,7 @@ plotting = true;
 alg_fmincon = 'sqp';
 fixed_horizon = true;
 sim_perception_range = true;
+sim_noise = true;
 
 N_short = 10;
 N_long = 20;

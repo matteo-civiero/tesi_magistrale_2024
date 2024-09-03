@@ -1,5 +1,5 @@
 function [p_tp1, X_F, error, u_opt] = followerMPCandUpdate(...
-                            plant, XL, x0, n, m, N, M, q_load, params, obstacles, qi, U_f_old, loadTheta0, crit_dist, fixed_horizon, alg_fmincon)
+                            plant, XL, x0, n, m, N, M, q_load, params, obstacles, qi, U_f_old, loadTheta0, crit_dist, fixed_horizon, alg_fmincon, sim_noise)
 
     % function that computes the MPC for the follower
 
@@ -44,9 +44,9 @@ function [p_tp1, X_F, error, u_opt] = followerMPCandUpdate(...
     % model dynamics update, needed to give path intention to plotter
     p_pred = zeros([n, N]); % will have x(1)..x(N) 
     % first state is x(1), not x(0)
-    [~, p_pred(:,1)] = modelDynamics(plant, x0, u_opt_reshaped(:,1));
+    [~, p_pred(:,1)] = modelDynamics(plant, x0, u_opt_reshaped(:,1), sim_noise);
     for j=2:N % note that indexes for u lag one behind in real therms
-        [~, p_pred(:,j)] = modelDynamics(plant, p_pred(:,j-1), u_opt_reshaped(:,j));
+        [~, p_pred(:,j)] = modelDynamics(plant, p_pred(:,j-1), u_opt_reshaped(:,j), sim_noise);
     end
 
     % update the state and input with the first one predicted
