@@ -5,13 +5,13 @@ plotting = true;
 alg_fmincon = 'sqp';
 fixed_horizon = true;
 sim_perception_range = true;
-sim_noise = true;
+sim_noise = false;
 
 N_short = 10;
 N_long = 20;
 N_fixed = 10;
 
-env_name = "three_obs";
+env_name = "corridor";
 
 traj_fig_name = 0;
 coord_fig_name = 0;

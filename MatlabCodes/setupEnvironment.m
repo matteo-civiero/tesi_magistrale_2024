@@ -54,9 +54,18 @@ function [x0, obstacles] = setupEnvironment(setupString)
             x0 = [10; 10; 0; 0; 0; 0];            
             obstacle1.type = "circle";
             obstacle1.center = [5, 5]';
-            obstacle1.radius = 2;
+            obstacle1.radius = 3;
             obstacle1.velocity = [0, 0]';
             obstacles = {obstacle1};
+
+        % case "pathological_2"
+        %     % Pathological cases
+        %     x0 = [10; 0; 0; 0; 0; 0];            
+        %     obstacle1.type = "circle";
+        %     obstacle1.center = [5, 0]';
+        %     obstacle1.radius = 3;
+        %     obstacle1.velocity = [0, 0]';
+        %     obstacles = {obstacle1};
             
         case "six_obs"
             % Complex Map, six obstacles
@@ -108,6 +117,61 @@ function [x0, obstacles] = setupEnvironment(setupString)
             obstacle2.velocity = [0, 0]';
 
             obstacles = {obstacle1, obstacle2};
+
+        case "corridor"
+            x0 = [10; 10; 0; 0; 0; 0];
+
+            obstacle1.type = "circle";
+            obstacle1.center = [7, 7]';
+            obstacle1.radius = 0.8;
+            obstacle1.velocity = [0, 0]';
+
+            obstacle2.type = "circle";
+            obstacle2.center = [10, 7]';
+            obstacle2.radius = 0.8;
+            obstacle2.velocity = [0, 0]';
+
+            obstacle3.type = "circle";
+            obstacle3.center = [7, 6]';
+            obstacle3.radius = 0.8;
+            obstacle3.velocity = [0, 0]';
+
+            obstacle4.type = "circle";
+            obstacle4.center = [10, 6]';
+            obstacle4.radius = 0.8;
+            obstacle4.velocity = [0, 0]';
+
+            obstacle5.type = "circle";
+            obstacle5.center = [7, 5]';
+            obstacle5.radius = 0.7;
+            obstacle5.velocity = [0, 0]';
+
+            obstacle6.type = "circle";
+            obstacle6.center = [10, 5]';
+            obstacle6.radius = 0.8;
+            obstacle6.velocity = [0, 0]';
+
+            obstacle7.type = "circle";
+            obstacle7.center = [6.5, 4.5]';
+            obstacle7.radius = 0.8;
+            obstacle7.velocity = [0, 0]';
+
+            obstacle8.type = "circle";
+            obstacle8.center = [7, 8]';
+            obstacle8.radius = 0.8;
+            obstacle8.velocity = [0, 0]';
+
+            obstacle9.type = "circle";
+            obstacle9.center = [6, 4]';
+            obstacle9.radius = 0.8;
+            obstacle9.velocity = [0, 0]';
+
+            obstacle10.type = "circle";
+            obstacle10.center = [9.5, 4]';
+            obstacle10.radius = 0.7;
+            obstacle10.velocity = [0, 0]';
+
+            obstacles = {obstacle1, obstacle2, obstacle3, obstacle4, obstacle5, obstacle6, obstacle7, obstacle8, obstacle9, obstacle10};
 
         case "valzer"
             % Complex Map-variable
