@@ -12,6 +12,7 @@ plotting = false;
 alg_fmincon = 'sqp';
 sim_perception_range = true;
 sim_noise = true;
+sigma_2 = (0.01)^2;
 fixed_horizon = false;
 N_short = 5;
 N_long = 15;

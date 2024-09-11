@@ -1,5 +1,5 @@
 function [p_tp1, X_L, error, u_opt] = leaderMPCandUpdateHalt(...
-                            plant, x_0, n, m, N, M, optParams, obstacles, qi, U_l_old, crit_dist, fixed_horizon, alg_fmincon, sim_noise)
+                            plant, x_0, n, m, N, M, optParams, obstacles, qi, U_l_old, crit_dist, fixed_horizon, alg_fmincon, sigma_2, sim_noise)
 % execute the MPC for the leader in feasibility-aware policy
 
 % get params
@@ -49,9 +49,9 @@ error = exitflag;
 % model dynamics update, needed to give path intention to follower
 p_pred = zeros([n, N]); % will have x(1)..x(N)
 % first state is x(1), not x(0)
-[~, p_pred(:,1)] = modelDynamics(plant, x_0, u_opt_reshaped(:,1), sim_noise);
+[~, p_pred(:,1)] = modelDynamics(plant, x_0, u_opt_reshaped(:,1), sigma_2, sim_noise);
 for j=2:N % note that indexes for u lag one behind in real therms
-    [~, p_pred(:,j)] = modelDynamics(plant, p_pred(:,j-1), u_opt_reshaped(:,j), sim_noise);
+    [~, p_pred(:,j)] = modelDynamics(plant, p_pred(:,j-1), u_opt_reshaped(:,j), sigma_2, sim_noise);
 end
 
 % update the state and input with the first one predicted

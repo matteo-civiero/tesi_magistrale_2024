@@ -66,6 +66,10 @@ function [x0, obstacles] = setupEnvironment(setupString)
         %     obstacle1.radius = 3;
         %     obstacle1.velocity = [0, 0]';
         %     obstacles = {obstacle1};
+
+        case "noise"
+            x0 = [5; 0; 0; 0; 0; 0];
+            obstacles = {};
             
         case "six_obs"
             % Complex Map, six obstacles
@@ -161,17 +165,17 @@ function [x0, obstacles] = setupEnvironment(setupString)
             obstacle8.radius = 0.8;
             obstacle8.velocity = [0, 0]';
 
-            obstacle9.type = "circle";
-            obstacle9.center = [6, 4]';
-            obstacle9.radius = 0.8;
-            obstacle9.velocity = [0, 0]';
+            % obstacle9.type = "circle";
+            % obstacle9.center = [6, 4]';
+            % obstacle9.radius = 0.8;
+            % obstacle9.velocity = [0, 0]';
 
             obstacle10.type = "circle";
             obstacle10.center = [9.5, 4]';
             obstacle10.radius = 0.7;
             obstacle10.velocity = [0, 0]';
 
-            obstacles = {obstacle1, obstacle2, obstacle3, obstacle4, obstacle5, obstacle6, obstacle7, obstacle8, obstacle9, obstacle10};
+            obstacles = {obstacle1, obstacle2, obstacle3, obstacle4, obstacle5, obstacle6, obstacle7, obstacle8, obstacle10};
 
         case "valzer"
             % Complex Map-variable
