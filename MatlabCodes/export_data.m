@@ -22,6 +22,7 @@ min_execution_step_time = zeros(28, 1);
 mean_execution_step_time = zeros(28, 1);
 mean_time_long_hor_no_oa = zeros(28, 1);
 mean_time_short_hor_oa = zeros(28, 1);
+ended = zeros(28, 1);
 
 for save_index = 1:28
     load(append(gen_path, specific_path{save_index}, "/data.mat"));
@@ -39,12 +40,14 @@ for save_index = 1:28
         mean_time_long_hor_no_oa(save_index) = mean0;
         mean_time_short_hor_oa(save_index) = mean1;
     end
+    ended(save_index) = goal_reached;
 
     clearvars -except gen_path specific_path max_execution_step_time min_execution_step_time save_index mean_execution_step_time ...
-        mean_time_short_hor_oa mean_time_long_hor_no_oa max_formation_error mean_formation_error tot_time_execution
+        mean_time_short_hor_oa mean_time_long_hor_no_oa max_formation_error mean_formation_error tot_time_execution ended
     close all
 end
 
 %% Table 
-Table = table(specific_path, max_execution_step_time, min_execution_step_time, mean_execution_step_time, mean_time_long_hor_no_oa, mean_time_short_hor_oa, max_formation_error, mean_formation_error, tot_time_execution);
-writetable(Table, "/home/matteociviero/tesi/sims_data_no_perc_range_sqp.xlsx");
+Table = table(specific_path, ended, max_execution_step_time, min_execution_step_time, mean_execution_step_time, mean_time_long_hor_no_oa, ...
+    mean_time_short_hor_oa, max_formation_error, mean_formation_error, tot_time_execution);
+writetable(Table, "/home/matteociviero/tesi/sims_no_perc_range_sqp.xlsx");

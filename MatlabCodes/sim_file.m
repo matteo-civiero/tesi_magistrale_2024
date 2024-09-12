@@ -18,10 +18,11 @@ plotting = false;
 alg_fmincon = 'sqp';
 sim_perception_range = false;
 sim_noise = false;
+sigma_2 = (0.01/3)^2;
 
 %% fixed_20_no_obs_no_plot
 
-clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise
+clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise sigma_2
 close all;
 
 % SELECTION OF THE ALGORITHM
@@ -52,7 +53,7 @@ save(append(savepath, "data.mat"));
 
 %% fixed_20_two_obs_no_plot
 
-clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise
+clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise sigma_2
 close all;
 
 % SELECTION OF THE ALGORITHM
@@ -83,7 +84,7 @@ save(append(savepath, "data.mat"));
 
 %% fixed_20_three_obs_no_plot
 
-clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise
+clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise sigma_2
 close all;
 
 % SELECTION OF THE ALGORITHM
@@ -114,7 +115,7 @@ save(append(savepath, "data.mat"));
 
 %% fixed_20_valzer_no_plot
 
-clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise
+clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise sigma_2
 close all;
 
 % SELECTION OF THE ALGORITHM
@@ -145,7 +146,7 @@ save(append(savepath, "data.mat"));
 
 %% fixed_15_no_obs_no_plot
 
-clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise
+clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise sigma_2
 close all;
 
 % SELECTION OF THE ALGORITHM
@@ -176,7 +177,7 @@ save(append(savepath, "data.mat"));
 
 %% fixed_15_two_obs_no_plot
 
-clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise
+clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise sigma_2
 close all;
 
 % SELECTION OF THE ALGORITHM
@@ -207,7 +208,7 @@ save(append(savepath, "data.mat"));
 
 %% fixed_15_three_obs_no_plot
 
-clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise
+clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise sigma_2
 close all;
 
 % SELECTION OF THE ALGORITHM
@@ -238,7 +239,7 @@ save(append(savepath, "data.mat"));
 
 %% fixed_15_valzer_no_plot
 
-clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise
+clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise sigma_2
 close all;
 
 % SELECTION OF THE ALGORITHM
@@ -269,7 +270,7 @@ save(append(savepath, "data.mat"));
 
 %% fixed_10_no_obs_no_plot
 
-clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise
+clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise sigma_2
 close all; 
 
 % SELECTION OF THE ALGORITHM
@@ -300,7 +301,7 @@ save(append(savepath, "data.mat"));
 
 %% fixed_10_two_obs_no_plot
 
-clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise
+clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise sigma_2
 close all;
 
 % SELECTION OF THE ALGORITHM
@@ -331,7 +332,7 @@ save(append(savepath, "data.mat"));
 
 %% fixed_10_three_obs_no_plot
 
-clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise
+clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise sigma_2
 close all;
 
 % SELECTION OF THE ALGORITHM
@@ -362,7 +363,7 @@ save(append(savepath, "data.mat"));
 
 %% fixed_10_valzer_no_plot
 
-clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise
+clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise sigma_2
 close all;
 
 % SELECTION OF THE ALGORITHM
@@ -393,7 +394,7 @@ save(append(savepath, "data.mat"));
 
 %% fixed_5_no_obs_no_plot
 
-clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise
+clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise sigma_2
 close all;
 
 % SELECTION OF THE ALGORITHM
@@ -424,7 +425,7 @@ save(append(savepath, "data.mat"));
 
 %% fixed_5_two_obs_no_plot
 
-clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise
+clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise sigma_2
 close all;
 
 % SELECTION OF THE ALGORITHM
@@ -455,7 +456,7 @@ save(append(savepath, "data.mat"));
 
 %% fixed_5_three_obs_no_plot
 
-clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise
+clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise sigma_2
 close all;
 
 % SELECTION OF THE ALGORITHM
@@ -486,7 +487,7 @@ save(append(savepath, "data.mat"));
 
 %% fixed_5_valzer_no_plot
 
-clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise
+clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise sigma_2
 close all;
 
 % SELECTION OF THE ALGORITHM
@@ -517,7 +518,7 @@ save(append(savepath, "data.mat"));
 
 %% adaptive_20_10_no_obs_no_plot
 
-clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise
+clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise sigma_2
 close all;
 
 % SELECTION OF THE ALGORITHM
@@ -548,7 +549,7 @@ save(append(savepath, "data.mat"));
 
 %% adaptive_20_10_two_obs_no_plot
 
-clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise
+clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise sigma_2
 close all;
 
 % SELECTION OF THE ALGORITHM
@@ -579,7 +580,7 @@ save(append(savepath, "data.mat"));
 
 %% adaptive_20_10_three_obs_no_plot
 
-clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise
+clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise sigma_2
 close all;
 
 % SELECTION OF THE ALGORITHM
@@ -610,7 +611,7 @@ save(append(savepath, "data.mat"));
 
 %% adaptive_20_10_valzer_no_plot
 
-clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise
+clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise sigma_2
 close all;
 
 % SELECTION OF THE ALGORITHM
@@ -641,7 +642,7 @@ save(append(savepath, "data.mat"));
 
 %% adaptive_20_5_no_obs_no_plot
 
-clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise
+clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise sigma_2
 close all;
 
 % SELECTION OF THE ALGORITHM
@@ -672,7 +673,7 @@ save(append(savepath, "data.mat"));
 
 %% adaptive_20_5_two_obs_no_plot
 
-clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise
+clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise sigma_2
 close all;
 
 % SELECTION OF THE ALGORITHM
@@ -703,7 +704,7 @@ save(append(savepath, "data.mat"));
 
 %% adaptive_20_5_three_obs_no_plot
 
-clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise
+clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise sigma_2
 close all;
 
 % SELECTION OF THE ALGORITHM
@@ -734,7 +735,7 @@ save(append(savepath, "data.mat"));
 
 %% adaptive_20_5_valzer_no_plot
 
-clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise
+clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise sigma_2
 close all;
 
 % SELECTION OF THE ALGORITHM
@@ -765,7 +766,7 @@ save(append(savepath, "data.mat"));
 
 %% adaptive_15_5_no_obs_no_plot
 
-clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise
+clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise sigma_2
 close all;
 
 % SELECTION OF THE ALGORITHM
@@ -796,7 +797,7 @@ save(append(savepath, "data.mat"));
 
 %% adaptive_15_5_two_obs_no_plot
 
-clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise
+clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise sigma_2
 close all;
 
 % SELECTION OF THE ALGORITHM
@@ -827,7 +828,7 @@ save(append(savepath, "data.mat"));
 
 %% adaptive_15_5_three_obs_no_plot
 
-clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise
+clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise sigma_2
 close all;
 
 % SELECTION OF THE ALGORITHM
@@ -858,7 +859,7 @@ save(append(savepath, "data.mat"));
 
 %% adaptive_15_5_valzer_no_plot
 
-clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise
+clearvars -except gen_path specific_path sim_index plotting alg_fmincon sim_perception_range sim_noise sigma_2
 close all;
 
 % SELECTION OF THE ALGORITHM

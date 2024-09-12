@@ -58,6 +58,14 @@ function [x0, obstacles] = setupEnvironment(setupString)
             obstacle1.velocity = [0, 0]';
             obstacles = {obstacle1};
 
+        case "obs_near_goal"
+            x0 = [10; 10; 0; 0; 0; 0];
+            obstacle1.type = "circle";
+            obstacle1.center = [-2, 0]';
+            obstacle1.radius = 1;
+            obstacle1.velocity = [0, 0]';
+            obstacles = {obstacle1};
+
         % case "pathological_2"
         %     % Pathological cases
         %     x0 = [10; 0; 0; 0; 0; 0];            
