@@ -3,40 +3,42 @@
 clear all;
 close all;
 
-gen_path = "/home/matteociviero/tesi/mc_sims/";
-specific_path = {"adaptive_15_5_no_obs_no_plot/", "adaptive_15_5_two_obs_no_plot/", ...
-    "adaptive_15_5_three_obs_no_plot/", "adaptive_15_5_valzer_no_plot/"}';
+gen_path = "/home/matteociviero/tesi/montecarlo_15_5/";
+error_value = {"1cm/", "6cm/", "10cm/"}';
 env_name_set = {"no_obs", "two_obs", "three_obs", "valzer"};
 
 plotting = false;
 alg_fmincon = 'sqp';
 sim_perception_range = true;
 sim_noise = true;
-sigma_2 = (0.01)^2;
+sigma_2_set = {(0.01/3)^2, (0.06/3)^2, (0.1/3)^2};
 fixed_horizon = false;
 N_short = 5;
 N_long = 15;
-N_sims = 50;
+N_sims = 25;
 
-for mc_index = 1:N_sims
+for error_index = 1:length(error_value)
+    sigma_2 = sigma_2_set{error_index};
     for env_index = 1:4
-        clearvars -except gen_path specific_path alg_fmincon plotting mc_index sim_perception_range sim_noise fixed_horizon N_long N_short N_sims ...
-            env_name_set env_index
-        close all;
-    
         env_name = env_name_set{env_index};
-        savepath = append(gen_path, specific_path{env_index});
-
-        traj_fig_name = append(savepath, "trajectory.jpg");
-        coord_fig_name = append(savepath, "coordinates.jpg");
-        vel_fig_name = append(savepath, "velocities.jpg");
-        obj_dist_fig_name = append(savepath, "obstacle_distance.jpg");
-        times_fig_name = append(savepath, "times.jpg");
-        obs_fig_name = append(savepath, "obs.jpg");
+        for sim_index = 1:N_sims
+            clearvars -except gen_path error_value alg_fmincon plotting error_index sim_perception_range sim_noise fixed_horizon N_long N_short N_sims ...
+                env_name_set env_name env_index sim_index sigma_2_set sigma_2
+            close all;
         
-        simCooperativeTransport;
-        
-        % saving data
-        save(append(savepath, "data.mat"));
+            savepath = append(gen_path, error_value{error_index}, env_name_set{env_index}, "/", num2str(sim_index), "/");
+    
+            traj_fig_name = append(savepath, "trajectory.jpg");
+            coord_fig_name = append(savepath, "coordinates.jpg");
+            vel_fig_name = append(savepath, "velocities.jpg");
+            obj_dist_fig_name = append(savepath, "obstacle_distance.jpg");
+            times_fig_name = append(savepath, "times.jpg");
+            obs_fig_name = append(savepath, "obs.jpg");
+            
+            simCooperativeTransport;
+            
+            % saving data
+            save(append(savepath, "data.mat"));
+        end
     end
 end

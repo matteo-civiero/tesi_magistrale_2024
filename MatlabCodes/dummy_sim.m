@@ -5,20 +5,20 @@ plotting = true;
 alg_fmincon = 'sqp';
 fixed_horizon = false;
 sim_perception_range = true;
-sim_noise = false;
-sigma_2 = (0.01)^2;
+sim_noise = true;
+sigma_2 = (0.1/3)^2;
 
 N_short = 5;
 N_long = 15;
 N_fixed = 10;
 
-env_name = "valzer";
+env_name = "pathological";
 
-traj_fig_name = 0;
-coord_fig_name = 0;
-vel_fig_name = 0;
-obj_dist_fig_name = 0;
-times_fig_name = 0;
-obs_fig_name = 0;
+traj_fig_name = "trajectory.jpg";
+coord_fig_name = "coordinates.jpg";
+vel_fig_name = "velocities.jpg";
+obj_dist_fig_name = "obstacle_distance.jpg";
+times_fig_name = "times.jpg";
+obs_fig_name = "obs.jpg";
 
 simCooperativeTransport;
