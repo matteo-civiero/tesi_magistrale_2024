@@ -5,14 +5,14 @@ plotting = true;
 alg_fmincon = 'sqp';
 fixed_horizon = false;
 sim_perception_range = true;
-sim_noise = true;
+sim_noise = false;
 sigma_2 = (0.1/3)^2;
 
 N_short = 5;
 N_long = 15;
-N_fixed = 10;
+N_fixed = 5;
 
-env_name = "pathological";
+env_name = "dynamic2";
 
 traj_fig_name = "trajectory.jpg";
 coord_fig_name = "coordinates.jpg";

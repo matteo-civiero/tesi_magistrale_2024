@@ -119,13 +119,17 @@ function [x0, obstacles] = setupEnvironment(setupString)
             x0 = [10; 0; 0; 0; 0; 0];
 
             obstacle1.type = "circle";
-            obstacle1.center = [5, 0.9]';
-            obstacle1.radius = 0.5;
+            % obstacle1.center = [5, 0.9]';
+            % obstacle1.radius = 0.5;
+            obstacle1.center = [5, 0.5]';
+            obstacle1.radius = 0.2;
             obstacle1.velocity = [0, 0]';
 
             obstacle2.type = "circle";
-            obstacle2.center = [5, -0.9]';
-            obstacle2.radius = 0.5;
+            % obstacle2.center = [5, -0.9]';
+            % obstacle2.radius = 0.5;
+            obstacle2.center = [5, -0.5]';
+            obstacle2.radius = 0.2;
             obstacle2.velocity = [0, 0]';
 
             obstacles = {obstacle1, obstacle2};
@@ -317,6 +321,31 @@ function [x0, obstacles] = setupEnvironment(setupString)
                 obstacle8, obstacle9,obstacle10, obstacle11, obstacle12, obstacle13, obstacle14,...
                 obstacle15, obstacle16, obstacle17, obstacle18, obstacle19, obstacle20, obstacle21,...
                 obstacle22, obstacle23, obstacle24};
+
+        case "dynamic"
+            x0 = [15, 15, 0, 0, 0, 0]';
+
+            obstacle1.type = "circle";
+            obstacle1.center = [13, 13]';
+            obstacle1.radius = 0.8;
+            obstacle1.velocity = [-0.5, -0.5]';
+            obstacles = {obstacle1};
+
+        case "dynamic2"
+            x0 = [15, 15, 0, 0, 0, 0]';
+
+            obstacle1.type = "circle";
+            obstacle1.center = [13, 13]';
+            obstacle1.radius = 0.8;
+            obstacle1.velocity = [-0.5, -0.5]';
+
+            obstacle2.type = "circle";
+            obstacle2.center = [0, 10]';
+            obstacle2.radius = 1;
+            obstacle2.velocity = [0.8, 0]';
+
+            obstacles = {obstacle1, obstacle2};
+
         otherwise
             x0 = [0 0 0 0 0 0]';
             obstacles = {};
