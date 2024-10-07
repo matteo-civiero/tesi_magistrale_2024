@@ -1,18 +1,19 @@
 clear all;
 close all;
 
-plotting = true;
+plotting = false;
 alg_fmincon = 'sqp';
 fixed_horizon = false;
 sim_perception_range = true;
 sim_noise = false;
-sigma_2 = (0.1/3)^2;
+sigma_2 = (0.06/3)^2;
+eps_loose_grip = 0.01;
 
 N_short = 5;
 N_long = 15;
 N_fixed = 5;
 
-env_name = "dynamic2";
+env_name = "valzer";
 
 traj_fig_name = "trajectory.jpg";
 coord_fig_name = "coordinates.jpg";

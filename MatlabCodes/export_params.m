@@ -1,3 +1,5 @@
+% script to export parametric analisys data
+
 clear all;
 close all;
 

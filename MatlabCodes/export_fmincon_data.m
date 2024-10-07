@@ -1,4 +1,5 @@
 % function that create the tables and exports them in excel
+% fmincon algorithm comparison
 
 clear all;
 close all;

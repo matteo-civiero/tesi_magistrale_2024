@@ -29,6 +29,6 @@ B_vel_constr = repmat( [v_max; v_max; v_max; v_max; w_max; w_max] , N, 1);
 
 G = [G_in; A_vel*S_bar];
 W = [B_in; B_vel_constr];
-S = [zeros((2*n/2)*N, n); -(A_vel*T_bar)]; %corrected
+S = [zeros((2*n/2)*N, n); -(A_vel*T_bar)]; 
 
 end
