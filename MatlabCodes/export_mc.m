@@ -23,6 +23,9 @@ for err_in = 1:length(error_value)
         obs_collision = zeros(25, 1);
         ended = zeros(25, 1);
         min_obs_distance = zeros(25, 1);
+        rec_policy = zeros(25,1);
+        mean_vl = zeros(25,1);
+        mean_vf = zeros(25,1);
 
         for save_index = 1:25
 
@@ -49,14 +52,17 @@ for err_in = 1:length(error_value)
                 min_obs_distance(save_index) = NaN;
                 obs_collision(save_index) = NaN;
             end
+            rec_policy(save_index) = counter;
+            mean_vl(save_index) = mean(sqrt(x_l(4,:).^2 + x_l(5,:).^2));
+            mean_vf(save_index) = mean(sqrt(x_f(4,:).^2 + x_f(5,:).^2));
 
             clearvars -except gen_path error_value err_in env_in env_name_set save_index max_formation_error mean_formation_error ...
                 tot_time_execution max_execution_step_time min_execution_step_time mean_execution_step_time mean_time_short_hor_oa ...
-                mean_time_long_hor_no_oa ended obs_collision min_obs_distance sheet
+                mean_time_long_hor_no_oa ended obs_collision min_obs_distance sheet rec_policy mean_vf mean_vl
             close all;
         end
         Table = table(repmat(error_value{err_in}, 25, 1), repmat(env_name_set{env_in}, 25, 1), ended, obs_collision, max_execution_step_time, min_execution_step_time, mean_execution_step_time, mean_time_long_hor_no_oa, ...
-            mean_time_short_hor_oa, max_formation_error, mean_formation_error, tot_time_execution, min_obs_distance);
+            mean_time_short_hor_oa, max_formation_error, mean_formation_error, tot_time_execution, min_obs_distance, rec_policy, mean_vl, mean_vf);
         writetable(Table, "/home/matteociviero/tesi/noise_eps.xlsx", "Sheet", sheet);
         sheet = sheet + 1;
     end 

@@ -6,14 +6,14 @@ alg_fmincon = 'sqp';
 fixed_horizon = false;
 sim_perception_range = true;
 sim_noise = false;
-sigma_2 = (0.06/3)^2;
-eps_loose_grip = 0.01;
+sigma_2 = (0.15/3)^2;
+eps_loose_grip = 0.15;
 
 N_short = 5;
 N_long = 15;
 N_fixed = 5;
 
-env_name = "valzer";
+env_name = "obs_near_goal";
 
 traj_fig_name = "trajectory.jpg";
 coord_fig_name = "coordinates.jpg";
