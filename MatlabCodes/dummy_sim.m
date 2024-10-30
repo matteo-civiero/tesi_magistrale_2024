@@ -13,7 +13,7 @@ N_short = 5;
 N_long = 15;
 N_fixed = 5;
 
-env_name = "obs_near_goal";
+env_name = "corridor";
 
 traj_fig_name = "trajectory.jpg";
 coord_fig_name = "coordinates.jpg";
