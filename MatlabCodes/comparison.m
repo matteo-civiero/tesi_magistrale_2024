@@ -9,6 +9,9 @@ env_old = {"no_obs/", "two_obs/", "three_obs/", "valzer/"};
 
 max_formation_error = zeros(12, 1);
 mean_formation_error = zeros(12, 1);
+max_execution_time = zeros(12,1);
+mean_execution_time = zeros(12, 1);
+tot_execution_time = zeros(12,1);
 
 for save_index = 1:4
     load(append(path_1, env_old{save_index}, "data.mat"));
@@ -16,8 +19,13 @@ for save_index = 1:4
     name_array(save_index) = append("cite_1_", env_old{save_index});
     max_formation_error(save_index) = max_form_err;
     mean_formation_error(save_index) = mean_form_err;
+    max_execution_time(save_index) = max(step_time);
+    mean_execution_time(save_index) = mean(step_time);
+    tot_execution_time(save_index) = execution_time;
 
-    clearvars -except path_2 path_1 cases_new env_old name_array max_formation_error mean_formation_error save_index
+
+    clearvars -except path_2 path_1 cases_new env_old name_array max_formation_error mean_formation_error save_index max_execution_time ...
+        mean_execution_time tot_execution_time
     close all;
 end
 
@@ -27,11 +35,15 @@ for save_index = 5:12
     name_array(save_index) = cases_new{save_index-4};
     max_formation_error(save_index) = max_form_err;
     mean_formation_error(save_index) = mean_form_err;
+    tot_execution_time(save_index) = tot_ex_time;
+    max_execution_time(save_index) = max_time_exe;
+    mean_execution_time(save_index) = mean_tot_time;
 
-    clearvars -except path_2 path_1 cases_new env_old name_array max_formation_error mean_formation_error save_index
+    clearvars -except path_2 path_1 cases_new env_old name_array max_formation_error mean_formation_error save_index max_execution_time ...
+        mean_execution_time tot_execution_time
     close all;
 end
 
 %%
-Table = table(name_array', max_formation_error, mean_formation_error);
+Table = table(name_array', max_formation_error, mean_formation_error, max_execution_time, mean_execution_time, tot_execution_time);
 writetable(Table, "/home/matteociviero/tesi/comparison.xlsx");

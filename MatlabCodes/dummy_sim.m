@@ -1,7 +1,7 @@
 clear all;
 close all;
 
-plotting = false;
+plotting = true;
 alg_fmincon = 'sqp';
 fixed_horizon = false;
 sim_perception_range = true;
@@ -9,11 +9,11 @@ sim_noise = false;
 sigma_2 = (0.15/3)^2;
 eps_loose_grip = 0.15;
 
-N_short = 5;
+N_short = 7;
 N_long = 15;
-N_fixed = 5;
+N_fixed = 15;
 
-env_name = "corridor";
+env_name = "corridor_bar";
 
 traj_fig_name = "trajectory.jpg";
 coord_fig_name = "coordinates.jpg";
