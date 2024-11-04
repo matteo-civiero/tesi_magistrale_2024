@@ -1,5 +1,5 @@
 function [p_tp1, X_F, error, u_opt] = followerMPCandUpdate(...
-                            plant, XL, x0, n, m, N, M, q_load, params, obstacles, qi, U_f_old, loadTheta0, crit_dist, fixed_horizon, alg_fmincon)
+                            A, B, C, D, XL, x0, n, m, N, M, q_load, params, obstacles, qi, U_f_old, loadTheta0, crit_dist, fixed_horizon, alg_fmincon)
 
     % function that computes the MPC for the follower
 
@@ -11,10 +11,10 @@ function [p_tp1, X_F, error, u_opt] = followerMPCandUpdate(...
         Sd_bar = pe.Sd_bar;
         Td_bar = pe.Td_bar;
     else
-        T_bar = getTbar(plant.A, N);
-        S_bar = getSbar(plant.A, plant.B, N);
-        Sd_bar = getSdbar(plant.A, plant.B, N);
-        Td_bar = getTdbar(plant.A, N);
+        T_bar = getTbar(A, N);
+        S_bar = getSbar(A, B, N);
+        Sd_bar = getSdbar(A, B, N);
+        Td_bar = getTdbar(A, N);
     end
     h = XL - T_bar*x0;
     C = params.pot_cost;
@@ -44,9 +44,9 @@ function [p_tp1, X_F, error, u_opt] = followerMPCandUpdate(...
     % model dynamics update, needed to give path intention to plotter
     p_pred = zeros([n, N]); % will have x(1)..x(N) 
     % first state is x(1), not x(0)
-    [~, p_pred(:,1)] = modelDynamics(plant, x0, u_opt_reshaped(:,1));
+    [~, p_pred(:,1)] = modelDynamics(A, B, C, D, x0, u_opt_reshaped(:,1));
     for j=2:N % note that indexes for u lag one behind in real therms
-        [~, p_pred(:,j)] = modelDynamics(plant, p_pred(:,j-1), u_opt_reshaped(:,j));
+        [~, p_pred(:,j)] = modelDynamics(A, B, C, D, p_pred(:,j-1), u_opt_reshaped(:,j));
     end
 
     % update the state and input with the first one predicted
