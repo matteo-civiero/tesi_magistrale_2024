@@ -6,7 +6,8 @@ function state = convert_msg_to_state(msg)
 
 x = msg.pose.pose.position.x;
 y = msg.pose.pose.position.y;
-[heading, ~, ~]  = quat2angle([msg.pose.pose.orientation.x msg.pose.pose.orientation.y msg.pose.pose.orientation.z msg.pose.pose.orientation.w], 'ZYX');
+% [heading, ~, ~]  = quat2angle([msg.pose.pose.orientation.x msg.pose.pose.orientation.y msg.pose.pose.orientation.z msg.pose.pose.orientation.w], 'ZYX');
+heading = msg.pose.pose.orientation.z;
 vx = msg.twist.twist.linear.x;
 vy = msg.twist.twist.linear.y;
 omega = msg.twist.twist.angular.z;
