@@ -1,21 +1,14 @@
 function [p_tp1, X_F, error, u_opt] = followerMPCandUpdate(...
-                            A, B, C, D, XL, x0, n, m, N, M, q_load, params, obstacles, qi, U_f_old, loadTheta0, crit_dist, fixed_horizon, alg_fmincon)
+                            A, B, C, D, XL, x0, n, m, N, M, q_load, params, o_center, o_radius, qi, U_f_old, loadTheta0, crit_dist, fixed_horizon)
 
     % function that computes the MPC for the follower
 
     % parameters
     pe = params.precompiledElements;
-    if fixed_horizon
-        T_bar = pe.T_bar;
-        S_bar = pe.S_bar;
-        Sd_bar = pe.Sd_bar;
-        Td_bar = pe.Td_bar;
-    else
-        T_bar = getTbar(A, N);
-        S_bar = getSbar(A, B, N);
-        Sd_bar = getSdbar(A, B, N);
-        Td_bar = getTdbar(A, N);
-    end
+    T_bar = getTbar(A, N);
+    S_bar = getSbar(A, B, N);
+    Sd_bar = getSdbar(A, B, N);
+    Td_bar = getTdbar(A, N);
     h = XL - T_bar*x0;
     C = params.pot_cost;
     decay = params.pot_decay;
@@ -24,18 +17,18 @@ function [p_tp1, X_F, error, u_opt] = followerMPCandUpdate(...
     [G,W,S] = rigidBodyConstraints(N, params.u_lim, params.phi_dot_lim, params.v_lim, params.w_lim, n, S_bar, T_bar);
     
     % optimization
-    options = optimoptions('fmincon','Algorithm',alg_fmincon,...
+    options = optimoptions('fmincon','Algorithm','sqp',...
         'OptimalityTolerance',1e-1, 'SpecifyObjectiveGradient', true,...
         'Display', 'none');
     
     if crit_dist
         [u_opt] = fmincon(...
-             @(U) followerCostGradientHessian(U, x0, n, m, N, h, pe, params.vertexes, M, params.initRobotShape, obstacles, C, decay, params.R, T_bar, S_bar, Td_bar, Sd_bar, crit_dist, fixed_horizon),...
+             @(U) followerCostGradientHessian(U, x0, n, m, N, h, pe, params.vertexes, M, params.initRobotShape, o_center, o_radius, C, decay, params.R, T_bar, S_bar, Td_bar, Sd_bar, crit_dist, fixed_horizon),...
              U_f_old, G, W + S*x0, [], [], [], [], ...
              @(U) non_linear_constr_follower(U, qi, q_load, x0, N, n, M, params.vertexes, params.L, params.initRobotShape, params.initLoadShape, params.loadCenter, T_bar, S_bar, XL, loadTheta0), options);
     else
         [u_opt] = fmincon(...
-             @(U) followerCostGradientHessian(U, x0, n, m, N, h, pe, [], [], [], [], [], [], params.R, [], S_bar, Td_bar, Sd_bar, crit_dist, fixed_horizon),...
+             @(U) followerCostGradientHessian(U, x0, n, m, N, h, pe, [], 0, [], [], [], [], [], params.R, [], S_bar, Td_bar, Sd_bar, crit_dist, fixed_horizon),...
              U_f_old, G, W + S*x0, [], [], [], [], [], options);
 
     end

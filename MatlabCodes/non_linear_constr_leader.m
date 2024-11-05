@@ -7,6 +7,7 @@ p0 = x0(1:2); % initial position of agent
 x_t = (T_bar * x0 + S_bar * U);
 k = 1;
 if M>=1
+    c = zeros(N*M*L, 1);
     for t=1:N
         for i=1:M
             qi = q_points(:,i);

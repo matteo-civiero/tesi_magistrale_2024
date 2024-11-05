@@ -1,15 +1,10 @@
-function [f, g] = followerCostGradientHessian(U, x0, n, m, N, h, pe, L, M, vertexes, obstacles, C, decay, R, T_bar, S_bar, Td_bar, Sd_bar, crit_dist, fixed_horizon)
+function [f, g] = followerCostGradientHessian(U, x0, n, m, N, h, pe, L, M, vertexes, o_center, o_radius, C, decay, R, T_bar, S_bar, Td_bar, Sd_bar, crit_dist, fixed_horizon)
 
     % Computes functional cost f and gradient g of the follower
     
     P = pe.P;
-    if fixed_horizon
-        P_bar = pe.P_bar;
-        beta_vec = pe.beta_vec;
-    else
-        P_bar = kron(eye(N), P);
-        beta_vec = pe.beta .^ (0:(N-1))';
-    end
+    P_bar = kron(eye(N), P);
+    beta_vec = pe.beta .^ (0:(N-1))';
     
     f1= (P_bar*(Sd_bar*U + Td_bar*x0))'*(P_bar*(Sd_bar*U + Td_bar*x0)); % cost function (33)
     SU = reshape(S_bar * U, [n, N]); 
@@ -22,6 +17,7 @@ function [f, g] = followerCostGradientHessian(U, x0, n, m, N, h, pe, L, M, verte
     
     % function for potential repulsion
     f3 = 0;
+    x_t = zeros(n*N, 1);
     if (crit_dist) && (M > 0)
         x_t = (T_bar * x0 + S_bar * U);
         for i = 1:M
@@ -29,7 +25,7 @@ function [f, g] = followerCostGradientHessian(U, x0, n, m, N, h, pe, L, M, verte
                 for t = 1:N
                     % x_t((n*(t-1)+1):(n*(t-1)+2) is position(t)
                     % x_t(n*(t-1)+3) is the rotation
-                    f3 = f3 + C * exp(-decay * (norm(x_t((n*(t-1)+1):(n*(t-1)+2)) + Rmat(x_t(n*(t-1)+3)) * vertexes(:,j) - obstacles{i}.center) - obstacles{i}.radius));
+                    f3 = f3 + C * exp(-decay * (norm(x_t((n*(t-1)+1):(n*(t-1)+2)) + Rmat(x_t(n*(t-1)+3)) * vertexes(:,j) - o_center(i)) - o_radius(i)));
                 end
             end
         end
@@ -57,8 +53,8 @@ function [f, g] = followerCostGradientHessian(U, x0, n, m, N, h, pe, L, M, verte
         g3 = zeros([m*N, 1]);
         if (crit_dist) && (M > 0)
             % creation of F and G matrixes for correct instant selection
-            F = cell(N);
-            G = cell(N);
+            F = coder.nullcopy(cell(N));
+            G = coder.nullcopy(cell(N));
             for t = 1:N
                 F{t} = zeros([2, n*N]);
                 F{t}(1, n*(t-1) + 1) = 1;
@@ -75,9 +71,9 @@ function [f, g] = followerCostGradientHessian(U, x0, n, m, N, h, pe, L, M, verte
                             sin(G{t} * x_t)*vertexes(1, j) + cos(G{t} * x_t)*vertexes(2, j)];
                         mat_d = [-sin(G{t} * x_t)*vertexes(1, j) - cos(G{t} * x_t)*vertexes(2, j); 
                             cos(G{t} * x_t)*vertexes(1, j) - sin(G{t} * x_t)*vertexes(2, j)];
-                        D = F{t} * x_t + mat_nd - obstacles{i}.center;
+                        D = F{t} * x_t + mat_nd - o_center(i);
                         
-                        g3 = g3 - decay * C * exp(-decay * (norm(D) - obstacles{i}.radius)) * (S_bar' * F{t}' + S_bar' * G{t}' * mat_d') * D / norm(D);
+                        g3 = g3 - decay * C * exp(-decay * (norm(D) - o_radius(i))) * (S_bar' * F{t}' + S_bar' * G{t}' * mat_d') * D / norm(D);
                     end
                 end
             end

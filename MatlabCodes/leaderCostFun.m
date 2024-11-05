@@ -1,4 +1,4 @@
-function [J] = leaderCostFun(U, H, f, x0, T_bar, S_bar, C, decay, vertexes, M, L, N, n, obstacles, crit_dist)
+function [J] = leaderCostFun(U, H, f, x0, T_bar, S_bar, C, decay, vertexes, M, L, N, n, o_center, o_radius, crit_dist)
 %LEADERCOSTFUN functional cost for leader
 %   navigation cost + potential repulsion cost
 
@@ -14,7 +14,7 @@ if (crit_dist) && (M > 0)
     for i = 1:M
         for j = 1:L
             for t = 1:N
-                J3 = J3 + C * exp(-decay * (norm(x_t((n*(t-1)+1):(n*(t-1)+2)) + Rmat(x_t(n*(t-1)+3)) * vertexes(:,j) - obstacles{i}.center) - obstacles{i}.radius));
+                J3 = J3 + C * exp(-decay * (norm(x_t((n*(t-1)+1):(n*(t-1)+2)) + Rmat(x_t(n*(t-1)+3)) * vertexes(:,j) - o_center(i)) - o_radius(i)));
                 % x_t((n*(t-1)+1):(n*(t-1)+2)) is position(t),
                 % x_t(n*(t-1)+3) is the rotation
             end

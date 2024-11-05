@@ -1,5 +1,5 @@
 function [p_tp1, X_L, error, u_opt] = leaderMPCandUpdateHalt(...
-                            A, B, C, D, x_0, n, m, N, M, optParams, obstacles, qi, U_l_old, crit_dist, fixed_horizon, alg_fmincon)
+                            A, B, C, D, x_0, n, m, N, M, optParams, o_center, o_radius, qi, U_l_old, crit_dist, fixed_horizon)
 % execute the MPC for the leader in feasibility-aware policy
 
 % get params
@@ -8,16 +8,11 @@ phi_dot_lim = optParams.phi_dot_lim;
 v_lim = optParams.v_lim;
 w_lim = optParams.w_lim;
 L = optParams.L;
-C = optParams.pot_cost;
+C_pot = optParams.pot_cost;
 decay = optParams.pot_decay;
+T_bar = getTbar(A, N);
+S_bar = getSbar(A, B, N);
 
-if fixed_horizon
-    T_bar = optParams.precompiledElements.T_bar;
-    S_bar = optParams.precompiledElements.S_bar;
-else
-    T_bar = getTbar(A, N);
-    S_bar = getSbar(A, B, N);
-end
 
 % get constraints matrices
 [G,W,S] = rigidBodyConstraints(N, u_lim, phi_dot_lim, v_lim, w_lim, n, S_bar, T_bar);
@@ -26,18 +21,18 @@ Ac = G;    bc = W + S*x_0;
 
 % perform minimization with fmincon in order to use a functional cost for
 % the distance between leader and obstalces
-options = optimoptions('fmincon','Algorithm',alg_fmincon,...
+options = optimoptions('fmincon','Algorithm','sqp',...
         'OptimalityTolerance',1e-1, 'SpecifyObjectiveGradient',false,...
         'Display', 'none');
 
 if crit_dist
     [u_opt, ~, exitflag] = fmincon(...
-             @(U) leaderCostFunHalt(U, x_0, T_bar, S_bar, C, decay, optParams.initRobotShape, M, L, N, n, obstacles, crit_dist),...
+             @(U) leaderCostFunHalt(U, x_0, T_bar, S_bar, C_pot, decay, optParams.initRobotShape, M, L, N, n, o_center, o_radius, crit_dist),...
              U_l_old, Ac, bc, [], [], [], [], ...
              @(U) non_linear_constr_leader(U, qi, x_0, N, n, M, L, optParams.initRobotShape, T_bar, S_bar), options);
 else
     [u_opt, ~, exitflag] = fmincon(...
-             @(U) leaderCostFunHalt(U, x_0, T_bar, S_bar, [], [], [], [], [], N, [], [], crit_dist),...
+             @(U) leaderCostFunHalt(U, x_0, T_bar, S_bar, [], [], [], 0, [], N, n, [], [], crit_dist),...
              U_l_old, Ac, bc, [], [], [], [], [], options);
 end
 

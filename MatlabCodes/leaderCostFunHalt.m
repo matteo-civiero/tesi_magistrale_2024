@@ -1,4 +1,4 @@
-function [J] = leaderCostFunHalt(U, x0, T_bar, S_bar, C, decay, vertexes, M, L, N, n, obstalces, crit_dist)
+function [J] = leaderCostFunHalt(U, x0, T_bar, S_bar, C, decay, vertexes, M, L, N, n, o_center, o_radius, crit_dist)
 %LEADERCOSTFUN functional cost for leader in feasibility-aware policy
 %   function that slows down the leader to allow follower to get back in formation + potential repulsion cost
 
@@ -18,7 +18,7 @@ if (crit_dist) && (M > 0)
         for j = 1:L
             for t = 1:N
                 % x_t((n*(t-1)+1):(n*(t-1)+2) is position(t)
-                J3 = J3 + C * exp(-decay * (norm(x_t((n*(t-1)+1):(n*(t-1)+2)) + Rmat(x_t(n*(t-1)+3)) * vertexes(:,j) - obstalces{i}.center) - obstalces{i}.radius));
+                J3 = J3 + C * exp(-decay * (norm(x_t((n*(t-1)+1):(n*(t-1)+2)) + Rmat(x_t(n*(t-1)+3)) * vertexes(:,j) - o_center(i)) - o_radius(i)));
             end
         end
     end
