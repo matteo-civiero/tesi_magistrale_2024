@@ -30,7 +30,7 @@ function setup(block)
 
 % Register number of ports
 block.NumInputPorts  = 3; % x_l, x_f, loadTheta
-block.NumOutputPorts = 2; % u_l, u_f
+block.NumOutputPorts = 5; % u_l, u_f, collision for leader, follower and load
 
 % Setup port properties to be inherited or dynamic
 block.SetPreCompInpPortInfoToDynamic;
@@ -42,11 +42,17 @@ block.InputPort(3).Dimensions = 1;
 
 block.OutputPort(1).Dimensions = 3;
 block.OutputPort(2).Dimensions = 3;
+block.OutputPort(3).Dimensions = 1;
+block.OutputPort(4).Dimensions = 1;
+block.OutputPort(5).Dimensions = 1;
+block.OutputPort(3).DatatypeID = 8;
+block.OutputPort(4).DatatypeID = 8;
+block.OutputPort(5).DatatypeID = 8;
 
 
 % Register parameters
-block.NumDialogPrms     = 22;
-block.DialogPrmsTunable = {'NonTunable', 'NonTunable', 'NonTunable', 'Nontunable', 'Nontunable', 'NonTunable', 'NonTunable', 'Nontunable', 'Nontunable', 'NonTunable', 'NonTunable', 'NonTunable', 'NonTunable', 'NonTunable', 'NonTunable', 'NonTunable', 'NonTunable', 'NonTunable', 'NonTunable', 'Nontunable', 'Nontunable', 'Nontunable'};
+block.NumDialogPrms     = 23;
+block.DialogPrmsTunable = {'NonTunable', 'NonTunable', 'NonTunable', 'Nontunable', 'Nontunable', 'NonTunable', 'NonTunable', 'Nontunable', 'Nontunable', 'NonTunable', 'NonTunable', 'NonTunable', 'NonTunable', 'NonTunable', 'NonTunable', 'NonTunable', 'NonTunable', 'NonTunable', 'NonTunable', 'Nontunable', 'Nontunable', 'Nontunable', 'Nontunable'};
 
 % Register sample times
 %  [0 offset]            : Continuous sample time
@@ -54,7 +60,7 @@ block.DialogPrmsTunable = {'NonTunable', 'NonTunable', 'NonTunable', 'Nontunable
 %
 %  [-1, 0]               : Inherited sample time
 %  [-2, 0]               : Variable sample time
-block.SampleTimes = [0.1 0];
+block.SampleTimes = [block.DialogPrm(23).Data 0];
 
 % Specify the block simStateCompliance. The allowed values are:
 %    'UnknownSimState', < The default setting; warn and assume DefaultSimState
@@ -201,8 +207,8 @@ perception_range = block.DialogPrm(18).Data;
 policy_halt = block.DialogPrm(19).Data;
 
 % see function declaration, the dialog params order is the same
-[block.OutputPort(1).Data, block.OutputPort(2).Data, N, U_l_old, U_f_old] = MPC(block.InputPort(1).Data, block.InputPort(2).Data, ...
-    block.InputPort(3).Data, sim_perception_range, fixed_horizon, alg_fmincon, obstacles, N, N_long, N_short, U_l_old, ...
+[block.OutputPort(1).Data, block.OutputPort(2).Data, block.OutputPort(3).Data, block.OutputPort(4).Data, block.OutputPort(5).Data, N, U_l_old, U_f_old] = MPC(block.InputPort(1).Data, ...
+    block.InputPort(2).Data, block.InputPort(3).Data, sim_perception_range, fixed_horizon, alg_fmincon, obstacles, N, N_long, N_short, U_l_old, ...
     U_f_old, n, m, leaderParams, followerParams, plant, P, eps_loose_grip, k_loose_grip, perception_range, policy_halt);
 
 %end Outputs
@@ -216,7 +222,8 @@ policy_halt = block.DialogPrm(19).Data;
 %%
 function Update(block)
 
-block.Dwork(4).Data = block.Dwork(4).Data + block.Dwork(6).Data*0.1;
+Ts = block.DialogPrm(23).Data;
+block.Dwork(4).Data = block.Dwork(4).Data + block.Dwork(6).Data*Ts;
 
 %end Update
 

@@ -1,8 +1,9 @@
-function [u_l, u_f, N, U_l_old, U_f_old] = MPC(x_l, x_f, loadTheta, sim_perception_range, fixed_horizon, alg_fmincon, obstacles, N, N_long, N_short, U_l_old, ...
+function [u_l, u_f, collision_l, collision_f, collision_load, N, U_l_old, U_f_old] = MPC(x_l, x_f, loadTheta, sim_perception_range, fixed_horizon, alg_fmincon, obstacles, N, N_long, N_short, U_l_old, ...
     U_f_old, n, m, leaderParams, followerParams, plant, P, eps_loose_grip, k_loose_grip, perception_range, policy_halt)
 %MPC Summary of this function goes here
 %   Detailed explanation goes here
 % obstacles perception
+
 if sim_perception_range
     obs_in_perception = [];
     cnt = 1;
@@ -24,6 +25,10 @@ end
 [~, M_follower] = size(qi_follower);
 
 [q_load, ~] = getObstacleInfo(obs_in_perception, x_f(1:2) + Rmat(loadTheta) * followerParams.loadCenter); % loadCenter rotates with load
+
+% collision detection on current state
+[collision_l, collision_f, collision_load] = collision_detection(x_l, x_f, loadTheta, leaderParams, followerParams, M_leader, M_follower, obs_in_perception);
+
 
 if fixed_horizon % fixed horizon always considers obstacles, so crit_dist = true always
     crit_dist = true;
@@ -67,15 +72,16 @@ else
     end
 end
 
+
 % obtain the next state, the planned path, the identified qis and solver error for leader
-[x_l(:), X_L, ~, U_l_old] = leaderMPCandUpdate( ...
+[~, X_L, ~, U_l_old] = leaderMPCandUpdate( ...
     plant, x_l(:), n, m, N, M_leader, leaderParams, obs_in_perception, qi_leader, U_l_old, crit_dist, fixed_horizon, alg_fmincon);
 
 % stack the planned path to supply to the follower, and have it do mpc
 X_L_stacked = reshape(X_L, [n*N, 1]);
 
 %LINEAR follower constraints:
-[x_f(:), X_F, ~, U_f_old] = followerMPCandUpdate(...
+[~, X_F, ~, U_f_old] = followerMPCandUpdate(...
     plant, X_L_stacked, x_f(:), n, m, N, M_follower, q_load, followerParams, obs_in_perception, qi_follower, U_f_old, loadTheta, crit_dist, fixed_horizon, alg_fmincon);
 
 if policy_halt 
@@ -83,16 +89,17 @@ if policy_halt
     formation_error_allt = abs(vecnorm(P*(X_L-X_F))-followerParams.d_FL);
     if any(formation_error_allt(1:k_loose_grip) > eps_loose_grip)
         % obtain the next state, the planned path, the identified qis and solver error for leader
-        [x_l(:), X_L, error, U_l_old] = leaderMPCandUpdateHalt( ...
+        [~, X_L, error, U_l_old] = leaderMPCandUpdateHalt( ...
             plant, x_l(:), n, m, N, M_leader, leaderParams, obs_in_perception, qi_leader, zeros([m*N,1]), crit_dist, fixed_horizon, alg_fmincon);
 
         % stack the planned path to supply to the follower, and have it do mpc
         X_L_stacked = reshape(X_L, [n*N, 1]);
         %LINEAR follower constraints:
-        [x_f(:), X_F, ~, U_f_old] = followerMPCandUpdate(...
+        [~, X_F, ~, U_f_old] = followerMPCandUpdate(...
             plant, X_L_stacked, x_f(:), n, m, N, M_follower, q_load, followerParams, obs_in_perception, qi_follower, zeros([m*N,1]), loadTheta, crit_dist, fixed_horizon, alg_fmincon);
     end
 end
+
 u_l = U_l_old(1:3);
 u_f = U_f_old(1:3);
 end

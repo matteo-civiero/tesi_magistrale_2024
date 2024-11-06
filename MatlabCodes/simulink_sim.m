@@ -15,7 +15,7 @@ plantc = ss(A,B,C,D);
 % discrete-time system
 plant = c2d(plantc, Ts, 'zoh'); % exact discretization
 
-env_name = "two_obs";
+env_name = "three_obs";
 [x0, obstacles] = setupEnvironment(env_name);
 [~, M] = size(obstacles);
 for i=1:M
@@ -32,7 +32,7 @@ x_f_0 = x0 + [1; 0; 0; 0; 0; 0]; % at initial condition we have horizontal dispo
 alg_fmincon = 'sqp';
 fixed_horizon = false;
 sim_perception_range = true;
-eps_loose_grip = 0.01;
+eps_loose_grip = 0.05;
 
 N_short = 5;
 N_long = 15;
