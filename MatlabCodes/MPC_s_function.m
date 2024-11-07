@@ -39,6 +39,9 @@ block.SetPreCompOutPortInfoToDynamic;
 block.InputPort(1).Dimensions = 6;
 block.InputPort(2).Dimensions = 6;
 block.InputPort(3).Dimensions = 1;
+block.InputPort(1).SampleTime = [-1 0];
+block.InputPort(2).SampleTime = [-1 0];
+block.InputPort(3).SampleTime = [-1 0];
 
 block.OutputPort(1).Dimensions = 3;
 block.OutputPort(2).Dimensions = 3;
@@ -48,7 +51,11 @@ block.OutputPort(5).Dimensions = 1;
 block.OutputPort(3).DatatypeID = 8;
 block.OutputPort(4).DatatypeID = 8;
 block.OutputPort(5).DatatypeID = 8;
-
+block.OutputPort(1).SampleTime = [-1 0];
+block.OutputPort(2).SampleTime = [-1 0];
+block.OutputPort(3).SampleTime = [-1 0];
+block.OutputPort(4).SampleTime = [-1 0];
+block.OutputPort(5).SampleTime = [-1 0];
 
 % Register parameters
 block.NumDialogPrms     = 23;
@@ -60,7 +67,7 @@ block.DialogPrmsTunable = {'NonTunable', 'NonTunable', 'NonTunable', 'Nontunable
 %
 %  [-1, 0]               : Inherited sample time
 %  [-2, 0]               : Variable sample time
-block.SampleTimes = [block.DialogPrm(23).Data 0];
+% block.SampleTimes = [block.DialogPrm(23).Data 0];
 
 % Specify the block simStateCompliance. The allowed values are:
 %    'UnknownSimState', < The default setting; warn and assume DefaultSimState
@@ -81,6 +88,8 @@ block.SimStateCompliance = 'DefaultSimState';
 
 block.RegBlockMethod('PostPropagationSetup',    @DoPostPropSetup);
 % block.RegBlockMethod('InitializeConditions', @InitializeConditions);
+block.RegBlockMethod('SetInputPortSampleTime', @SetInputSampleTime);
+block.RegBlockMethod('SetOutputPortSampleTime', @SetOutputSampleTime);
 block.RegBlockMethod('Start', @Start);
 block.RegBlockMethod('Outputs', @Outputs);     % Required
 block.RegBlockMethod('Update', @Update);
@@ -131,6 +140,18 @@ block.Dwork(6).DatatypeID = 0;
 block.Dwork(6).Complexity = "Real";
 
 
+function SetInputSampleTime(block, port, time)
+
+block.InputPort(port).SampleTime = time;
+
+%end SetInputPortSampleTime
+
+
+function SetOutputSampleTime(block, port, time)
+
+block.OutputPort(port).SampleTime = time;
+
+%end SetOutputPortSampleTime
 
 %%
 %% InitializeConditions:
