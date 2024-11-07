@@ -15,7 +15,7 @@ plantc = ss(A,B,C,D);
 % discrete-time system
 plant = c2d(plantc, Ts, 'zoh'); % exact discretization
 
-env_name = "three_obs";
+env_name = "valzer";
 [x0, obstacles] = setupEnvironment(env_name);
 [~, M] = size(obstacles);
 for i=1:M
