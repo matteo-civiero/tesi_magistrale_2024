@@ -1,4 +1,4 @@
-function MPC_s_function(block)
+function Collision_detection_s(block)
 %MSFUNTMPL_BASIC A Template for a Level-2 MATLAB S-Function
 %   The MATLAB S-function is written as a MATLAB function with the
 %   same name as the S-function. Replace 'msfuntmpl_basic' with the 
@@ -30,7 +30,7 @@ function setup(block)
 
 % Register number of ports
 block.NumInputPorts  = 3; % x_l, x_f, loadTheta
-block.NumOutputPorts = 2; % u_l, u_f
+block.NumOutputPorts = 3; % collision for leader, follower and load
 
 % Setup port properties to be inherited or dynamic
 block.SetPreCompInpPortInfoToDynamic;
@@ -40,13 +40,17 @@ block.InputPort(1).Dimensions = 6;
 block.InputPort(2).Dimensions = 6;
 block.InputPort(3).Dimensions = 1;
 
-block.OutputPort(1).Dimensions = 3;
-block.OutputPort(2).Dimensions = 3;
+block.OutputPort(1).Dimensions = 1;
+block.OutputPort(2).Dimensions = 1;
+block.OutputPort(3).Dimensions = 1;
+block.OutputPort(1).DatatypeID = 8;
+block.OutputPort(2).DatatypeID = 8;
+block.OutputPort(3).DatatypeID = 8;
 
 
 % Register parameters
-block.NumDialogPrms     = 23; % sim_perception_range, fixed_horizon, alg_fmincon, obs_centers, N, N_long, N_short, U_l_old, U_f_old, n, m, leaderParams, followerParams, plant, P, eps_loose_grip, k_loose_grip, perception_range, policy_halt, obs_radius, obs_velocities, M, Ts
-block.DialogPrmsTunable = {'NonTunable', 'NonTunable', 'NonTunable', 'Nontunable', 'Nontunable', 'NonTunable', 'NonTunable', 'Nontunable', 'Nontunable', 'NonTunable', 'NonTunable', 'NonTunable', 'NonTunable', 'NonTunable', 'NonTunable', 'NonTunable', 'NonTunable', 'NonTunable', 'NonTunable', 'Nontunable', 'Nontunable', 'Nontunable', 'Nontunable'};
+block.NumDialogPrms     = 4; % leaderParams, followerParams, M, obstacles
+block.DialogPrmsTunable = {'NonTunable', 'NonTunable', 'NonTunable', 'Nontunable'};
 
 % Register sample times
 %  [0 offset]            : Continuous sample time
@@ -54,7 +58,7 @@ block.DialogPrmsTunable = {'NonTunable', 'NonTunable', 'NonTunable', 'Nontunable
 %
 %  [-1, 0]               : Inherited sample time
 %  [-2, 0]               : Variable sample time
-block.SampleTimes = [block.DialogPrm(23).Data 0];
+block.SampleTimes = [-1 0];
 
 % Specify the block simStateCompliance. The allowed values are:
 %    'UnknownSimState', < The default setting; warn and assume DefaultSimState
@@ -92,39 +96,7 @@ block.RegBlockMethod('Terminate', @Terminate); % Required
 %%
 function DoPostPropSetup(block)
 
-block.NumDworks = 6;
-
-block.Dwork(1).Name = 'N';
-block.Dwork(1).DatatypeID = 0;
-block.Dwork(1).Dimensions = 1;
-block.Dwork(1).Complexity = "Real";
-
-block.Dwork(2).Name = 'U_l_old';
-block.Dwork(2).DatatypeID = 0;
-block.Dwork(2).Dimensions = block.DialogPrm(11).Data*block.DialogPrm(5).Data;
-block.Dwork(2).Complexity = "Real";
-
-block.Dwork(3).Name = 'U_f_old';
-block.Dwork(3).DatatypeID = 0;
-block.Dwork(3).Dimensions = block.DialogPrm(11).Data*block.DialogPrm(5).Data;
-block.Dwork(3).Complexity = "Real";
-
-block.Dwork(4).Name = 'obs_centers';
-block.Dwork(4).Dimensions = 2*block.DialogPrm(22).Data;
-block.Dwork(4).DatatypeID = 0;
-block.Dwork(4).Complexity = "Real";
-
-block.Dwork(5).Name = 'obs_radius';
-block.Dwork(5).Dimensions = block.DialogPrm(22).Data;
-block.Dwork(5).DatatypeID = 0;
-block.Dwork(5).Complexity = "Real";
-
-block.Dwork(6).Name = 'obs_vel';
-block.Dwork(6).Dimensions = 2*block.DialogPrm(22).Data;
-block.Dwork(6).DatatypeID = 0;
-block.Dwork(6).Complexity = "Real";
-
-
+block.NumDworks = 0;
 
 %%
 %% InitializeConditions:
@@ -150,13 +122,6 @@ block.Dwork(6).Complexity = "Real";
 %%
 function Start(block)
 
-block.Dwork(1).Data = block.DialogPrm(5).Data;
-block.Dwork(2).Data = block.DialogPrm(8).Data;
-block.Dwork(3).Data = block.DialogPrm(9).Data;
-block.Dwork(4).Data = block.DialogPrm(4).Data; % obs_centers
-block.Dwork(5).Data = block.DialogPrm(20).Data; % obs_radius
-block.Dwork(6).Data = block.DialogPrm(21).Data; % obs_vels
-
 %end Start
 
 %%
@@ -168,42 +133,14 @@ block.Dwork(6).Data = block.DialogPrm(21).Data; % obs_vels
 %%
 function Outputs(block)
 
-sim_perception_range =  block.DialogPrm(1).Data;
-fixed_horizon = block.DialogPrm(2).Data;
-alg_fmincon = block.DialogPrm(3).Data;
-obs_centers = block.Dwork(4).Data;
-obs_radius = block.Dwork(5).Data;
-obs_vels = block.Dwork(6).Data;
-M = block.DialogPrm(22).Data;
-obs_centers = reshape(obs_centers, [2 M]);
-obs_vels = reshape(obs_vels, [2 M]);
-obstacles = cell(M);
-for i=1:M
-    obstacles{i}.center = obs_centers(:,i);
-    obstacles{i}.radius = obs_radius(i);
-    obstacles{i}.velocity = obs_vels(:,i);
-    obstacles{i}.type = "circle";
-end
-N = block.Dwork(1).Data;
-N_long = block.DialogPrm(6).Data;
-N_short = block.DialogPrm(7).Data;
-U_l_old = block.Dwork(2).Data;
-U_f_old = block.Dwork(3).Data;
-n = block.DialogPrm(10).Data; 
-m = block.DialogPrm(11).Data;
-leaderParams = block.DialogPrm(12).Data;
-followerParams = block.DialogPrm(13).Data;
-plant = block.DialogPrm(14).Data; 
-P = block.DialogPrm(15).Data;
-eps_loose_grip = block.DialogPrm(16).Data;
-k_loose_grip = block.DialogPrm(17).Data;
-perception_range = block.DialogPrm(18).Data;
-policy_halt = block.DialogPrm(19).Data;
+leaderParams = block.DialogPrm(1).Data;
+followerParams = block.DialogPrm(2).Data;
+M = block.DialogPrm(3).Data;
+obstacles = block.DialogPrm(4).Data;
 
 % see function declaration, the dialog params order is the same
-[block.OutputPort(1).Data, block.OutputPort(2).Data, N, U_l_old, U_f_old] = MPC(block.InputPort(1).Data, ...
-    block.InputPort(2).Data, block.InputPort(3).Data, sim_perception_range, fixed_horizon, alg_fmincon, obstacles, N, N_long, N_short, U_l_old, ...
-    U_f_old, n, m, leaderParams, followerParams, plant, P, eps_loose_grip, k_loose_grip, perception_range, policy_halt);
+[block.OutputPort(1).Data, block.OutputPort(2).Data, block.OutputPort(3).Data] = collision_detection(block.InputPort(1).Data,...
+    block.InputPort(2).Data, block.InputPort(3).Data, leaderParams, followerParams, M, M, obstacles);
 
 %end Outputs
 
@@ -215,9 +152,6 @@ policy_halt = block.DialogPrm(19).Data;
 %%   C MEX counterpart: mdlUpdate
 %%
 function Update(block)
-
-Ts = block.DialogPrm(23).Data;
-block.Dwork(4).Data = block.Dwork(4).Data + block.Dwork(6).Data*Ts;
 
 %end Update
 

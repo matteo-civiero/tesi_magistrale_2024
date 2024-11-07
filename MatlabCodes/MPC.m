@@ -1,4 +1,4 @@
-function [u_l, u_f, collision_l, collision_f, collision_load, N, U_l_old, U_f_old] = MPC(x_l, x_f, loadTheta, sim_perception_range, fixed_horizon, alg_fmincon, obstacles, N, N_long, N_short, U_l_old, ...
+function [u_l, u_f, N, U_l_old, U_f_old] = MPC(x_l, x_f, loadTheta, sim_perception_range, fixed_horizon, alg_fmincon, obstacles, N, N_long, N_short, U_l_old, ...
     U_f_old, n, m, leaderParams, followerParams, plant, P, eps_loose_grip, k_loose_grip, perception_range, policy_halt)
 %MPC Summary of this function goes here
 %   Detailed explanation goes here
@@ -26,8 +26,9 @@ end
 
 [q_load, ~] = getObstacleInfo(obs_in_perception, x_f(1:2) + Rmat(loadTheta) * followerParams.loadCenter); % loadCenter rotates with load
 
-% collision detection on current state
-[collision_l, collision_f, collision_load] = collision_detection(x_l, x_f, loadTheta, leaderParams, followerParams, M_leader, M_follower, obs_in_perception);
+% collision detection on current state -> MADE CONTINUOUS IN
+% Collision_detection_s
+%[collision_l, collision_f, collision_load] = collision_detection(x_l, x_f, loadTheta, leaderParams, followerParams, M_leader, M_follower, obs_in_perception);
 
 
 if fixed_horizon % fixed horizon always considers obstacles, so crit_dist = true always
