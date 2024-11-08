@@ -13,7 +13,7 @@ legend("Leader Robot","Follower Robot","Location","southeast","Interpreter","lat
 figure;
 hold on; grid on;
 plot(out.fe.time, out.fe.signals.values(:), "LineWidth", 2);
-% xlim([0, 20]);
+xlim([0, 42.1]);
 % ylim([-0.015, 0.015]);
 xlabel("Time [s]", "Interpreter","latex", "FontSize", 20)
 ylabel("$fe_{L,F}(t)$ [m]", "Interpreter","latex", "FontSize", 20)

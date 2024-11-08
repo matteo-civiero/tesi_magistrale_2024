@@ -7,26 +7,28 @@ collision_l = false;
 collision_f = false;
 collision_load = false;
 
-for i=1:M_leader
-    for j=1:leaderParams.L
-        if (vecnorm((x_l(1:2) + Rmat(x_l(3))*leaderParams.initRobotShape(:,j)) - obstacles{i}.center) - obstacles{i}.radius < 0)
-            collision_l = true;
+if M_leader > 0
+    for i=1:M_leader
+        for j=1:leaderParams.L
+            if (vecnorm((x_l(1:2) + Rmat(x_l(3))*leaderParams.initRobotShape(:,j)) - obstacles{i}.center) - obstacles{i}.radius < 0)
+                collision_l = true;
+            end
         end
     end
-end
-
-for i=1:M_follower
-    for j=1:followerParams.vertexes
-        if (vecnorm((x_f(1:2) + Rmat(x_f(3))*followerParams.initRobotShape(:,j)) - obstacles{i}.center) - obstacles{i}.radius < 0)
-            collision_f = true;
+    
+    for i=1:M_follower
+        for j=1:followerParams.vertexes
+            if (vecnorm((x_f(1:2) + Rmat(x_f(3))*followerParams.initRobotShape(:,j)) - obstacles{i}.center) - obstacles{i}.radius < 0)
+                collision_f = true;
+            end
         end
     end
-end
-
-for i=1:M_follower
-    for j=1:(followerParams.L - followerParams.vertexes)
-        if (vecnorm((x_f(1:2) + Rmat(loadTheta)*followerParams.initLoadShape(:,j)) - obstacles{i}.center) - obstacles{i}.radius < 0)
-            collision_load = true;
+    
+    for i=1:M_follower
+        for j=1:(followerParams.L - followerParams.vertexes)
+            if (vecnorm((x_f(1:2) + Rmat(loadTheta)*followerParams.initLoadShape(:,j)) - obstacles{i}.center) - obstacles{i}.radius < 0)
+                collision_load = true;
+            end
         end
     end
 end

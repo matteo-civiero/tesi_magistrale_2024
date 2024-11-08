@@ -92,37 +92,56 @@ block.RegBlockMethod('Terminate', @Terminate); % Required
 %%
 function DoPostPropSetup(block)
 
-block.NumDworks = 6;
+if block.DialogPrm(22).Data > 0
+    block.NumDworks = 6;
 
-block.Dwork(1).Name = 'N';
-block.Dwork(1).DatatypeID = 0;
-block.Dwork(1).Dimensions = 1;
-block.Dwork(1).Complexity = "Real";
+    block.Dwork(1).Name = 'N';
+    block.Dwork(1).DatatypeID = 0;
+    block.Dwork(1).Dimensions = 1;
+    block.Dwork(1).Complexity = "Real";
+    
+    block.Dwork(2).Name = 'U_l_old';
+    block.Dwork(2).DatatypeID = 0;
+    block.Dwork(2).Dimensions = block.DialogPrm(11).Data*block.DialogPrm(5).Data;
+    block.Dwork(2).Complexity = "Real";
+    
+    block.Dwork(3).Name = 'U_f_old';
+    block.Dwork(3).DatatypeID = 0;
+    block.Dwork(3).Dimensions = block.DialogPrm(11).Data*block.DialogPrm(5).Data;
+    block.Dwork(3).Complexity = "Real";
 
-block.Dwork(2).Name = 'U_l_old';
-block.Dwork(2).DatatypeID = 0;
-block.Dwork(2).Dimensions = block.DialogPrm(11).Data*block.DialogPrm(5).Data;
-block.Dwork(2).Complexity = "Real";
+    block.Dwork(4).Name = 'obs_centers';
+    block.Dwork(4).Dimensions = 2*block.DialogPrm(22).Data;
+    block.Dwork(4).DatatypeID = 0;
+    block.Dwork(4).Complexity = "Real";
+    
+    block.Dwork(5).Name = 'obs_radius';
+    block.Dwork(5).Dimensions = block.DialogPrm(22).Data;
+    block.Dwork(5).DatatypeID = 0;
+    block.Dwork(5).Complexity = "Real";
+    
+    block.Dwork(6).Name = 'obs_vel';
+    block.Dwork(6).Dimensions = 2*block.DialogPrm(22).Data;
+    block.Dwork(6).DatatypeID = 0;
+    block.Dwork(6).Complexity = "Real";
+else
+    block.NumDworks = 3;
 
-block.Dwork(3).Name = 'U_f_old';
-block.Dwork(3).DatatypeID = 0;
-block.Dwork(3).Dimensions = block.DialogPrm(11).Data*block.DialogPrm(5).Data;
-block.Dwork(3).Complexity = "Real";
-
-block.Dwork(4).Name = 'obs_centers';
-block.Dwork(4).Dimensions = 2*block.DialogPrm(22).Data;
-block.Dwork(4).DatatypeID = 0;
-block.Dwork(4).Complexity = "Real";
-
-block.Dwork(5).Name = 'obs_radius';
-block.Dwork(5).Dimensions = block.DialogPrm(22).Data;
-block.Dwork(5).DatatypeID = 0;
-block.Dwork(5).Complexity = "Real";
-
-block.Dwork(6).Name = 'obs_vel';
-block.Dwork(6).Dimensions = 2*block.DialogPrm(22).Data;
-block.Dwork(6).DatatypeID = 0;
-block.Dwork(6).Complexity = "Real";
+    block.Dwork(1).Name = 'N';
+    block.Dwork(1).DatatypeID = 0;
+    block.Dwork(1).Dimensions = 1;
+    block.Dwork(1).Complexity = "Real";
+    
+    block.Dwork(2).Name = 'U_l_old';
+    block.Dwork(2).DatatypeID = 0;
+    block.Dwork(2).Dimensions = block.DialogPrm(11).Data*block.DialogPrm(5).Data;
+    block.Dwork(2).Complexity = "Real";
+    
+    block.Dwork(3).Name = 'U_f_old';
+    block.Dwork(3).DatatypeID = 0;
+    block.Dwork(3).Dimensions = block.DialogPrm(11).Data*block.DialogPrm(5).Data;
+    block.Dwork(3).Complexity = "Real";
+end
 
 
 
@@ -153,9 +172,11 @@ function Start(block)
 block.Dwork(1).Data = block.DialogPrm(5).Data;
 block.Dwork(2).Data = block.DialogPrm(8).Data;
 block.Dwork(3).Data = block.DialogPrm(9).Data;
-block.Dwork(4).Data = block.DialogPrm(4).Data; % obs_centers
-block.Dwork(5).Data = block.DialogPrm(20).Data; % obs_radius
-block.Dwork(6).Data = block.DialogPrm(21).Data; % obs_vels
+if block.DialogPrm(22).Data > 0
+    block.Dwork(4).Data = block.DialogPrm(4).Data; % obs_centers
+    block.Dwork(5).Data = block.DialogPrm(20).Data; % obs_radius
+    block.Dwork(6).Data = block.DialogPrm(21).Data; % obs_vels
+end
 
 %end Start
 
@@ -171,18 +192,22 @@ function Outputs(block)
 sim_perception_range =  block.DialogPrm(1).Data;
 fixed_horizon = block.DialogPrm(2).Data;
 alg_fmincon = block.DialogPrm(3).Data;
-obs_centers = block.Dwork(4).Data;
-obs_radius = block.Dwork(5).Data;
-obs_vels = block.Dwork(6).Data;
 M = block.DialogPrm(22).Data;
-obs_centers = reshape(obs_centers, [2 M]);
-obs_vels = reshape(obs_vels, [2 M]);
-obstacles = cell(M);
-for i=1:M
-    obstacles{i}.center = obs_centers(:,i);
-    obstacles{i}.radius = obs_radius(i);
-    obstacles{i}.velocity = obs_vels(:,i);
-    obstacles{i}.type = "circle";
+if M > 0
+    obs_centers = block.Dwork(4).Data;
+    obs_radius = block.Dwork(5).Data;
+    obs_vels = block.Dwork(6).Data;
+    obs_centers = reshape(obs_centers, [2 M]);
+    obs_vels = reshape(obs_vels, [2 M]);
+    obstacles = cell(M);
+    for i=1:M
+        obstacles{i}.center = obs_centers(:,i);
+        obstacles{i}.radius = obs_radius(i);
+        obstacles{i}.velocity = obs_vels(:,i);
+        obstacles{i}.type = "circle";
+    end
+else
+    obstacles = [];
 end
 N = block.Dwork(1).Data;
 N_long = block.DialogPrm(6).Data;
@@ -216,8 +241,10 @@ policy_halt = block.DialogPrm(19).Data;
 %%
 function Update(block)
 
-Ts = block.DialogPrm(23).Data;
-block.Dwork(4).Data = block.Dwork(4).Data + block.Dwork(6).Data*Ts;
+if block.DialogPrm(22).Data > 0
+    Ts = block.DialogPrm(23).Data;
+    block.Dwork(4).Data = block.Dwork(4).Data + block.Dwork(6).Data*Ts;
+end
 
 %end Update
 

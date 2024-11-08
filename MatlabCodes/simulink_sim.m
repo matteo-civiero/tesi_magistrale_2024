@@ -18,13 +18,19 @@ plant = c2d(plantc, Ts, 'zoh'); % exact discretization
 env_name = "valzer";
 [x0, obstacles] = setupEnvironment(env_name);
 [~, M] = size(obstacles);
-for i=1:M
-    obs_centers(:,i) = obstacles{i}.center(:);
-    obs_radius(i) = obstacles{i}.radius;
-    obs_velocities(:,i) = obstacles{i}.velocity(:);
+if M > 0
+    for i=1:M
+        obs_centers(:,i) = obstacles{i}.center(:);
+        obs_radius(i) = obstacles{i}.radius;
+        obs_velocities(:,i) = obstacles{i}.velocity(:);
+    end
+    obs_centers = reshape(obs_centers, [1 2*M]);
+    obs_velocities = reshape(obs_velocities, [1 2*M]);
+else
+    obs_centers = [];
+    obs_radius = [];
+    obs_velocities = [];
 end
-obs_centers = reshape(obs_centers, [1 2*M]);
-obs_velocities = reshape(obs_velocities, [1 2*M]);
 
 x_l_0 = x0;
 x_f_0 = x0 + [1; 0; 0; 0; 0; 0]; % at initial condition we have horizontal disposition with d_FL distance
