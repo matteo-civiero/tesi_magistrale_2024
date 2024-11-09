@@ -315,7 +315,10 @@ while true
 
     % receiving agents state measure from gazebo
     leader_msg = receive(leader_state, 5);
+    % leader_read_delay(i) = toc;
+    % tic
     follower_msg = receive(follower_state, 5);
+    % follower_read_delay(i) = toc;
     
     x_l(:, i) = convert_msg_to_state(leader_msg);
     x_f(:, i) = convert_msg_to_state(follower_msg);
@@ -433,9 +436,6 @@ while true
     %Obstacle dynamics 
     obstacles = obstacles_dynamics(obstacles, Ts, i);
 
-    % update iteration
-    i = i+1;
-
     % transforming acceleration input in force input
     % sending force inputs to gazebo
     f_l = ros2message("geometry_msgs/Wrench");
@@ -454,13 +454,19 @@ while true
     f_f.torque.y = 0;
     f_f.torque.z = U_f_old(3)*follower_inertia;
     
-    while toc < 0.1
-    end
-    
+    % tic
     % sending forces
     send(leader_input, f_l);
+    % leader_input_delay(i) = toc;
+    % tic
     send(follower_input, f_f);
-    
+    % follower_input_delay(i) = toc;
+
+    % update iteration
+    i = i+1;
+
+    while toc < 0.1
+    end
 end
 
 %% END
