@@ -11,8 +11,8 @@ follower_input = ros2publisher(follower_input_node, "/follower_cf/gazebo_ros_for
 for i = 1:1001
     tic;
     f_f = ros2message("geometry_msgs/Wrench");
-    f_f.force.x = out.fx.signals.values(i);
-    f_f.force.y = out.fy.signals.values(i);
+    f_f.force.x = out.ax.signals.values(i)*1;
+    f_f.force.y = out.ay.signals.values(i)*1;
     f_f.force.z = 0;
     f_f.torque.x = 0;
     f_f.torque.y = 0;
@@ -31,5 +31,5 @@ end
 figure;
 hold on; grid on;
 plot(x, y);
-xlim([-2 2]);
-ylim([-3 1]);
+% xlim([-2 2]);
+% ylim([-3 1]);
