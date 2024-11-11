@@ -1,0 +1,7 @@
+{
+  "package_name": "gazebo_msgs",
+  "non_idl_tuples": [
+    "/home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/src/gazebo_msgs:msg/ContactState.msg",
+    "/home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/src/gazebo_msgs:msg/ContactsState.msg"
+  ]
+}

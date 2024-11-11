@@ -1,0 +1,195 @@
+[0.029s] Invoking command in '/home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/build/gazebo_msgs': PS1=(venv) VIRTUAL_ENV_PROMPT=(venv) /usr/local/MATLAB/R2023b/bin/glnxa64/cmake/bin/cmake /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/src/gazebo_msgs -DCMAKE_BUILD_TYPE=Release -DCMAKE_SHARED_LINKER_FLAGS=-Wl,-no-as-needed -DBUILD_TESTING=OFF -DALIAS_ROS2_TF2=1 -DCMAKE_CXX_FLAGS_RELEASE=-O0 -G Ninja -DCMAKE_INSTALL_PREFIX=/home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install
+[0.097s] -- The C compiler identification is GNU 11.4.0
+[0.154s] -- The CXX compiler identification is GNU 11.4.0
+[0.169s] -- Detecting C compiler ABI info
+[0.227s] -- Detecting C compiler ABI info - done
+[0.236s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.237s] -- Detecting C compile features
+[0.238s] -- Detecting C compile features - done
+[0.242s] -- Detecting CXX compiler ABI info
+[0.304s] -- Detecting CXX compiler ABI info - done
+[0.318s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.318s] -- Detecting CXX compile features
+[0.319s] -- Detecting CXX compile features - done
+[0.326s] -- Found ament_cmake: 1.3.3 (/usr/local/MATLAB/R2023b/sys/ros2/glnxa64/ros2/share/ament_cmake/cmake)
+[1.227s] -- Found Python3: /home/matteociviero/.matlab/R2023b/ros2/glnxa64/venv/bin/python3.10 (found version "3.10.12") found components: Interpreter 
+[1.319s] -- Found ament_cmake_ros: 0.10.0 (/usr/local/MATLAB/R2023b/sys/ros2/glnxa64/ros2/share/ament_cmake_ros/cmake)
+[1.328s] -- Found rosidl_typesupport_c: 2.0.0 (/usr/local/MATLAB/R2023b/sys/ros2/glnxa64/ros2/share/rosidl_typesupport_c/cmake)
+[1.329s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.337s] -- Found rosidl_adapter: 3.1.4 (/usr/local/MATLAB/R2023b/sys/ros2/glnxa64/ros2/share/rosidl_adapter/cmake)
+[1.400s] -- Found rosidl_typesupport_cpp: 2.0.0 (/usr/local/MATLAB/R2023b/sys/ros2/glnxa64/ros2/share/rosidl_typesupport_cpp/cmake)
+[1.401s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.450s] -- Found rosidl_default_generators: 1.2.0 (/usr/local/MATLAB/R2023b/sys/ros2/glnxa64/ros2/share/rosidl_default_generators/cmake)
+[1.456s] -- Found class_loader: 2.2.0 (/usr/local/MATLAB/R2023b/sys/ros2/glnxa64/ros2/share/class_loader/cmake)
+[1.462s] -- Found geometry_msgs: 4.2.3 (/usr/local/MATLAB/R2023b/sys/ros2/glnxa64/ros2/share/geometry_msgs/cmake)
+[1.617s] -- Found rclcpp: 16.0.3 (/usr/local/MATLAB/R2023b/sys/ros2/glnxa64/ros2/share/rclcpp/cmake)
+[1.711s] -- Found rmw_implementation_cmake: 6.1.1 (/usr/local/MATLAB/R2023b/sys/ros2/glnxa64/ros2/share/rmw_implementation_cmake/cmake)
+[1.714s] -- Found rmw_fastrtps_cpp: 6.2.2 (/usr/local/MATLAB/R2023b/sys/ros2/glnxa64/ros2/share/rmw_fastrtps_cpp/cmake)
+[1.807s] -- Found FastRTPS: /usr/local/MATLAB/R2023b/sys/ros2/glnxa64/ros2/include  
+[1.845s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[1.856s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[1.917s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[1.918s] -- Found Threads: TRUE  
+[2.567s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[2.869s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[2.882s] -- Configuring done
+[2.910s] -- Generating done
+[2.921s] -- Build files have been written to: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/build/gazebo_msgs
+[2.934s] Invoked command in '/home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/build/gazebo_msgs' returned '0': PS1=(venv) VIRTUAL_ENV_PROMPT=(venv) /usr/local/MATLAB/R2023b/bin/glnxa64/cmake/bin/cmake /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/src/gazebo_msgs -DCMAKE_BUILD_TYPE=Release -DCMAKE_SHARED_LINKER_FLAGS=-Wl,-no-as-needed -DBUILD_TESTING=OFF -DALIAS_ROS2_TF2=1 -DCMAKE_CXX_FLAGS_RELEASE=-O0 -G Ninja -DCMAKE_INSTALL_PREFIX=/home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install
+[2.937s] Invoking command in '/home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/build/gazebo_msgs': PS1=(venv) VIRTUAL_ENV_PROMPT=(venv) /usr/local/MATLAB/R2023b/bin/glnxa64/cmake/bin/cmake --build /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/build/gazebo_msgs -- -j8 -l8
+[3.396s] [1/32] Generating C++ code for ROS interfaces
+[3.419s] [2/32] Generating C code for ROS interfaces
+[3.607s] [3/32] Building C object CMakeFiles/gazebo_msgs__rosidl_generator_c.dir/rosidl_generator_c/gazebo_msgs/msg/detail/contacts_state__functions.c.o
+[3.611s] [4/32] Building C object CMakeFiles/gazebo_msgs__rosidl_generator_c.dir/rosidl_generator_c/gazebo_msgs/msg/detail/contact_state__functions.c.o
+[3.638s] [5/32] Linking C shared library libgazebo_msgs__rosidl_generator_c.so
+[3.940s] [6/32] Generating C++ type support dispatch for ROS interfaces
+[4.021s] [7/32] Generating C++ introspection for ROS interfaces
+[4.161s] [8/32] Generating C++ type support for eProsima Fast-RTPS
+[4.267s] [9/32] Generating C type support dispatch for ROS interfaces
+[4.349s] [10/32] Building CXX object CMakeFiles/gazebo_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/gazebo_msgs/msg/contact_state__type_support.cpp.o
+[4.434s] [11/32] Building CXX object CMakeFiles/gazebo_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/gazebo_msgs/msg/contacts_state__type_support.cpp.o
+[4.569s] [12/32] Generating C type support for eProsima Fast-RTPS
+[4.620s] [13/32] Building CXX object CMakeFiles/gazebo_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/gazebo_msgs/msg/contacts_state__type_support.cpp.o
+[4.682s] [14/32] Generating C introspection for ROS interfaces
+[4.688s] [15/32] Building CXX object CMakeFiles/gazebo_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/gazebo_msgs/msg/contact_state__type_support.cpp.o
+[4.705s] [16/32] Linking CXX shared library libgazebo_msgs__rosidl_typesupport_c.so
+[4.810s] [17/32] Building C object CMakeFiles/gazebo_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/gazebo_msgs/msg/detail/contact_state__type_support.c.o
+[4.845s] [18/32] Building C object CMakeFiles/gazebo_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/gazebo_msgs/msg/detail/contacts_state__type_support.c.o
+[4.920s] [19/32] Linking C shared library libgazebo_msgs__rosidl_typesupport_introspection_c.so
+[5.028s] [20/32] Building CXX object CMakeFiles/gazebo_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/gazebo_msgs/msg/detail/dds_fastrtps/contact_state__type_support.cpp.o
+[5.110s] [21/32] Linking CXX shared library libgazebo_msgs__rosidl_typesupport_cpp.so
+[5.301s] [22/32] Building CXX object CMakeFiles/gazebo_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/gazebo_msgs/msg/detail/contact_state__type_support_c.cpp.o
+[5.355s] [23/32] Building CXX object CMakeFiles/gazebo_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/gazebo_msgs/msg/detail/contacts_state__type_support_c.cpp.o
+[5.364s] [24/32] Building CXX object CMakeFiles/gazebo_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/gazebo_msgs/msg/detail/contact_state__type_support.cpp.o
+[5.471s] [25/32] Linking CXX shared library libgazebo_msgs__rosidl_typesupport_fastrtps_c.so
+[5.635s] [26/32] Building CXX object CMakeFiles/gazebo_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/gazebo_msgs/msg/detail/dds_fastrtps/contacts_state__type_support.cpp.o
+[5.737s] [27/32] Linking CXX shared library libgazebo_msgs__rosidl_typesupport_fastrtps_cpp.so
+[5.813s] [28/32] Building CXX object CMakeFiles/gazebo_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/gazebo_msgs/msg/detail/contacts_state__type_support.cpp.o
+[5.909s] [29/32] Linking CXX shared library libgazebo_msgs__rosidl_typesupport_introspection_cpp.so
+[16.063s] [30/32] Building CXX object CMakeFiles/gazebo_msgs_matlab.dir/src/gazebo_msgs_ContactsState_message.cpp.o
+[16.147s] [31/32] Building CXX object CMakeFiles/gazebo_msgs_matlab.dir/src/gazebo_msgs_ContactState_message.cpp.o
+[16.992s] [32/32] Linking CXX shared library libgazebo_msgs_matlab.so
+[16.993s] Invoked command in '/home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/build/gazebo_msgs' returned '0': PS1=(venv) VIRTUAL_ENV_PROMPT=(venv) /usr/local/MATLAB/R2023b/bin/glnxa64/cmake/bin/cmake --build /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/build/gazebo_msgs -- -j8 -l8
+[17.014s] Invoking command in '/home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/build/gazebo_msgs': PS1=(venv) VIRTUAL_ENV_PROMPT=(venv) /usr/local/MATLAB/R2023b/bin/glnxa64/cmake/bin/cmake --install /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/build/gazebo_msgs
+[17.016s] -- Install configuration: "Release"
+[17.017s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/share/ament_index/resource_index/rosidl_interfaces/gazebo_msgs
+[17.017s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/gazebo_msgs
+[17.017s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/gazebo_msgs/msg
+[17.017s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/gazebo_msgs/msg/contact_state.h
+[17.017s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/gazebo_msgs/msg/contacts_state.h
+[17.017s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/gazebo_msgs/msg/detail
+[17.017s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/gazebo_msgs/msg/detail/contacts_state__functions.c
+[17.017s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/gazebo_msgs/msg/detail/contacts_state__struct.h
+[17.017s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/gazebo_msgs/msg/detail/contact_state__functions.c
+[17.018s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/gazebo_msgs/msg/detail/contacts_state__type_support.h
+[17.018s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/gazebo_msgs/msg/detail/contact_state__type_support.h
+[17.018s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/gazebo_msgs/msg/detail/contact_state__functions.h
+[17.018s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/gazebo_msgs/msg/detail/contacts_state__functions.h
+[17.018s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/gazebo_msgs/msg/detail/contact_state__struct.h
+[17.018s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/gazebo_msgs/msg/rosidl_generator_c__visibility_control.h
+[17.018s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/share/gazebo_msgs/environment/library_path.sh
+[17.018s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/share/gazebo_msgs/environment/library_path.dsv
+[17.018s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/lib/libgazebo_msgs__rosidl_generator_c.so
+[17.018s] -- Up-to-date: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/gazebo_msgs
+[17.019s] -- Up-to-date: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/gazebo_msgs/msg
+[17.019s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/gazebo_msgs/msg/rosidl_typesupport_fastrtps_c__visibility_control.h
+[17.019s] -- Up-to-date: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/gazebo_msgs/msg/detail
+[17.019s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/gazebo_msgs/msg/detail/contact_state__rosidl_typesupport_fastrtps_c.h
+[17.019s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/gazebo_msgs/msg/detail/contacts_state__rosidl_typesupport_fastrtps_c.h
+[17.019s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/lib/libgazebo_msgs__rosidl_typesupport_fastrtps_c.so
+[17.019s] -- Up-to-date: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/gazebo_msgs
+[17.019s] -- Up-to-date: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/gazebo_msgs/msg
+[17.019s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/gazebo_msgs/msg/rosidl_typesupport_introspection_c__visibility_control.h
+[17.019s] -- Up-to-date: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/gazebo_msgs/msg/detail
+[17.019s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/gazebo_msgs/msg/detail/contacts_state__type_support.c
+[17.019s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/gazebo_msgs/msg/detail/contacts_state__rosidl_typesupport_introspection_c.h
+[17.019s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/gazebo_msgs/msg/detail/contact_state__rosidl_typesupport_introspection_c.h
+[17.020s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/gazebo_msgs/msg/detail/contact_state__type_support.c
+[17.020s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/lib/libgazebo_msgs__rosidl_typesupport_introspection_c.so
+[17.020s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/lib/libgazebo_msgs__rosidl_typesupport_c.so
+[17.020s] -- Up-to-date: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/gazebo_msgs
+[17.020s] -- Up-to-date: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/gazebo_msgs/msg
+[17.020s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/gazebo_msgs/msg/contact_state.hpp
+[17.020s] -- Up-to-date: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/gazebo_msgs/msg/detail
+[17.020s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/gazebo_msgs/msg/detail/contact_state__struct.hpp
+[17.020s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/gazebo_msgs/msg/detail/contacts_state__builder.hpp
+[17.020s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/gazebo_msgs/msg/detail/contact_state__traits.hpp
+[17.020s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/gazebo_msgs/msg/detail/contacts_state__struct.hpp
+[17.020s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/gazebo_msgs/msg/detail/contact_state__builder.hpp
+[17.021s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/gazebo_msgs/msg/detail/contacts_state__traits.hpp
+[17.021s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/gazebo_msgs/msg/contacts_state.hpp
+[17.021s] -- Up-to-date: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/gazebo_msgs
+[17.021s] -- Up-to-date: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/gazebo_msgs/msg
+[17.021s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/gazebo_msgs/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h
+[17.021s] -- Up-to-date: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/gazebo_msgs/msg/detail
+[17.021s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/gazebo_msgs/msg/detail/dds_fastrtps
+[17.021s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/gazebo_msgs/msg/detail/contact_state__rosidl_typesupport_fastrtps_cpp.hpp
+[17.021s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/gazebo_msgs/msg/detail/contacts_state__rosidl_typesupport_fastrtps_cpp.hpp
+[17.021s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/lib/libgazebo_msgs__rosidl_typesupport_fastrtps_cpp.so
+[17.021s] -- Up-to-date: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/gazebo_msgs
+[17.021s] -- Up-to-date: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/gazebo_msgs/msg
+[17.022s] -- Up-to-date: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/gazebo_msgs/msg/detail
+[17.022s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/gazebo_msgs/msg/detail/contacts_state__rosidl_typesupport_introspection_cpp.hpp
+[17.022s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/gazebo_msgs/msg/detail/contact_state__rosidl_typesupport_introspection_cpp.hpp
+[17.022s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/gazebo_msgs/msg/detail/contacts_state__type_support.cpp
+[17.022s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/gazebo_msgs/msg/detail/contact_state__type_support.cpp
+[17.022s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/lib/libgazebo_msgs__rosidl_typesupport_introspection_cpp.so
+[17.022s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/lib/libgazebo_msgs__rosidl_typesupport_cpp.so
+[17.022s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/share/gazebo_msgs/msg/ContactState.idl
+[17.022s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/share/gazebo_msgs/msg/ContactsState.idl
+[17.022s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/share/gazebo_msgs/msg/ContactState.msg
+[17.022s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/share/gazebo_msgs/msg/ContactsState.msg
+[17.022s] -- Up-to-date: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include
+[17.022s] -- Up-to-date: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs
+[17.023s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/include/gazebo_msgs/visibility_control.h
+[17.023s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/lib/libgazebo_msgs_matlab.so
+[17.029s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/m/
+[17.029s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/m//+ros
+[17.029s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/m//+ros/+internal
+[17.029s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/m//+ros/+internal/+ros2
+[17.029s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/m//+ros/+internal/+ros2/+custommessages
+[17.029s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/m//+ros/+internal/+ros2/+custommessages/+gazebo_msgs
+[17.029s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/m//+ros/+internal/+ros2/+custommessages/+gazebo_msgs/contactState.m
+[17.030s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/m//+ros/+internal/+ros2/+custommessages/+gazebo_msgs/gazebo_msgs_msg_ContactState_2To1_Converter.m
+[17.030s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/m//+ros/+internal/+ros2/+custommessages/+gazebo_msgs/gazebo_msgs_msg_ContactsState_2To1_Converter.m
+[17.030s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/m//+ros/+internal/+ros2/+custommessages/+gazebo_msgs/gazebo_msgs_msg_ContactState_1To2_Converter.m
+[17.030s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/m//+ros/+internal/+ros2/+custommessages/+gazebo_msgs/contactsState.m
+[17.030s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/m//+ros/+internal/+ros2/+custommessages/+gazebo_msgs/gazebo_msgs_msg_ContactsState_1To2_Converter.m
+[17.030s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/share/ament_index/resource_index/package_run_dependencies/gazebo_msgs
+[17.030s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/share/ament_index/resource_index/parent_prefix_path/gazebo_msgs
+[17.030s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/share/gazebo_msgs/environment/ament_prefix_path.sh
+[17.030s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/share/gazebo_msgs/environment/ament_prefix_path.dsv
+[17.030s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/share/gazebo_msgs/environment/path.sh
+[17.030s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/share/gazebo_msgs/environment/path.dsv
+[17.030s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/share/gazebo_msgs/local_setup.bash
+[17.030s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/share/gazebo_msgs/local_setup.sh
+[17.031s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/share/gazebo_msgs/local_setup.zsh
+[17.031s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/share/gazebo_msgs/local_setup.dsv
+[17.031s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/share/gazebo_msgs/package.dsv
+[17.031s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/share/ament_index/resource_index/packages/gazebo_msgs
+[17.031s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/share/gazebo_msgs/cmake/export_gazebo_msgs__rosidl_generator_cExport.cmake
+[17.031s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/share/gazebo_msgs/cmake/export_gazebo_msgs__rosidl_generator_cExport-release.cmake
+[17.031s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/share/gazebo_msgs/cmake/export_gazebo_msgs__rosidl_typesupport_fastrtps_cExport.cmake
+[17.031s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/share/gazebo_msgs/cmake/export_gazebo_msgs__rosidl_typesupport_fastrtps_cExport-release.cmake
+[17.031s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/share/gazebo_msgs/cmake/gazebo_msgs__rosidl_typesupport_introspection_cExport.cmake
+[17.032s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/share/gazebo_msgs/cmake/gazebo_msgs__rosidl_typesupport_introspection_cExport-release.cmake
+[17.032s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/share/gazebo_msgs/cmake/gazebo_msgs__rosidl_typesupport_cExport.cmake
+[17.032s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/share/gazebo_msgs/cmake/gazebo_msgs__rosidl_typesupport_cExport-release.cmake
+[17.032s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/share/gazebo_msgs/cmake/export_gazebo_msgs__rosidl_generator_cppExport.cmake
+[17.032s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/share/gazebo_msgs/cmake/export_gazebo_msgs__rosidl_typesupport_fastrtps_cppExport.cmake
+[17.032s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/share/gazebo_msgs/cmake/export_gazebo_msgs__rosidl_typesupport_fastrtps_cppExport-release.cmake
+[17.032s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/share/gazebo_msgs/cmake/gazebo_msgs__rosidl_typesupport_introspection_cppExport.cmake
+[17.032s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/share/gazebo_msgs/cmake/gazebo_msgs__rosidl_typesupport_introspection_cppExport-release.cmake
+[17.032s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/share/gazebo_msgs/cmake/gazebo_msgs__rosidl_typesupport_cppExport.cmake
+[17.032s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/share/gazebo_msgs/cmake/gazebo_msgs__rosidl_typesupport_cppExport-release.cmake
+[17.033s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/share/gazebo_msgs/cmake/rosidl_cmake-extras.cmake
+[17.033s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/share/gazebo_msgs/cmake/ament_cmake_export_dependencies-extras.cmake
+[17.033s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/share/gazebo_msgs/cmake/ament_cmake_export_include_directories-extras.cmake
+[17.033s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/share/gazebo_msgs/cmake/ament_cmake_export_libraries-extras.cmake
+[17.033s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/share/gazebo_msgs/cmake/ament_cmake_export_targets-extras.cmake
+[17.033s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/share/gazebo_msgs/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake
+[17.033s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/share/gazebo_msgs/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake
+[17.033s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/share/gazebo_msgs/cmake/gazebo_msgsConfig.cmake
+[17.033s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/share/gazebo_msgs/cmake/gazebo_msgsConfig-version.cmake
+[17.033s] -- Installing: /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/install/share/gazebo_msgs/package.xml
+[17.036s] Invoked command in '/home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/build/gazebo_msgs' returned '0': PS1=(venv) VIRTUAL_ENV_PROMPT=(venv) /usr/local/MATLAB/R2023b/bin/glnxa64/cmake/bin/cmake --install /home/matteociviero/git_tesi_magistrale/tesi_magistrale_2024/custom_msgs/matlab_msg_gen/glnxa64/build/gazebo_msgs

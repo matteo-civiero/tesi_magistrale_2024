@@ -310,7 +310,7 @@ if fixed_horizon
     precomp_fixed_step;
 end
  %% MPC
-while true 
+while ~(goal_reached) 
     tic
 
     % receiving agents state measure from gazebo
