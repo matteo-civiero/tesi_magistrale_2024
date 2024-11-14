@@ -29,16 +29,16 @@ setup(block);
 function setup(block)
 
 % Register number of ports
-block.NumInputPorts  = 3; % x_l, x_f, loadTheta
+block.NumInputPorts  = 0; % x_l, x_f, loadTheta
 block.NumOutputPorts = 2; % x_l_pred, x_f_pred
 
 % Setup port properties to be inherited or dynamic
 block.SetPreCompInpPortInfoToDynamic;
 block.SetPreCompOutPortInfoToDynamic;
 
-block.InputPort(1).Dimensions = 6;
-block.InputPort(2).Dimensions = 6;
-block.InputPort(3).Dimensions = 1;
+% block.InputPort(1).Dimensions = 6;
+% block.InputPort(2).Dimensions = 6;
+% block.InputPort(3).Dimensions = 1;
 
 block.OutputPort(1).Dimensions = 6;
 block.OutputPort(2).Dimensions = 6;
@@ -93,6 +93,53 @@ block.RegBlockMethod('Terminate', @Terminate); % Required
 function DoPostPropSetup(block)
 
 if block.DialogPrm(22).Data > 0
+    block.NumDworks = 9;
+
+    block.Dwork(1).Name = 'N';
+    block.Dwork(1).DatatypeID = 0;
+    block.Dwork(1).Dimensions = 1;
+    block.Dwork(1).Complexity = "Real";
+    
+    block.Dwork(2).Name = 'U_l_old';
+    block.Dwork(2).DatatypeID = 0;
+    block.Dwork(2).Dimensions = block.DialogPrm(11).Data*block.DialogPrm(5).Data;
+    block.Dwork(2).Complexity = "Real";
+    
+    block.Dwork(3).Name = 'U_f_old';
+    block.Dwork(3).DatatypeID = 0;
+    block.Dwork(3).Dimensions = block.DialogPrm(11).Data*block.DialogPrm(5).Data;
+    block.Dwork(3).Complexity = "Real";
+
+    block.Dwork(4).Name = 'x_l';
+    block.Dwork(4).Dimensions = 6;
+    block.Dwork(4).DatatypeID = 0;
+    block.Dwork(4).Complexity = "Real";
+
+    block.Dwork(5).Name = 'x_f';
+    block.Dwork(5).Dimensions = 6;
+    block.Dwork(5).DatatypeID = 0;
+    block.Dwork(5).Complexity = "Real";
+
+    block.Dwork(6).Name = 'loadTheta';
+    block.Dwork(6).Dimensions = 1;
+    block.Dwork(6).DatatypeID = 0;
+    block.Dwork(6).Complexity = "Real";
+
+    block.Dwork(7).Name = 'obs_centers';
+    block.Dwork(7).Dimensions = 2*block.DialogPrm(22).Data;
+    block.Dwork(7).DatatypeID = 0;
+    block.Dwork(7).Complexity = "Real";
+    
+    block.Dwork(8).Name = 'obs_radius';
+    block.Dwork(8).Dimensions = block.DialogPrm(22).Data;
+    block.Dwork(8).DatatypeID = 0;
+    block.Dwork(8).Complexity = "Real";
+    
+    block.Dwork(9).Name = 'obs_vel';
+    block.Dwork(9).Dimensions = 2*block.DialogPrm(22).Data;
+    block.Dwork(9).DatatypeID = 0;
+    block.Dwork(9).Complexity = "Real";
+else
     block.NumDworks = 6;
 
     block.Dwork(1).Name = 'N';
@@ -110,37 +157,20 @@ if block.DialogPrm(22).Data > 0
     block.Dwork(3).Dimensions = block.DialogPrm(11).Data*block.DialogPrm(5).Data;
     block.Dwork(3).Complexity = "Real";
 
-    block.Dwork(4).Name = 'obs_centers';
-    block.Dwork(4).Dimensions = 2*block.DialogPrm(22).Data;
+    block.Dwork(4).Name = 'x_l';
+    block.Dwork(4).Dimensions = 6;
     block.Dwork(4).DatatypeID = 0;
     block.Dwork(4).Complexity = "Real";
-    
-    block.Dwork(5).Name = 'obs_radius';
-    block.Dwork(5).Dimensions = block.DialogPrm(22).Data;
+
+    block.Dwork(5).Name = 'x_f';
+    block.Dwork(5).Dimensions = 6;
     block.Dwork(5).DatatypeID = 0;
     block.Dwork(5).Complexity = "Real";
-    
-    block.Dwork(6).Name = 'obs_vel';
-    block.Dwork(6).Dimensions = 2*block.DialogPrm(22).Data;
+
+    block.Dwork(6).Name = 'loadTheta';
+    block.Dwork(6).Dimensions = 1;
     block.Dwork(6).DatatypeID = 0;
     block.Dwork(6).Complexity = "Real";
-else
-    block.NumDworks = 3;
-
-    block.Dwork(1).Name = 'N';
-    block.Dwork(1).DatatypeID = 0;
-    block.Dwork(1).Dimensions = 1;
-    block.Dwork(1).Complexity = "Real";
-    
-    block.Dwork(2).Name = 'U_l_old';
-    block.Dwork(2).DatatypeID = 0;
-    block.Dwork(2).Dimensions = block.DialogPrm(11).Data*block.DialogPrm(5).Data;
-    block.Dwork(2).Complexity = "Real";
-    
-    block.Dwork(3).Name = 'U_f_old';
-    block.Dwork(3).DatatypeID = 0;
-    block.Dwork(3).Dimensions = block.DialogPrm(11).Data*block.DialogPrm(5).Data;
-    block.Dwork(3).Complexity = "Real";
 end
 
 
@@ -172,10 +202,14 @@ function Start(block)
 block.Dwork(1).Data = block.DialogPrm(5).Data;
 block.Dwork(2).Data = block.DialogPrm(8).Data;
 block.Dwork(3).Data = block.DialogPrm(9).Data;
+block.Dwork(4).Data = block.DialogPrm(24).Data;
+block.Dwork(5).Data = block.DialogPrm(25).Data;
+fl_diff = block.Dwork(5).Data(1:2) - block.Dwork(4).Data(1:2);
+block.Dwork(6).Data = atan2(fl_diff(2), fl_diff(1));
 if block.DialogPrm(22).Data > 0
-    block.Dwork(4).Data = block.DialogPrm(4).Data; % obs_centers
-    block.Dwork(5).Data = block.DialogPrm(20).Data; % obs_radius
-    block.Dwork(6).Data = block.DialogPrm(21).Data; % obs_vels
+    block.Dwork(7).Data = block.DialogPrm(4).Data; % obs_centers
+    block.Dwork(8).Data = block.DialogPrm(20).Data; % obs_radius
+    block.Dwork(9).Data = block.DialogPrm(21).Data; % obs_vels
 end
 
 x_l_0 = block.DialogPrm(24).Data;
@@ -199,9 +233,9 @@ fixed_horizon = block.DialogPrm(2).Data;
 alg_fmincon = block.DialogPrm(3).Data;
 M = block.DialogPrm(22).Data;
 if M > 0
-    obs_centers = block.Dwork(4).Data;
-    obs_radius = block.Dwork(5).Data;
-    obs_vels = block.Dwork(6).Data;
+    obs_centers = block.Dwork(7).Data;
+    obs_radius = block.Dwork(8).Data;
+    obs_vels = block.Dwork(9).Data;
     obs_centers = reshape(obs_centers, [2 M]);
     obs_vels = reshape(obs_vels, [2 M]);
     obstacles = cell(M);
@@ -231,9 +265,14 @@ perception_range = block.DialogPrm(18).Data;
 policy_halt = block.DialogPrm(19).Data;
 
 % see function declaration, the dialog params order is the same
-[block.OutputPort(1).Data, block.OutputPort(2).Data, N, U_l_old, U_f_old] = MPC(block.InputPort(1).Data, ...
-    block.InputPort(2).Data, block.InputPort(3).Data, sim_perception_range, fixed_horizon, alg_fmincon, obstacles, N, N_long, N_short, U_l_old, ...
+[block.Dwork(4).Data, block.Dwork(5).Data, N, U_l_old, U_f_old] = MPC(block.Dwork(4).Data, ...
+    block.Dwork(5).Data, block.Dwork(6).Data, sim_perception_range, fixed_horizon, alg_fmincon, obstacles, N, N_long, N_short, U_l_old, ...
     U_f_old, n, m, leaderParams, followerParams, plant, P, eps_loose_grip, k_loose_grip, perception_range, policy_halt);
+
+block.OutputPort(1).Data = block.Dwork(4).Data;
+block.OutputPort(2).Data = block.Dwork(5).Data;
+fl_diff = block.Dwork(5).Data(1:2) - block.Dwork(4).Data(1:2);
+block.Dwork(6).Data = atan2(fl_diff(2), fl_diff(1));
 
 %end Outputs
 
@@ -248,7 +287,7 @@ function Update(block)
 
 if block.DialogPrm(22).Data > 0
     Ts = block.DialogPrm(23).Data;
-    block.Dwork(4).Data = block.Dwork(4).Data + block.Dwork(6).Data*Ts;
+    block.Dwork(7).Data = block.Dwork(7).Data + block.Dwork(9).Data*Ts;
 end
 
 %end Update
