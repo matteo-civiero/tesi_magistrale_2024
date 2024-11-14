@@ -30,7 +30,7 @@ function setup(block)
 
 % Register number of ports
 block.NumInputPorts  = 3; % x_l, x_f, loadTheta
-block.NumOutputPorts = 2; % u_l, u_f
+block.NumOutputPorts = 2; % x_l_pred, x_f_pred
 
 % Setup port properties to be inherited or dynamic
 block.SetPreCompInpPortInfoToDynamic;
@@ -40,13 +40,13 @@ block.InputPort(1).Dimensions = 6;
 block.InputPort(2).Dimensions = 6;
 block.InputPort(3).Dimensions = 1;
 
-block.OutputPort(1).Dimensions = 3;
-block.OutputPort(2).Dimensions = 3;
+block.OutputPort(1).Dimensions = 6;
+block.OutputPort(2).Dimensions = 6;
 
 
 % Register parameters
-block.NumDialogPrms     = 23; % sim_perception_range, fixed_horizon, alg_fmincon, obs_centers, N, N_long, N_short, U_l_old, U_f_old, n, m, leaderParams, followerParams, plant, P, eps_loose_grip, k_loose_grip, perception_range, policy_halt, obs_radius, obs_velocities, M, Ts
-block.DialogPrmsTunable = {'NonTunable', 'NonTunable', 'NonTunable', 'Nontunable', 'Nontunable', 'NonTunable', 'NonTunable', 'Nontunable', 'Nontunable', 'NonTunable', 'NonTunable', 'NonTunable', 'NonTunable', 'NonTunable', 'NonTunable', 'NonTunable', 'NonTunable', 'NonTunable', 'NonTunable', 'Nontunable', 'Nontunable', 'Nontunable', 'Nontunable'};
+block.NumDialogPrms     = 25; % sim_perception_range, fixed_horizon, alg_fmincon, obs_centers, N, N_long, N_short, U_l_old, U_f_old, n, m, leaderParams, followerParams, plant, P, eps_loose_grip, k_loose_grip, perception_range, policy_halt, obs_radius, obs_velocities, M, Ts, x_l_0, x_f_0
+block.DialogPrmsTunable = {'NonTunable', 'NonTunable', 'NonTunable', 'Nontunable', 'Nontunable', 'NonTunable', 'NonTunable', 'Nontunable', 'Nontunable', 'NonTunable', 'NonTunable', 'NonTunable', 'NonTunable', 'NonTunable', 'NonTunable', 'NonTunable', 'NonTunable', 'NonTunable', 'NonTunable', 'Nontunable', 'Nontunable', 'Nontunable', 'Nontunable', 'Nontunable', 'Nontunable'};
 
 % Register sample times
 %  [0 offset]            : Continuous sample time
@@ -177,6 +177,11 @@ if block.DialogPrm(22).Data > 0
     block.Dwork(5).Data = block.DialogPrm(20).Data; % obs_radius
     block.Dwork(6).Data = block.DialogPrm(21).Data; % obs_vels
 end
+
+x_l_0 = block.DialogPrm(24).Data;
+block.OutputPort(1).Data = x_l_0;
+x_f_0 = block.DialogPrm(25).Data;
+block.OutputPort(2).Data = x_f_0;
 
 %end Start
 
