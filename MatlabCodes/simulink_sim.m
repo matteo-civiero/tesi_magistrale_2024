@@ -15,7 +15,7 @@ plantc = ss(A,B,C,D);
 % discrete-time system
 plant = c2d(plantc, Ts, 'zoh'); % exact discretization
 
-env_name = "three_obs";
+env_name = "valzer";
 [x0, obstacles] = setupEnvironment(env_name);
 [~, M] = size(obstacles);
 if M > 0
@@ -65,7 +65,7 @@ leaderParams.R = R_weight*eye(m);
 leaderParams.P = P_weight*eye(n);
 
 % limit on leader acceleration, both x and y axes and angular acc
-leaderParams.u_lim = 3; % [m/s^2]
+leaderParams.u_lim = 5; % [m/s^2]
 leaderParams.phi_dot_lim = 10; % [rad/s^2]
 
 % limit on leader velocity, both x and y axes
@@ -74,7 +74,7 @@ leaderParams.w_lim = 1.57; % [rad/s]
 
 % decay and cost parameters for obstacle distance
 leaderParams.pot_decay = 10;
-leaderParams.pot_cost = 15;
+leaderParams.pot_cost = 150;
 
 % initial shape of leader
 leaderParams.initRobotShape = 0.3*[-1, 1, 1, -1; -1, -1, 1, 1]; % square robot
@@ -100,7 +100,7 @@ followerParams.d_FL = 1;
 followerParams.C = 5000; 
 
 % limit on follower acceleration, to be higher than leader
-followerParams.u_lim = 5; % [m/s^2]
+followerParams.u_lim = 7; % [m/s^2]
 followerParams.phi_dot_lim = 20; % [rad/s^2]
 
 % limit on follower velocity, to be higher than leader
