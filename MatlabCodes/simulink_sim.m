@@ -172,3 +172,10 @@ end
 % initial guesses for optimal inputs
 U_l_old = zeros([m*N,1]);
 U_f_old = zeros([m*N,1]);
+
+%%
+
+load("/home/matteociviero/tesi/sims_w_perc_range_sqp/adaptive_15_5_three_obs_no_plot/data.mat", "x_l", "x_f");
+
+x_l_sim = timeseries(x_l', 0:Ts:(length(x_l)-1)*Ts);
+x_f_sim = timeseries(x_f', 0:Ts:(length(x_f)-1)*Ts);
