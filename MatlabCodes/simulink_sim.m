@@ -74,7 +74,7 @@ leaderParams.w_lim = 1.57; % [rad/s]
 
 % decay and cost parameters for obstacle distance
 leaderParams.pot_decay = 10;
-leaderParams.pot_cost = 150;
+leaderParams.pot_cost = 50;
 
 % initial shape of leader
 leaderParams.initRobotShape = 0.3*[-1, 1, 1, -1; -1, -1, 1, 1]; % square robot
