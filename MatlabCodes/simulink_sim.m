@@ -1,6 +1,10 @@
 clear all;
 close all;
 
+leader_mass = 1;
+follower_mass = 1;
+leader_inertia = 0.166667;
+follower_inertia = 0.015;
 n = 6;
 m = 3;
 Ts = 0.1; % sample time
@@ -15,7 +19,7 @@ plantc = ss(A,B,C,D);
 % discrete-time system
 plant = c2d(plantc, Ts, 'zoh'); % exact discretization
 
-env_name = "valzer";
+env_name = "three_obs";
 [x0, obstacles] = setupEnvironment(env_name);
 [~, M] = size(obstacles);
 if M > 0
