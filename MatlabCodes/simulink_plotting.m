@@ -9,6 +9,8 @@ xlabel("Coordinate x [m]","Interpreter","latex", "FontSize", 20)
 ylabel("Coordinate y [m]","Interpreter","latex", "FontSize", 20)
 legend("Leader Robot","Follower Robot","Location","southeast","Interpreter","latex", "FontSize", 15)
 
+%%
+
 % formation error plotting
 figure;
 hold on; grid on;
@@ -17,6 +19,8 @@ plot(out.fe.time, out.fe.signals.values(:), "LineWidth", 2);
 % ylim([-0.8, 0.6]);
 xlabel("Time [s]", "Interpreter","latex", "FontSize", 20)
 ylabel("$fe_{L,F}(t)$ [m]", "Interpreter","latex", "FontSize", 20)
+
+%%
 
 % collision detection
 figure;
