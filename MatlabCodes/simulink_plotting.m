@@ -1,6 +1,7 @@
+close all
+
 figure;
 hold on; grid on;
-
 % trajectory plotting
 plot(out.x_l.signals.values(:,1), out.x_l.signals.values(:,2), "-o", "Color", 'r');
 plot(out.x_f.signals.values(:,1), out.x_f.signals.values(:,2), "-o", "Color", 'b');
@@ -27,3 +28,13 @@ plot(out.load_collision.time, out.load_collision.signals.values(:), 'g', "Marker
 ylim([0 1.1]);
 legend("Leader Collision","Follower Collision", "Load Collision", "Interpreter","latex", "FontSize", 15);
 xlabel("Time [s]", "Interpreter","latex", "FontSize", 20);
+
+% position tracking
+figure;
+hold on; grid on;
+plot(out.x_l_ref.time, out.x_l_ref.signals.values(:,1), "LineWidth", 3);
+plot(out.x_l.time, out.x_l.signals.values(:,1), "--", "LineWidth", 3);
+plot(out.x_l_ref.time, out.x_l_ref.signals.values(:,2), "LineWidth", 3);
+plot(out.x_l.time, out.x_l.signals.values(:,2), "--", "LineWidth", 3);
+plot(out.x_l_ref.time, out.x_l_ref.signals.values(:,3), "LineWidth", 3);
+plot(out.x_l.time, out.x_l.signals.values(:,3), "--", "LineWidth", 3);
