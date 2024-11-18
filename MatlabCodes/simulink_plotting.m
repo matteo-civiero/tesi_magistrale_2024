@@ -1,3 +1,5 @@
+close all;
+
 figure;
 hold on; grid on;
 
@@ -27,3 +29,6 @@ plot(out.load_collision.time, out.load_collision.signals.values(:), 'g', "Marker
 ylim([0 1.1]);
 legend("Leader Collision","Follower Collision", "Load Collision", "Interpreter","latex", "FontSize", 15);
 xlabel("Time [s]", "Interpreter","latex", "FontSize", 20);
+
+max_form_err = max(abs(out.fe.signals.values(:)));
+mean_form_err = mean(abs(out.fe.signals.values(:)));
