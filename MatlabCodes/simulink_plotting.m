@@ -39,5 +39,5 @@ plot(out.x_l.time, out.x_l.signals.values(:,2), "--", "LineWidth", 3);
 plot(out.x_l_ref.time, out.x_l_ref.signals.values(:,3), "LineWidth", 3);
 plot(out.x_l.time, out.x_l.signals.values(:,3), "--", "LineWidth", 3);
 
-max_form_err = max(out.fe.signals.values(:));
-mean_form_err = mean(out.fe.signals.values(:));
+max_form_err = max(abs(out.fe.signals.values(:)));
+mean_form_err = mean(abs(out.fe.signals.values(:)));
