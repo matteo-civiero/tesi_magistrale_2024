@@ -1,3 +1,5 @@
+close all
+
 figure;
 hold on; grid on;
 
@@ -16,7 +18,7 @@ figure;
 hold on; grid on;
 plot(out.fe.time, out.fe.signals.values(:), "LineWidth", 2);
 % xlim([0, 42.1]);
-% ylim([-0.8, 0.6]);
+ylim([-0.06, 0.08]);
 xlabel("Time [s]", "Interpreter","latex", "FontSize", 20)
 ylabel("$fe_{L,F}(t)$ [m]", "Interpreter","latex", "FontSize", 20)
 
@@ -31,3 +33,8 @@ plot(out.load_collision.time, out.load_collision.signals.values(:), 'g', "Marker
 ylim([0 1.1]);
 legend("Leader Collision","Follower Collision", "Load Collision", "Interpreter","latex", "FontSize", 15);
 xlabel("Time [s]", "Interpreter","latex", "FontSize", 20);
+
+%%
+
+max_form_err = max(out.fe.signals.values(:));
+mean_form_err = mean(out.fe.signals.values(:));
