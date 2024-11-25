@@ -30,7 +30,7 @@ function setup(block)
 
 % Register number of ports
 block.NumInputPorts  = 0; % x_l, x_f, loadTheta
-block.NumOutputPorts = 2; % x_l_pred, x_f_pred
+block.NumOutputPorts = 3; % x_l_pred, x_f_pred, e_t
 
 % Setup port properties to be inherited or dynamic
 block.SetPreCompInpPortInfoToDynamic;
@@ -42,6 +42,7 @@ block.SetPreCompOutPortInfoToDynamic;
 
 block.OutputPort(1).Dimensions = 6;
 block.OutputPort(2).Dimensions = 6;
+block.OutputPort(3).Dimensions = 1;
 
 
 % Register parameters
@@ -263,12 +264,12 @@ eps_loose_grip = block.DialogPrm(16).Data;
 k_loose_grip = block.DialogPrm(17).Data;
 perception_range = block.DialogPrm(18).Data;
 policy_halt = block.DialogPrm(19).Data;
-
+tic;
 % see function declaration, the dialog params order is the same
 [block.Dwork(4).Data, block.Dwork(5).Data, N, U_l_old, U_f_old] = MPC(block.Dwork(4).Data, ...
     block.Dwork(5).Data, block.Dwork(6).Data, sim_perception_range, fixed_horizon, alg_fmincon, obstacles, N, N_long, N_short, U_l_old, ...
     U_f_old, n, m, leaderParams, followerParams, plant, P, eps_loose_grip, k_loose_grip, perception_range, policy_halt);
-
+block.OutputPort(3).Data = toc;
 block.OutputPort(1).Data = block.Dwork(4).Data;
 block.OutputPort(2).Data = block.Dwork(5).Data;
 fl_diff = block.Dwork(5).Data(1:2) - block.Dwork(4).Data(1:2);
