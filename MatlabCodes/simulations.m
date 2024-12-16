@@ -1,3 +1,5 @@
+% preliminary simulations to understand 2DOF LMPC execution time
+
 clear all;
 
 for simul=1:5

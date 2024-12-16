@@ -1,3 +1,5 @@
+% comparison between 2-DOF LMPC and 3-DOF NLMPC results
+
 clear all;
 close all;
 
